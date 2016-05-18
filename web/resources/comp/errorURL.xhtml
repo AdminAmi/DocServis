@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+        
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+         <h:form id="Greska" >
+           <div id="modal" class="w3-modal" style="display: block">       
+                <div class="w3-modal-content w3-card-8 w3-animate-zoom" style="max-width:600px">
+                    <header class="w3-container w3-red"><h2>Nedozvoljen pristup!!!</h2></header>
+                    <div class="w3-center"><br/>
+                        <h:graphicImage value="/resources/img/tfbgrb.png"  alt="Grb" style="width: 35%"  class="w3-circle w3-margin-top"/>
+                    </div>
+                    <div class="w3-container">
+                        <div class="w3-section">
+                            <p class="w3-center w3-medium">Nemate pravo pristupa ovom sadržaju!!!<br/></p>
+                            <h:commandButton value="Povratak na formu za registraciju" id="myButton" class="w3-btn w3-btn-block w3-red w3-section w3-round-jumbo" action="#{LogIn.logOff()}"/>          
+                        </div>
+                    </div> 
+                    <footer class="w3-container w3-red w3-right-align"><p>Autor Amel Džanić</p></footer>
+                </div>
+            </div>                    
+        </h:form>   
+    </cc:implementation>
+</html>

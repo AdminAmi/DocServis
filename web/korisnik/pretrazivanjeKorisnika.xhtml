@@ -10,8 +10,7 @@
     <h:head>
         <head><title>IGNORED</title></head>
     </h:head>
-    <h:body>
-       
+    <h:body>      
         <ui:composition template="/predlozak/master.xhtml">
             <ui:define name="navigacija">
                 <ui:include src="/stranice/navigacija.xhtml"/>
@@ -28,6 +27,9 @@
                         <h1>Pretraživanje korisnika!</h1>
                         <h5>Unesite tražene podatke</h5>
                         <h:form id="pr">
+                        <c:if test="${LogIn.lk.korisnik.rola != 'admin' }">
+                            <comp:errorURL/>
+                        </c:if>
                             <ul class="w3-leftbar w3-theme-border w3-small" style="list-style-type:none">
                                 <li class="ami-li"/>
                                 <li class="ami-li">
@@ -84,8 +86,6 @@
                <ui:include src="/stranice/footer.xhtml"/>                 
             </ui:define> 
         </ui:composition>
-       
-         
     </h:body>
 </html>
 

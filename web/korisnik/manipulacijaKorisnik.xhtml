@@ -14,7 +14,7 @@
         </f:metadata>
     </h:head>
     <h:body>
-       
+        
         <ui:composition template="/predlozak/master.xhtml">
             <ui:define name="navigacija">
                 <ui:include src="/stranice/navigacija.xhtml"/>
@@ -24,8 +24,11 @@
             </ui:define>
             <ui:define name="sadrzaj"> 
                 <div class="w3-card-2">
-                    <div class="w3-container w3-white">
-                        <h:form>                            
+                    <div class="w3-container w3-white">                        
+                        <h:form> 
+                        <c:if test="${LogIn.lk.korisnik.rola != 'admin' }">
+                            <comp:errorURL/>
+                        </c:if>
                         <h1>Ažuriranje/Brisanje korisnika</h1>   
                         <h5>
                             <br/>
@@ -96,9 +99,8 @@
             <ui:define name="footer">
                <ui:include src="/stranice/footer.xhtml"/>                 
             </ui:define> 
-        </ui:composition>
-       
-         
+        </ui:composition>   
+        
     </h:body>
 </html>
 

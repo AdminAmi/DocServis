@@ -1,0 +1,141 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:comp="http://xmlns.jcp.org/jsf/composite/comp"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <head><title>IGNORED</title></head>
+        <f:metadata>
+            <f:viewParam name="IDP" value="#{projekat.selektovaniId}"/>
+            <f:viewAction action="#{projekat.ucitajProjekat()}"/>
+        </f:metadata>
+    </h:head>
+    <h:body>
+       
+        <ui:composition template="/predlozak/master.xhtml">
+            <ui:define name="navigacija">
+                <ui:include src="/stranice/navigacija.xhtml"/>
+            </ui:define>
+            <ui:define name="zaglavlje">
+                <ui:include src="/stranice/zaglavlje.xhtml"/>
+            </ui:define>
+            <ui:define name="sadrzaj"> 
+                <div class="w3-card-2">
+                    <div class="w3-container w3-white">
+                        <h1>Detalji projekta</h1>
+                        <h2><strong><i>"#{projekat.selektovani.fileName}"</i></strong></h2>
+                        <hr/>
+                        <h:form>
+                        <ul class="w3-leftbar w3-theme-border w3-small" style="list-style-type:none">
+                            <li class="ami-li"/>
+                            <li class="ami-li">
+                        <p>
+                            <label class="ami-labela">Naslov projekta:</label> 
+                            <h:inputText value="#{projekat.selektovani.projectTitle}"
+                                         style="width: 60%"
+                                     class="w3-border-0 w3-border-black w3-border-bottom " />
+                        </p>
+                        </li>
+                        <li class="ami-li">
+                        <p>
+                            <label class="ami-labela">Skraćeni naslov projekta:</label> 
+                            <h:inputText value="#{projekat.selektovani.fileName}"  
+                                         style="width: 60%"
+                                     class="w3-border-0 w3-border-black w3-border-bottom " />
+                        </p>
+                        </li>
+                        <li class="ami-li">
+                        <p>
+                            <label class="ami-labela">Naziv donatora:</label>
+                            <h:inputText class="w3-border-0 w3-border-black w3-border-bottom  "
+                                         style="width: 60%"
+                                         value="#{projekat.selektovani.donorsOfProject}" />
+                        </p>
+                        </li >
+                        <li class="ami-li">  
+                        <p>
+                            <label class="ami-labela">Mjesto održavanja projekta:</label>
+                            <h:inputText class="w3-border-0 w3-border-black w3-border-bottom "
+                                         style="width: 60%"                                         
+                                         value="#{projekat.selektovani.location}" />
+                        </p>               
+                        </li> 
+                        <li class="ami-li">
+                        <p>
+                            <label class="ami-labela">Ukupni iznos projekta:</label>
+                            <h:inputText class="w3-border-0 w3-border-black w3-border-bottom" 
+                                         style="width: 60%"
+                                         value="#{projekat.selektovani.cost}" />
+                        </p>
+                        </li>
+                        <li class="ami-li">
+                        <p>
+                            <label class="ami-labela">Ukupni iznos dobijen od donatora:</label>
+                            <h:inputText class="w3-border-0 w3-border-black w3-border-bottom  " 
+                                         style="width: 60%"
+                                         value="#{projekat.selektovani.ammountOfDonors}" />
+                        </p>
+                        </li>
+                        <li class="ami-li">
+                        <p>
+                            <label class="ami-labela">Uloga u projektu</label>
+                            <h:selectOneMenu                                               
+                                             value="#{projekat.selektovani.roleInProject}" >
+                                <f:selectItem itemValue="Coordinator" itemDescription="Coordinator"/>
+                                <f:selectItem itemValue="Co-applicant" itemDescription="Co-applicant"/>
+                                <f:selectItem itemValue="affiliated entity" itemDescription="affiliated entity "/>
+                            </h:selectOneMenu> 
+                            
+                        </p>
+                        </li>
+                        <li class="ami-li">                           
+                        <p>
+                            <label class="ami-labela" >Vrijeme trajanja projekta </label>
+                            <h:inputText class="w3-border-0 w3-border-black w3-border-bottom"         
+                                         style="width: 60%"
+                                         value="#{projekat.selektovani.projectDuration}" />                                            
+                        </p>                       
+                        </li> 
+                        <li class="ami-li">                           
+                        <p>
+                            <label class="ami-labela" >Učesinici ispred TFB-a </label>
+                            <h:inputText class="w3-border-0 w3-border-black w3-border-bottom "         
+                                         style="width: 60%"
+                                         value="#{projekat.selektovani.participants}" />                                            
+                        </p>                       
+                        </li> 
+                        <li class="ami-li">
+                        <p>
+                            <label class="ami-labela">Ciljevi projekta</label>
+                            <h:inputTextarea class="w3-input w3-border-black w3-border "
+                                              style="width: 60%"                                             
+                                             cols="30" rows="6"
+                                             value="#{projekat.selektovani.objectives}" />
+                        </p>
+                        </li>
+                        <li class="ami-li">
+                        <p>
+                            <label class="ami-labela">Dokument za preuzimanje</label>
+                            <h:commandLink id="L" value="#{projekat.selektovani.projectPath}" action="#{projekat.downloadProjekat()}" />
+                            
+                        </p>
+                        </li>                       
+                        <li class="ami-li"/>
+                        </ul>
+                            <hr/>
+                        </h:form>
+                    </div>
+                </div>
+            </ui:define>
+            <ui:define name="footer">
+               <ui:include src="/stranice/footer.xhtml"/>                 
+            </ui:define> 
+        </ui:composition>
+       
+         
+    </h:body>
+</html>
+

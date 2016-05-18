@@ -21,14 +21,14 @@
             <h:commandLink id="pretrazivanjeProjekata" 
                            value="Pretraživanje projekata" 
                            class="w3-small" 
-                           action="pretrazivanjeProjekata" />
+                           action="/projekti/pretrazivanjeProjekata" />
             <h:commandLink id="sviProjekti" 
                            value="Spisak svih projekata" 
                            class="w3-small" 
-                           action="sviProjekti" />
+                           action="/projekti/sviProjekti" />
             <h:commandLink id="noviProjekat" 
                            value="Unos novog projekta" 
-                           class="w3-small" action="noviProjekat" 
+                           class="w3-small" action="/projekti/noviProjekat" 
                            rendered="${LogIn.lk.korisnik.rola=='admin'}" />
             </ul>
             </div>
@@ -38,7 +38,7 @@
             <ul class="w3-leftbar w3-border-orange">
             <h:commandLink id="promjenaKorisnickihPodataka" 
                            value="Promjena lozinke"  
-                           class="w3-small" action="/korisnik/promjenaPodataka" 
+                           class="w3-small" action="/korisnik/promjenaLozinke" 
                            rendered="${LogIn.lk.korisnik.rola!='guest'}" /> 
             <h:commandLink id="unosNovogKorisnika" 
                            value="Unos novog korisnika" 

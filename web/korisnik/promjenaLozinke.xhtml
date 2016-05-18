@@ -10,7 +10,7 @@
         <head><title>IGNORED</title></head>
     </h:head>
     <h:body>
-       
+        <!-- Stranicu mogu vidjeti svi registrovani korisnici -->       
         <ui:composition template="/predlozak/master.xhtml">
             <ui:define name="navigacija">
                 <ui:include src="/stranice/navigacija.xhtml"/>
@@ -51,6 +51,9 @@
                 </ul>
                 <h5>Promjena zaporke korisnika:</h5>
                  <h:form id="promjenaLozinke">
+                 <c:if test="${LogIn.lk.korisnik.rola == 'guest' }">
+                            <comp:errorURL/>
+                 </c:if>
                 <ul class="w3-leftbar w3-theme-border w3-small" style="list-style-type:none">
                     <li class="ami-li"></li>
                     <li class="ami-li">
@@ -96,9 +99,8 @@
             <ui:define name="footer">
                 <ui:include src="/stranice/footer.xhtml"/>               
             </ui:define> 
-        </ui:composition>
+        </ui:composition>  
        
-         
     </h:body>
 </html>
 
