@@ -1,0 +1,36 @@
+Obrisano sa stranice navigacija
+
+<div class="w3-left-align w3-small">
+            <strong>               
+            <h:commandLink id="pocetnaStranica"
+                           
+                           value="Početna"                            
+                           action="/test"/> 
+                
+            </strong>
+            </div>
+            <hr/>
+...
+
+
+            <div class="w3-left-align w3-small">
+            <strong>               
+                <a href="" class="w3-small " 
+                   target="_blank" 
+                   onclick="printPage();return false;">
+                    Štampaj stranicu
+                    <i class="fa fa-print w3-large" aria-hidden="true"></i>
+                    
+                </a>                
+            </strong>
+            </div>
+            
+            <hr/>
+             <div class="w3-left-align w3-small">
+            <strong>
+            <h:commandLink id="loginOff" 
+                           value="Odjava" 
+                           class="w3-small " 
+                           action="#{LogIn.logOff()}" />  
+            </strong>
+            </div>  

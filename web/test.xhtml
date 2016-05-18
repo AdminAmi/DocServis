@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:comp="http://xmlns.jcp.org/jsf/composite/comp"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <head><title>IGNORED</title></head>
+    </h:head>
+    <h:body>
+       
+        <ui:composition template="/predlozak/master.xhtml">
+            <ui:define name="navigacija">
+                <ui:include src="/stranice/navigacija.xhtml"/>
+            </ui:define>
+            <ui:define name="zaglavlje">
+                <ui:include src="/stranice/zaglavlje.xhtml"/>
+            </ui:define>
+            <ui:define name="sadrzaj">               
+               <!--
+               Ovdje kucaj :)
+               -->
+               <div class="w3-card-2">
+                   <div class="w3-container w3-white">
+               <h1>Dobro došli</h1>
+               <br/>
+              
+               <h3>O programu!</h3>           
+                   
+               
+               <!--<ul class="w3-leftbar w3-theme-border " style="list-style-type:none">-->
+               <ul style="list-style-type: none">
+               <li>
+                   Ideja ovoga projekta jeste da objedini na jednom mjestu dokumentaciju koja nastaje a koja je potrebna radnicima Tehničkog fakulteta u Bihaću.<br/>
+                   Sa lijeve strane imate navigaciju sa kojom ćete lako da pronađete željeni sadržaj. Tako da imate sadržaje:<br/><br/>
+                   <ul>
+                       <li><strong>Arhiva materijali sa Naučno nastavnih vijeća</strong> </li> 
+                       <li><strong>Arhiva ugovora o saradnji Tehničkog fakulteta u Bihaću</strong></li>
+                       <li><strong>Arhiva projekata Tehničkog fakulteta u Bihaću</strong> </li>
+                   </ul><br/>
+                   Ukoliko imate kakvih nejasnoća kontaktirajete sistem administratora.<br/>
+                   <h:form >
+                       
+                   <h:commandLink value="Odlazak u subdirektorij" action="/test/test"/>
+                   
+                   </h:form>
+                   
+                   
+               </li>
+              
+               </ul>
+                   </div>
+               </div>
+            </ui:define>
+            <ui:define name="footer">
+               <ui:include src="/stranice/footer.xhtml"/>
+                 
+            </ui:define>
+                
+            
+        </ui:composition>
+       
+         
+    </h:body>
+</html>
+

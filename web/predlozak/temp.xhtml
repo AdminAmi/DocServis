@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:comp="http://xmlns.jcp.org/jsf/composite/comp">
+    <h:head>
+        <head><title>IGNORED</title></head>
+    </h:head>
+    <h:body>
+       
+        <ui:composition template="/predlozak/master.xhtml">
+            <ui:define name="navigacija">
+                <ui:include src="/stranice/navigacija.xhtml"/>
+            </ui:define>
+            <ui:define name="zaglavlje">
+                <ui:include src="/stranice/zaglavlje.xhtml"/>
+            </ui:define>
+            <ui:define name="sadrzaj"> 
+                <div class="w3-card-2">
+                    <div class="w3-container w3-white">
+               <!--
+               Ovdje kucaj :)
+               -->           
+                    </div>
+                </div>
+            </ui:define>
+            <ui:define name="footer">
+               <ui:include src="/stranice/footer.xhtml"/>                 
+            </ui:define> 
+        </ui:composition>
+       
+         
+    </h:body>
+</html>
+

@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
+    <h:head>
+        <title>IGNORED</title>
+        
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <div id="myTop" class="w3-top w3-container w3-padding-16 w3-theme w3-large"> 
+                <i class="fa fa-bars w3-opennav w3-hide-large w3-xlarge w3-margin-left w3-margin-right" 
+                   onclick="w3_open()"></i>
+                <span id="myIntro" class="w3-hide"><h5><i>doc</i><b>SERVIS</b></h5>
+                </span>                                      
+            </div>
+            <header class="w3-card-8 w3-display-container w3-theme w3-padding-48 w3-padding-jumbo "> 
+                <h1 class="w3-xxlarge w3-padding-2"><i>doc</i><b>SERVIS</b></h1>
+                <i>Online servis skeniranih dokumenata!</i>
+                
+                <div class="w3-display-bottomright w3-large w3-padding-right" style="margin-right:  4px">
+                    <h:form>
+                    <a href="" style="text-decoration: none"
+                    target="_blank" 
+                    onclick="printPage();return false;">
+                    <b class="fa fa-print" aria-hidden="true"/>
+                    <b class="w3-small">Print</b>
+                    </a>&npsb;|
+                    <a jsf:outcome="/test" style="text-decoration: none">
+                    <b class="fa fa-home" aria-hidden="true"/>
+                    <b class="w3-small">Home</b>
+                    </a> &npsb;|
+                    <a jsf:action="#{LogIn.logOff()}" style="text-decoration: none">
+                    <b class="fa fa-sign-out" aria-hiden="true" />
+                    <b class="w3-small">Log Off</b>
+                    </a> 
+                    
+                    
+                    </h:form>                
+                </div>
+            </header>
+        </ui:composition>
+    </h:body>
+</html>
+

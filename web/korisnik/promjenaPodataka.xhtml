@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:comp="http://xmlns.jcp.org/jsf/composite/comp"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <head><title>IGNORED</title></head>
+    </h:head>
+    <h:body>
+       
+        <ui:composition template="/predlozak/master.xhtml">
+            <ui:define name="navigacija">
+                <ui:include src="/stranice/navigacija.xhtml"/>
+            </ui:define>
+            <ui:define name="zaglavlje">
+                <ui:include src="/stranice/zaglavlje.xhtml"/>
+            </ui:define>
+            <ui:define name="sadrzaj"> 
+                 <div class="w3-card-2">
+                   <div class="w3-container w3-white">
+                      
+                          
+               <h1>Promjena lozinke</h1>
+                <h5>Vaši lični podatci su:</h5>
+                <ul class="w3-leftbar w3-theme-border w3-small" style="list-style-type:none">
+                    <li class="ami-li">
+                        <p>
+                            <label class="ami-labela">Ime :</label>
+                            <b><h:outputText class="w3-border-0 w3-border-blackl w3-border-bottom"
+                                          value="#{LogIn.lk.korisnik.ime}"/></b>
+                        </p>
+                        <p>
+                            <label class="ami-labela">Prezime :</label>
+                            <b><h:outputText class="w3-border-0 w3-border-black w3-border-bottom"
+                                             value="#{LogIn.lk.korisnik.prezime}"/></b>
+                        </p>
+                        <p>
+                            <label class="ami-labela">Rola :</label>
+                            <b><h:outputText class="w3-border-0 w3-border-black w3-border-bottom"
+                                             value="#{LogIn.lk.korisnik.rola}"/></b>
+                        </p>
+                        <p>
+                            <label class="ami-labela">Korisničko ime :</label>
+                            <b><h:outputText class="w3-border-0 w3-border-black w3-border-bottom"
+                                             value="#{LogIn.lk.korisnik.ime}"/></b>
+                        </p>
+                    </li>
+                </ul>
+                <h5>Promjena zaporke korisnika:</h5>
+                 <h:form id="promjenaLozinke">
+                <ul class="w3-leftbar w3-theme-border w3-small" style="list-style-type:none">
+                    <li class="ami-li"></li>
+                    <li class="ami-li">
+                        <p>
+                            <label class="ami-labela">Stara zaporka:</label>
+                            <h:inputSecret value="#{LogIn.pass}"                                         
+                                           class="w3-border-0 w3-border-black w3-border-bottom " />
+                        </p>
+                    </li>
+                    <li class="ami-li">
+                        <p>
+                            <label class="ami-labela">Nova zaporka :</label>
+                            <h:inputSecret value="#{LogIn.newPass}"                                         
+                                     class="w3-border-0 w3-border-black w3-border-bottom " />
+                        </p>
+                    </li>
+                    <li class="ami-li">
+                        <p>
+                            <label class="ami-labela">Ponovi novu zaporku :</label>
+                            <h:inputSecret value="#{LogIn.confirmPass}"                                         
+                                     class="w3-border-0 w3-border-black w3-border-bottom " />
+                        </p>
+                    </li>
+                     <li class="ami-li">
+                        <p>
+                            <h:commandButton id="promjenaPass" 
+                                             action="#{LogIn.promjenaPass()}"
+                                             class="w3-btn w3-blue-grey " 
+                                             value="Potvrdi">
+                            <f:ajax  execute="@form" render="@form"/>
+                            </h:commandButton>
+                            <strong><h:message class="ami-tab w3-round w3-blue-grey" for="promjenaPass" /></strong> 
+                                
+                        </p>                         
+                    </li>
+                    <li class="ami-li"/>                  
+                </ul> 
+                
+                </h:form>
+                   </div>
+                 </div>
+            </ui:define>
+            <ui:define name="footer">
+                <ui:include src="/stranice/footer.xhtml"/>               
+            </ui:define> 
+        </ui:composition>
+       
+         
+    </h:body>
+</html>
+

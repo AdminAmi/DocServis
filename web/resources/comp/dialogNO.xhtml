@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+        <cc:attribute name="IDButton" required="true"/>
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        <h:form id="Greska" >
+           <div id="modal" class="w3-modal" style="display: block">       
+                <div class="w3-modal-content w3-card-8 w3-animate-zoom" style="max-width:600px">
+                    <span onclick="document.getElementById('modal').style.display='none'" 
+                        class="w3-closebtn">&times;</span>
+                    <header class="w3-container w3-red"><h2>Desila se graška!!!</h2></header>
+                    <div class="w3-center"><br/>
+                        <h:graphicImage value="/resources/img/tfbgrb.png"  alt="Grb" style="width: 35%"  class="w3-circle w3-margin-top"/>
+                    </div>
+                    <div class="w3-container">
+                        <div class="w3-section w3-center">
+                            <h5>                    
+                                <h:message  for="#{cc.attrs.IDButton}"  />                     
+                            </h5>
+                            <button onclick="document.getElementById('modal').style.display='none'" type="button" class="w3-btn w3-red">Cancel</button>          
+                        </div>
+                    </div> 
+                    <footer class="w3-container w3-red w3-right-align"><p>Autor Amel Džanić</p></footer>
+                </div>
+            </div>                    
+        </h:form>   
+    </cc:implementation>
+</html>
