@@ -22,7 +22,8 @@ public class webLogIn {
     private boolean testRegistracije, zastavica=false;
     private String newPass, confirmPass;  
     private int serverResponse = 0;
-    private List<String> tipovi = new ArrayList<>();  
+    private List<String> tipovi = new ArrayList<>();
+    
     
     
 
@@ -100,7 +101,8 @@ public class webLogIn {
         lk=null;        
         reset();
         setTestRegistracije(false);
-        return "/prijava";        
+       
+        return "/prijava?faces-redirect=true";        
     }
     
     /**

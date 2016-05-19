@@ -18,17 +18,19 @@
             <div class="w3-container w3-left-align w3-small">
             <strong>Projekti</strong>            
             <ul class="w3-leftbar w3-border-cyan">
-            <h:commandLink id="pretrazivanjeProjekata" 
-                           value="Pretraživanje projekata" 
+                <h:link id="pretrazivanjeProjekata" 
+                        outcome="/projekti/pretrazivanjeProjekata"
                            class="w3-small" 
-                           action="/projekti/pretrazivanjeProjekata" />
-            <h:commandLink id="sviProjekti" 
+                           value="Pretraživanje projekata" />
+                    
+                
+            <h:link id="sviProjekti" 
                            value="Spisak svih projekata" 
                            class="w3-small" 
-                           action="/projekti/sviProjekti" />
-            <h:commandLink id="noviProjekat" 
+                           outcome="/projekti/sviProjekti" />
+            <h:link id="noviProjekat" 
                            value="Unos novog projekta" 
-                           class="w3-small" action="/projekti/noviProjekat" 
+                           class="w3-small" outcome="/projekti/noviProjekat" 
                            rendered="${LogIn.lk.korisnik.rola=='admin'}" />
             </ul>
             </div>
@@ -36,18 +38,18 @@
             <div class="w3-container w3-left-align w3-small">
             <strong>Korisnički meni</strong> 
             <ul class="w3-leftbar w3-border-orange">
-            <h:commandLink id="promjenaKorisnickihPodataka" 
+            <h:link id="promjenaKorisnickihPodataka" 
                            value="Promjena lozinke"  
-                           class="w3-small" action="/korisnik/promjenaLozinke" 
+                           class="w3-small" outcome="/korisnik/promjenaLozinke" 
                            rendered="${LogIn.lk.korisnik.rola!='guest'}" /> 
-            <h:commandLink id="unosNovogKorisnika" 
+            <h:link id="unosNovogKorisnika" 
                            value="Unos novog korisnika" 
                            class="w3-small" 
-                           action="/korisnik/noviKorisnik" 
+                           outcome="/korisnik/noviKorisnik" 
                            rendered="${LogIn.lk.korisnik.rola=='admin'}" /> 
-            <h:commandLink id="pretrazivanjeKorisnika" 
+            <h:link id="pretrazivanjeKorisnika" 
                            value="Pretraživanje korisnika"  
-                           class="w3-small" action="/korisnik/pretrazivanjeKorisnika" 
+                           class="w3-small" outcome="/korisnik/pretrazivanjeKorisnika" 
                            rendered="${LogIn.lk.korisnik.rola=='admin'}" /> 
             </ul>
             </div>

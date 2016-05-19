@@ -18,6 +18,7 @@ public class ProjekatKontroler {
     private zaXML xml = new zaXML();
     private ArrayList<ProjekatBean> projekti = new ArrayList<>();
     private ArrayList<ProjekatBean> pretraga = new ArrayList<>();
+    private ProjekatBean projekatUnos = new ProjekatBean();
     
 
     public ProjekatKontroler() {
@@ -30,7 +31,7 @@ public class ProjekatKontroler {
         }
     }
     
-    private int generateId(){
+    public int generateId(){
         int  temp=-1;  
         if(projekti.isEmpty()) return 0;
         for (ProjekatBean a1 : projekti) {        
@@ -45,19 +46,20 @@ public class ProjekatKontroler {
      * @return
      */
     public boolean dodajProjekat(ProjekatBean pb){
-        int i= projekti.size();
-        ProjekatBean smjesti = new ProjekatBean();
-        smjesti.setId(generateId());
-        smjesti.setAmmountOfDonors(pb.getAmmountOfDonors());
-        smjesti.setCost(pb.getCost());
-        smjesti.setDonorsOfProject(pb.getDonorsOfProject());
-        smjesti.setFileName(pb.getFileName());
-        smjesti.setLocation(pb.getLocation());
-        smjesti.setParticipants(pb.getParticipants());
-        smjesti.setProjectDuration(pb.getProjectDuration());
-        smjesti.setProjectPath(pb.getProjectPath());
-        smjesti.setProjectTitle(pb.getProjectTitle());
-        smjesti.setRoleInProject(pb.getRoleInProject());
+//        ProjekatBean smjesti = new ProjekatBean();
+        int i= projekti.size();  
+       // int id=this.generateId();
+        pb.setId(generateId());
+//        smjesti.setAmmountOfDonors(pb.getAmmountOfDonors());
+//        smjesti.setCost(pb.getCost());
+//        smjesti.setDonorsOfProject(pb.getDonorsOfProject());
+//        smjesti.setFileName(pb.getFileName());
+//        smjesti.setLocation(pb.getLocation());
+//        smjesti.setParticipants(pb.getParticipants());
+//        smjesti.setProjectDuration(pb.getProjectDuration());
+//        smjesti.setProjectPath(pb.getProjectPath());
+//        smjesti.setProjectTitle(pb.getProjectTitle());
+//        smjesti.setRoleInProject(pb.getRoleInProject());
         this.projekti.add(pb);
         xml.smjesti(projekti);        
         return (xml.smjestiUXML()&& i!=projekti.size());
@@ -149,6 +151,25 @@ public class ProjekatKontroler {
     public void setPretraga(ArrayList<ProjekatBean> pretraga) {
         this.pretraga = pretraga;
     }
+
+    /**
+     * @return the projekatUnos
+     */
+    public ProjekatBean getProjekatUnos() {
+        return projekatUnos;
+    }
+
+    /**
+     * @param projekatUnos the projekatUnos to set
+     */
+    public void setProjekatUnos(ProjekatBean projekatUnos) {
+        this.projekatUnos = projekatUnos;
+    }
+
+    /**
+     * @return the noviProjekat
+     */
+  
      
      
      

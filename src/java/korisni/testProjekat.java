@@ -7,6 +7,11 @@ package korisni;
 
 //import kontroler.ProjekatKontroler;
 
+import projekti.ProjekatBean;
+import projekti.ProjekatKontroler;
+import projekti.zaXML;
+
+
 /**
  *
  * @author amel
@@ -17,9 +22,18 @@ public class testProjekat {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-//        ProjekatKontroler pk = new ProjekatKontroler();
-//        System.out.println(pk.getProjekti().size());
-        // TODO code application logic here
+        ProjekatKontroler pk = new ProjekatKontroler();
+        zaXML xml = new zaXML();
+        System.out.println(pk.getProjekti().size());
+        ProjekatBean pb = new ProjekatBean();
+       // System.out.println(pk.generateId());
+       // pb.setId(pk.generateId());
+        pb.setProjectTitle("Testiram");
+        //pk.getProjekti().add(pb);
+        System.out.println(pk.dodajProjekat(pb));
+//        xml.smjesti(pk.getProjekti());
+//        System.out.println(xml.smjestiUXML());
+//         TODO code application logic here
     }
     
 }

@@ -19,15 +19,14 @@ import javax.faces.context.FacesContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-import projekti.ProjekatBean;
 import korisni.utility;
 
 /**
  *
  * @author amel
  */
-//@RequestScoped
-@ViewScoped
+@RequestScoped
+//@ViewScoped
 @ManagedBean (name="projekat")
 public class webBeanProjekat {
     
@@ -68,30 +67,31 @@ public class webBeanProjekat {
         selektovani=getPK().vratiProjektaPoID(selektovaniId);
     }
     
-    public String snimi(){
+    public void snimi(){
         if(projekatUnos == null) {
             utility.poruka("Unos:btnNoviPr", "Nije došlo do inicijalizacije objekta");
-            return null;
+            
         }
-        if(!getDatoteka().getSubmittedFileName().isEmpty()){
+        if(getDatoteka()!=null){
             projekatUnos.setProjectPath(getDatoteka().getSubmittedFileName());
             try (InputStream input = getDatoteka().getInputStream()) {
                 Files.copy(input, new File(utility.putZaProjekte, getDatoteka().getSubmittedFileName()).toPath());
             }
             catch (IOException e) {
                 utility.poruka("Unos:btnNoviPr", "Problem pri prenosu datoteke");
-                projekatUnos.setProjectPath("");  
+                //projekatUnos.setProjectPath("");  
                 // Show faces message?
             }
         }else{
             projekatUnos.setProjectPath("");            
         }
         if(PK.dodajProjekat(projekatUnos)) {
-            utility.poruka("Unos:btnNoviPr", "Uspješan unos Projekta");
             reset();
-            return null;
+            utility.poruka("Unos:btnNoviPr", "Uspješan unos Projekta");
+            
+            
         }
-        return null;
+        
     }
     private void resetPretraga(){ PK.getPretraga().clear(); }
     
