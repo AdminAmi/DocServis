@@ -59,6 +59,8 @@ function w3_closeMeni() {
 }
 
 function printPage() {
+    var elem = document.getElementById("footer");
+    
     var content = document.getElementById("main").innerHTML;
     var i, j, c = document.getElementById("main").cloneNode(true);
     for (i = 0; i < c.childNodes.length; i++) {
@@ -70,6 +72,8 @@ function printPage() {
         }
     }
     var head = document.getElementsByTagName("head")[0].innerHTML;
+    
+    
 
     var myWindow=window.open('','','');
     myWindow.document.write("<html><head>"+head+
