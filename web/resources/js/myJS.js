@@ -94,6 +94,42 @@ function saveForm(){
      }
      return true;
 }
+function printPage1() {
+    var elem = document.getElementById("footer");
+    
+    var content = document.getElementById("main").innerHTML;
+    var i, j, c = document.getElementById("main").cloneNode(true);
+    for (i = 0; i < c.childNodes.length; i++) {
+        //bio u if-u : && c.childNodes[i].getAttribute("id") == "mainLeaderboard"
+        if (c.childNodes[i].nodeType == 1 ) {
+            c.removeChild(c.childNodes[i]);
+            content = c.innerHTML;
+            break;
+        }
+    }
+    var head = document.getElementsByTagName("head")[0].innerHTML;
+    
+    
+
+    var myWindow=window.open('','','');
+    myWindow.document.write("<html><head>"+head+
+            "<style>\n\
+                body{padding:15px;width: 210mm;height: 297mm;} \n\
+                @media print {.printbtn {display:none;}\n\
+                body{ background-color:#FFFFFF; \n\
+                background-image:none; \n\
+                color:#000000; \n\
+                width:100%;\n\
+                #print{font-size: 10px;} \n\
+                }}\n\
+                </style>\n\
+                </head>\n\
+                <body><button class='printbtn' onclick='window.print()'>Print Page</button><br><br>"
+                +content+"\
+                </body>\n\
+                </html>");
+   
+}
 
 function err(){
     document.write('<header class="w3-container w3-red"><h2>Nedozvoljen pristup!!!</h2></header><div class="w3-center"><br/><img value="../resources/img/tfbgrb.png"  alt="Grb" style="width: 35%"  class="w3-circle w3-margin-top"/></div><div class="w3-container"><div class="w3-section"><p class="w3-center w3-medium">Niste logovani na sistem. Morate se logovati!!!<br/></p></div></div> <footer class="w3-container w3-red w3-right-align"><p>Autor Amel Džanić</p></footer></div></div></h:form>');

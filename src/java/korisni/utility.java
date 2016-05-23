@@ -1,8 +1,12 @@
 package korisni;
 
 
+import java.io.File;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.Format;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 /**
@@ -13,6 +17,7 @@ public class utility {
     
     public static String putZaProjekte="c:/projekti/pdf/";
     public static String putZaXML="c:/projekti/xml/";
+    public static String putZaSjednice="c:/projekti/sjednice/";
     
     /**
      *
@@ -40,6 +45,38 @@ public class utility {
         FacesMessage message = new FacesMessage(poruka);
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(komponenta, message);
+    }
+    
+    public static String datumZaDirektorij(Date datum){
+        Format formater= new SimpleDateFormat("dd-MM-yyyy");
+        String path = utility.putZaSjednice + formater.format(datum);
+        return path;
+    }
+    
+    public static void kreirajDirektorij(String path){
+        File theDir = new File(path);
+
+        // if the directory does not exist, create it
+        if (!theDir.exists()) {   
+            boolean result = false;
+
+            try{
+                theDir.mkdir();
+                result = true;
+                } 
+            catch(SecurityException se){
+        //handle it
+            }        
+        if(result) {    
+        System.out.println("DIR created");  
+            }
+        }
+    }
+    public static void init(){
+        kreirajDirektorij(putZaProjekte);
+        kreirajDirektorij(putZaXML);
+        kreirajDirektorij(putZaSjednice);
+                
     }
     
     

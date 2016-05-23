@@ -54,8 +54,15 @@
                            rendered="${LogIn.lk.korisnik.rola=='admin'}" /> 
             </ul>
             </div>
-            
             <hr/>
+            <div class="w3-container w3-left-align w3-small">
+                <ul class="w3-leftbar w3-border-blue">
+                    <h:link id="novaSjednicaNNV" 
+                           value="Nova Sjednica NNV-a"  
+                           class="w3-small" outcome="/nnv/novaSjednica" 
+                           rendered="${LogIn.lk.korisnik.rola=='admin'}" /> 
+                </ul>
+            </div>
            
             </h:form>
         </ui:composition>
