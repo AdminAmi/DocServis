@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package nnv;
 
 import java.io.File;
@@ -17,25 +13,25 @@ import korisni.utility;
  *
  * @author ami
  */
-public class SjednicaXML {
+public class DokumentXML {
+    private DokumentOmotac li = new DokumentOmotac();
     
-    private SjednicaOmotac li = new SjednicaOmotac();
-    
-     public void smjesti(ArrayList<Sjednica> sjednica){
-        li.setSjednice(new ArrayList<Sjednica>());
-        for (Sjednica o:sjednica) li.getSjednice().add(o);
+     public void smjesti(ArrayList<Dokument> dokument){
+        li.setDokumenti(new ArrayList<Dokument>());
+        for (Dokument o:dokument) li.getDokumenti().add(o);
     }
     
     
-    public  boolean smjestiUXML( ) {
+    public  boolean smjestiUXML(String path ) {
         try {
-            JAXBContext jaxbContext = JAXBContext.newInstance(SjednicaOmotac.class);
+            JAXBContext jaxbContext = JAXBContext.newInstance(DokumentOmotac.class);
             Marshaller jaxbMarshaller = jaxbContext.createMarshaller(); 
             jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true); 
             //Ovaj dio je samo radi testa ispis u konzoli
             //jaxbMarshaller.marshal(li, System.out);    
             //Upisuje u file iz liste
-            jaxbMarshaller.marshal(li, new File(utility.putZaSjednice + "sjednice.xml"));
+           // jaxbMarshaller.marshal(li, new File(utility.putZaSjednice + "sjednice.xml"));
+           jaxbMarshaller.marshal(li, new File(path+"dokumenti.xml"));
             return true;
         } catch(JAXBException ex){
             System.err.println(ex);
@@ -43,16 +39,17 @@ public class SjednicaXML {
         }
     }
     
-    public ArrayList<Sjednica> procitajIzXMLa() throws JAXBException {
-        JAXBContext jaxbContext = JAXBContext.newInstance(SjednicaOmotac.class);
+    public ArrayList<Dokument> procitajIzXMLa(String path) throws JAXBException {
+        JAXBContext jaxbContext = JAXBContext.newInstance(DokumentOmotac.class);
         Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();     
         //Ucitava iz xml filea
-        SjednicaOmotac emps = (SjednicaOmotac) 
-            jaxbUnmarshaller.unmarshal( new File(utility.putZaSjednice + "sjednice.xml") );
+        DokumentOmotac emps = (DokumentOmotac) 
+            jaxbUnmarshaller.unmarshal( new File(path + "dokumenti.xml") );
         
         // Ispis iz xml-a na konzolu
         //for(Osoba os : emps.getListaOsoba()){System.out.println(os);}    
-        return (ArrayList<Sjednica>) emps.getSjednice();
+        return (ArrayList<Dokument>) emps.getDokumenti();
     }
+    
     
 }

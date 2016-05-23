@@ -5,9 +5,6 @@
  */
 package nnv;
 
-import java.io.File;
-import java.text.Format;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -25,6 +22,8 @@ public class SjednicaKontroler {
     private ArrayList<Sjednica> pretraga = new ArrayList<>();
     private Sjednica sjednica = new Sjednica();
     private Sjednica novaSjednica = new Sjednica();
+    private Sjednica selektovanaSjednica = new Sjednica();
+    private String selektovaniID;
     private SjednicaXML Sxml = new SjednicaXML();
 
     public SjednicaKontroler() {
@@ -35,25 +34,47 @@ public class SjednicaKontroler {
     
     public int generateId(){
         int  temp=-1;  
-        if(sjednice.isEmpty()) return 0;
-        for (Sjednica a1 : sjednice) {        
+        if(getSjednice().isEmpty()) return 0;
+        for (Sjednica a1 : getSjednice()) {        
         if (a1.getId()>temp) temp=a1.getId();
         }
         return temp+1;
     }
-    
-    public void dodajSjednicu(){
-        if(dodajSjednicu(getNovaSjednica())){}
+    public Sjednica vratiSjednicuPoBroju(String id){
+        if(!sjednice.isEmpty()){
+            for (Sjednica s:getSjednice()){
+                if(s.getBroj().equals(id)) return s;
+            }
+        }
+        return null;
+    }
+    public void ucitajSjednicu(){
+        setSelektovanaSjednica(vratiSjednicuPoBroju(selektovaniID));
     }
     
+    public String dodajSjednicu(){
+        if(dodajSjednicu(getNovaSjednica())) return "/nnv/unosMaterijala";
+        else return null;
+    }
+   
+    
      public boolean dodajSjednicu(Sjednica o) {
+        if(provjeraSjednice(o)==false) return false;
         utility.kreirajDirektorij(utility.datumZaDirektorij(o.getDatum()));       
-        int i = sjednice.size();
+        int i = getSjednice().size();
         Sjednica kor = new Sjednica(o.getBroj(), o.getDatum(), utility.datumZaDirektorij(o.getDatum()));
         kor.setId(generateId());
-        this.sjednice.add(kor);
-        Sxml.smjesti(sjednice);     
-        return (i!=sjednice.size() && Sxml.smjestiUXML());
+        this.getSjednice().add(kor);
+        getSxml().smjesti(getSjednice());     
+        return (i!=getSjednice().size() && getSxml().smjestiUXML());
+    }
+    
+    private boolean provjeraSjednice(Sjednica o){
+        boolean zastavica = true;
+        for(Sjednica a: getSjednice()){
+            if(a.getBroj().equals(o.getBroj())) zastavica=false; 
+        }
+        return zastavica;
     }
     
 
@@ -125,6 +146,34 @@ public class SjednicaKontroler {
      */
     public void setNovaSjednica(Sjednica novaSjednica) {
         this.novaSjednica = novaSjednica;
+    }
+
+    /**
+     * @return the selektovanaSjednica
+     */
+    public Sjednica getSelektovanaSjednica() {
+        return selektovanaSjednica;
+    }
+
+    /**
+     * @param selektovanaSjednica the selektovanaSjednica to set
+     */
+    public void setSelektovanaSjednica(Sjednica selektovanaSjednica) {
+        this.selektovanaSjednica = selektovanaSjednica;
+    }
+
+    /**
+     * @return the selektovaniID
+     */
+    public String getSelektovaniID() {
+        return selektovaniID;
+    }
+
+    /**
+     * @param selektovaniID the selektovaniID to set
+     */
+    public void setSelektovaniID(String selektovaniID) {
+        this.selektovaniID = selektovaniID;
     }
     
     

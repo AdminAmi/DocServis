@@ -62,6 +62,12 @@
                            class="w3-small" outcome="/nnv/novaSjednica" 
                            rendered="${LogIn.lk.korisnik.rola=='admin'}" /> 
                 </ul>
+                <ul class="w3-leftbar w3-border-blue">
+                    <h:link id="pregledSjednicaNNV" 
+                           value="Pregled sjednica NNV-a"  
+                           class="w3-small" outcome="/nnv/pregledSjednica" 
+                           rendered="${LogIn.lk.korisnik.rola=='admin'}" /> 
+                </ul>
             </div>
            
             </h:form>
