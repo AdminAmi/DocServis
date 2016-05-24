@@ -84,6 +84,18 @@ public class utility {
                 
     }
     
+    public static boolean brisiFile(String path){
+         try{    		
+            File file = new File(path);        	
+            if(file.delete()) return true;
+            else return false;    		
+            }catch(Exception e){                           
+            e.printStackTrace(); 
+            return false;            
+    	}       
+        
+    }
+    
     
     
 }

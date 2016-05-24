@@ -16,60 +16,65 @@
             <a href="javascript:void(0)" onclick="w3_close()" class="w3-text-blue-grey w3-hide-large w3-closenav w3-large">Close &times;</a>               
             <hr/>
             
-            <div class="w3-container w3-left-align w3-small">
-            <strong>Projekti</strong>            
-            <ul class="w3-leftbar w3-border-cyan">
-                <h:link id="pretrazivanjeProjekata" 
-                        outcome="/projekti/pretrazivanjeProjekata"
-                           class="w3-small" 
-                           value="Pretraživanje projekata" />
-                    
+            <div class="w3-container w3-left-align w3-small w3-accordion">
+                <a href="#" onclick="accordion('Projekti')"><strong>Projekti</strong> </a>
+                    <div id="Projekti" class="w3-accordion-content">
+                        <ul class="w3-leftbar w3-border-cyan">
+                            <h:link id="pretrazivanjeProjekata" 
+                                outcome="/projekti/pretrazivanjeProjekata"
+                                class="w3-small" 
+                                value="Pretraživanje projekata" />            
                 
-            <h:link id="sviProjekti" 
-                           value="Spisak svih projekata" 
-                           class="w3-small" 
-                           outcome="/projekti/sviProjekti" />
-            <h:link id="noviProjekat" 
-                           value="Unos novog projekta" 
-                           class="w3-small" outcome="/projekti/noviProjekat" 
-                           rendered="${LogIn.lk.korisnik.rola=='admin'}" />
-            </ul>
+                            <h:link id="sviProjekti" 
+                                value="Spisak svih projekata" 
+                                 class="w3-small" 
+                                outcome="/projekti/sviProjekti" />
+                            <h:link id="noviProjekat" 
+                               value="Unos novog projekta" 
+                               class="w3-small" outcome="/projekti/noviProjekat" 
+                               rendered="${LogIn.lk.korisnik.rola=='admin'}" />
+                        </ul>
+                    </div>
             </div>
             <hr/>  
-            <div class="w3-container w3-left-align w3-small">
-            <strong>Korisnički meni</strong> 
-            <ul class="w3-leftbar w3-border-orange">
-            <h:link id="promjenaKorisnickihPodataka" 
+            <div class="w3-container w3-left-align w3-small  w3-accordion">
+                <a href="#" onclick="accordion('Korisnici')"><strong>Korisnički meni</strong> </a>
+                <div id="Korisnici" class="w3-accordion-content">
+                    <ul class="w3-leftbar w3-border-orange">
+                    <h:link id="promjenaKorisnickihPodataka" 
                            value="Promjena lozinke"  
                            class="w3-small" outcome="/korisnik/promjenaLozinke" 
                            rendered="${LogIn.lk.korisnik.rola!='guest'}" /> 
-            <h:link id="unosNovogKorisnika" 
+                    <h:link id="unosNovogKorisnika" 
                            value="Unos novog korisnika" 
                            class="w3-small" 
                            outcome="/korisnik/noviKorisnik" 
                            rendered="${LogIn.lk.korisnik.rola=='admin'}" /> 
-            <h:link id="pretrazivanjeKorisnika" 
+                    <h:link id="pretrazivanjeKorisnika" 
                            value="Pretraživanje korisnika"  
                            class="w3-small" outcome="/korisnik/pretrazivanjeKorisnika" 
                            rendered="${LogIn.lk.korisnik.rola=='admin'}" /> 
-            </ul>
+                    </ul>
+                </div>
             </div>
             <hr/>
             <div class="w3-container w3-left-align w3-small">
-                <ul class="w3-leftbar w3-border-blue">
-                    <h:link id="novaSjednicaNNV" 
+                <a href="#" onclick="accordion('NNV')"><strong>Sjednice NNV-a</strong></a>
+                <div id="NNV" class="w3-accordion-content">
+                    <ul class="w3-leftbar w3-border-blue">
+                        <h:link id="novaSjednicaNNV" 
                            value="Nova Sjednica NNV-a"  
                            class="w3-small" outcome="/nnv/novaSjednica" 
                            rendered="${LogIn.lk.korisnik.rola=='admin'}" /> 
-                </ul>
-                <ul class="w3-leftbar w3-border-blue">
-                    <h:link id="pregledSjednicaNNV" 
+                
+                        <h:link id="pregledSjednicaNNV" 
                            value="Pregled sjednica NNV-a"  
                            class="w3-small" outcome="/nnv/pregledSjednica" 
-                           rendered="${LogIn.lk.korisnik.rola=='admin'}" /> 
-                </ul>
+                           rendered="${LogIn.lk.korisnik.rola!='guest'}" /> 
+                    </ul>
+                </div>
             </div>
-           
+            <hr/>
             </h:form>
         </ui:composition>
     </h:body>

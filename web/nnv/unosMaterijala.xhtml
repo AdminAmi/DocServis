@@ -18,7 +18,7 @@
     </h:head>
     <h:body>
        
-        <ui:composition template="/predlozak/master.xhtml">
+        <ui:composition template="/predlozak/masterNNV.xhtml">
             <ui:define name="navigacija">
                 <ui:include src="/stranice/navigacija.xhtml"/>
             </ui:define>
@@ -32,9 +32,9 @@
                             <h:outputText value="#{sjednicaKontroler.selektovanaSjednica.datum}">
                                 <f:convertDateTime pattern="dd-MM-yyyy"/>
                             </h:outputText>
-                            </h1>
-                        <h4 class="no-print">Unesite potrebne podatke</h4>
-                        <h:form id="materijali" enctype="multipart/form-data">
+                            </h1>                        
+                        <h:form id="materijali" enctype="multipart/form-data" rendered="${LogIn.lk.korisnik.rola=='admin'}">
+                            <h4 class="no-print">Unesite potrebne podatke</h4>
                             <ul class="w3-leftbar w3-theme-border w3-small no-print" style="list-style-type:none">
                             <li class="ami-li"/>
                             <li class="ami-li"><p>                                
@@ -62,8 +62,10 @@
                                 
                             </p></li>
                             </ul>
+                        </h:form>
                             <br/>
                             <h4>Materijali za sjednicu</h4>
+                            <h:form>
                             <h:dataTable id="prK" 
                                         class="w3-table  w3-bordered w3-striped w3-border  w3-tiny" 
                                         style="width: 100%"                                   
@@ -87,9 +89,15 @@
                                     <h:column> 
                                         <f:facet name="header">Datum up-loada dokumenta</f:facet>
                                         <h:outputText value="#{doc.datumKreiranja}">
-                                            <f:convertDateTime pattern="dd-MM-yyyy"/>
+                                            <f:convertDateTime pattern="dd-MM-yyyy HH:mm:ss"/>
                                         </h:outputText>
                                     </h:column>
+                                <h:column class="no-print" rendered="${LogIn.lk.korisnik.rola=='admin'}">
+                                    <f:facet name="header">-</f:facet>
+                                    <h:commandButton value="OBRIŠI" 
+                                                     action="#{dokumentKontroler.obrisi(doc)}"/>
+                                </h:column>
+                                
                                 
                                 </h:dataTable>
                             <p/>

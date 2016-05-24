@@ -12,7 +12,7 @@
     </h:head>
     <h:body>
        
-        <ui:composition template="/predlozak/master.xhtml">
+        <ui:composition template="/predlozak/masterNNV.xhtml">
             <ui:define name="navigacija">
                 <ui:include src="/stranice/navigacija.xhtml"/>
             </ui:define>
@@ -22,7 +22,7 @@
             <ui:define name="sadrzaj"> 
                 <div >
                     <div class="w3-container w3-white">
-                        <h:form>
+                        <h:form id="sjednice">
                             <h3>Spisak sjednica NNV Tehničkog fakulteta u Bihaću</h3><hr/>
                             <p class="w3-theme-light w3-small" style=" width: 97%">                    
                             
@@ -42,10 +42,22 @@
                                         <h:outputText value="#{Pr.datum}">
                                             <f:convertDateTime pattern="dd-MM-yyyy"/>
                                         </h:outputText>
-                                    </h:column>                                                 
+                                    </h:column> 
+                                    <h:column> 
+                                        <f:facet name="header">Vrijeme sjednice</f:facet>
+                                        <h:outputText value="#{Pr.vrijemePocetka}"/>             
+                                       
+                                    </h:column> 
+                                    <h:column> 
+                                        <f:facet name="header" rendered="${LogIn.lk.korisnik.rola=='admin'}">-</f:facet>
+                                        <h:commandButton value="OBRIŠI" 
+                                                         action="#{sjednicaKontroler.obrisiSjednicu(Pr)}"/>             
+                                       
+                                    </h:column> 
                                 </h:dataTable>      
                             
                             </p>
+                            <h:messages />
                         </h:form>  
                     </div>
                 </div>

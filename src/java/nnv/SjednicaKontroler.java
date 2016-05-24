@@ -1,6 +1,10 @@
 package nnv;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.xml.bind.JAXBException;
@@ -24,7 +28,9 @@ public class SjednicaKontroler {
     public SjednicaKontroler() {
         try {
             if (sjednice.isEmpty()) this.setSjednice(Sxml.procitajIzXMLa());
-        } catch (JAXBException ex) {}
+            Collections.sort(sjednice, (Sjednica o1, Sjednica o2) 
+                    -> o2.getDatum().compareTo(o1.getDatum()));
+        } catch (Exception e) {}
     }
     
     public int generateId(){
@@ -47,8 +53,32 @@ public class SjednicaKontroler {
         setSelektovanaSjednica(vratiSjednicuPoBroju(selektovaniID));
     }
     
+    public void obrisiSjednicu (Sjednica s){
+        
+        if(utility.brisiFile(utility.datumZaDirektorij(s.getDatum()))){
+        sjednice.remove(s);
+        getSxml().smjesti(getSjednice());   
+        boolean test=Sxml.smjestiUXML();
+        }
+        else{
+            utility.poruka("sjednice", "Direktorij nije prazan");
+        }
+    }
+    
     public String dodajSjednicu(){
-        if(dodajSjednicu(getNovaSjednica())) return "/nnv/pregledSjednica";
+        
+        if(dodajSjednicu(getNovaSjednica())) {
+//            try{
+//            Collections.sort(sjednice, new Comparator<Sjednica>(){
+//                @Override
+//                public int compare(Sjednica o1, Sjednica o2) {
+//                   return o2.getDatum().compareTo(o1.getDatum());
+//                }
+//                
+//            });
+//            } catch (Exception ex){}
+            return "/nnv/pregledSjednica";
+        }
         else return null;
     }
    

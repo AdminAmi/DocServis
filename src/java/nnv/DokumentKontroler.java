@@ -65,7 +65,7 @@ public class DokumentKontroler {
      
     public boolean dodajDokument(Dokument d){
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        Date date = new Date();
+        Date date = new Date();            
         int i = getDokumenti().size();
         Dokument doc = new Dokument(d.getNaziv(), d.getNazivDatoteke(),user , date);
         doc.setId(generateId());
@@ -111,8 +111,6 @@ public class DokumentKontroler {
     }
      
     public void download(Dokument d ) {
-       
-
         File file = new File(getPath()+"/"+d.getNazivDatoteke());
         HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();  
 
@@ -142,6 +140,20 @@ public class DokumentKontroler {
     } 
     }
 
+    public void obrisi(Dokument d){
+        String pathFile=getPath()+"/"+d.getNazivDatoteke();
+        String pathXML =getPath()+"/";
+        if (utility.brisiFile(pathFile)){         
+            
+        dokumenti.remove(d);
+        DXML.smjesti(getDokumenti());
+        boolean b= DXML.smjestiUXML(pathXML);            
+        }
+            
+        
+    	
+    	
+    }
     //GETTER I SEETER
     public Dokument getUnos() { return unos;}   
     public void setUnos(Dokument unos) {this.unos = unos;}   
