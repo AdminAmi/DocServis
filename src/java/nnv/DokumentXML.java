@@ -44,7 +44,7 @@ public class DokumentXML {
         Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();     
         //Ucitava iz xml filea
         DokumentOmotac emps = (DokumentOmotac) 
-            jaxbUnmarshaller.unmarshal( new File(path + "dokumenti.xml") );
+            jaxbUnmarshaller.unmarshal( new File(path + "/dokumenti.xml") );
         
         // Ispis iz xml-a na konzolu
         //for(Osoba os : emps.getListaOsoba()){System.out.println(os);}    

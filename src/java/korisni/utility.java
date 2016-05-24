@@ -53,6 +53,11 @@ public class utility {
         return path;
     }
     
+    public static String datum (Date date){
+        Format formater= new SimpleDateFormat("dd-MM-yyyy");
+        return formater.format(date);
+    }
+    
     public static void kreirajDirektorij(String path){
         File theDir = new File(path);
 

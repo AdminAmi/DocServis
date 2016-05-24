@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package nnv;
 
 import java.util.ArrayList;
@@ -13,7 +8,7 @@ import korisni.utility;
 
 /**
  *
- * @author ami
+ * @author Amel Džanić 
  */
 @ManagedBean
 @ViewScoped
@@ -24,7 +19,7 @@ public class SjednicaKontroler {
     private Sjednica novaSjednica = new Sjednica();
     private Sjednica selektovanaSjednica = new Sjednica();
     private String selektovaniID;
-    private SjednicaXML Sxml = new SjednicaXML();
+    private SjednicaXML Sxml = new SjednicaXML();    
 
     public SjednicaKontroler() {
         try {
@@ -53,7 +48,7 @@ public class SjednicaKontroler {
     }
     
     public String dodajSjednicu(){
-        if(dodajSjednicu(getNovaSjednica())) return "/nnv/unosMaterijala";
+        if(dodajSjednicu(getNovaSjednica())) return "/nnv/pregledSjednica";
         else return null;
     }
    
@@ -62,8 +57,9 @@ public class SjednicaKontroler {
         if(provjeraSjednice(o)==false) return false;
         utility.kreirajDirektorij(utility.datumZaDirektorij(o.getDatum()));       
         int i = getSjednice().size();
-        Sjednica kor = new Sjednica(o.getBroj(), o.getDatum(), utility.datumZaDirektorij(o.getDatum()));
+        Sjednica kor = new Sjednica(o.getBroj(),o.getDatum(), utility.datumZaDirektorij(o.getDatum()));
         kor.setId(generateId());
+        kor.setVrijemePocetka(o.getVrijemePocetka());
         this.getSjednice().add(kor);
         getSxml().smjesti(getSjednice());     
         return (i!=getSjednice().size() && getSxml().smjestiUXML());

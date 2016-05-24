@@ -39,12 +39,23 @@
                             </li>
                             <li class="ami-li ">
                                 <p>
-                                    <label class="ami-labela">Datum sjednice sjednice:</label>
+                                    <label class="ami-labela">Datum sjednice:</label>
                                     <input type="date" jsf:value="#{sjednicaKontroler.novaSjednica.datum}" 
                                            class="w3-border-0 w3-border-black w3-border-bottom"
                                            p:required="true"> 
                                         <f:convertDateTime pattern="yyyy-MM-dd"/>
                                     </input>
+
+                                    
+                                </p>
+                            </li>
+                             <li class="ami-li ">
+                                <p>
+                                    <label class="ami-labela">Vrijeme održavanja sjednice:</label>
+                                    <h:inputText class="w3-border-0 w3-border-black w3-border-bottom"
+                                                 value="#{sjednicaKontroler.novaSjednica.vrijemePocetka}"
+                                                 p:required="true"/>
+                                       
 
                                     
                                 </p>
@@ -56,7 +67,7 @@
                                                          class="w3-btn w3-blue-grey"
                                                          value="UNESI PODATKE!"
                                                          action="#{sjednicaKontroler.dodajSjednicu()}"/> 
-                                        <h:commandButton value="test" action="#{sjednicaKontroler.page()}"/>
+                                        
                                     </p>
                                 </li>
                                 <li class="ami-li "></li>

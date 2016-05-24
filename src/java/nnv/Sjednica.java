@@ -12,6 +12,7 @@ public class Sjednica {
     private String broj;
     private Date datum;
     private String mapa_za_dokumente;
+    private String vrijemePocetka;
 
     public Sjednica() {
     }
@@ -77,6 +78,14 @@ public class Sjednica {
      */
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getVrijemePocetka() {
+        return vrijemePocetka;
+    }
+
+    public void setVrijemePocetka(String vrijemePocetka) {
+        this.vrijemePocetka = vrijemePocetka;
     }
     
     

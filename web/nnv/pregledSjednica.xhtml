@@ -22,28 +22,30 @@
             <ui:define name="sadrzaj"> 
                 <div >
                     <div class="w3-container w3-white">
-              <h:form>
-                        <h3>Spisak sjednica NNV Tehničkog fakulteta u Bihaću</h3><hr/>
-                        <p class="w3-theme-light w3-small" style=" width: 97%">                    
+                        <h:form>
+                            <h3>Spisak sjednica NNV Tehničkog fakulteta u Bihaću</h3><hr/>
+                            <p class="w3-theme-light w3-small" style=" width: 97%">                    
                             
-                            <h:dataTable  class="w3-table  w3-bordered w3-striped w3-border  w3-tiny" 
-                                     style="width: 100%"                                   
-                                     value="#{sjednicaKontroler.sjednice}" 
-                                     var="Pr">
-                            <h:column  > 
-                                <f:facet name="header">Broj sjednice</f:facet>
-                                <a jsf:outcome="unosMaterijala" > #{Pr.broj} 
-                                    <f:param name="IDSjednice" value="#{Pr.broj}"/>                                
-                                </a>
-                            </h:column>                           
-                            <h:column> 
-                                <f:facet name="header">Datum sjednice</f:facet>
-                                #{Pr.datum}
-                            </h:column>
-                                                 
-                        </h:dataTable>      
+                                <h:dataTable  class="w3-table  w3-bordered w3-striped w3-border  w3-tiny" 
+                                        style="width: 100%"                                   
+                                        value="#{sjednicaKontroler.sjednice}" 
+                                        var="Pr">
+                                    <h:column  > 
+                                        <f:facet name="header">Broj sjednice</f:facet>
+                                        <a jsf:outcome="unosMaterijala" > #{Pr.broj} 
+                                            <f:param name="IDSjednice" value="#{Pr.broj}"/> 
+                                            <f:param name="putDoc" value="#{Pr.mapa_za_dokumente}"/>
+                                        </a>
+                                    </h:column>                           
+                                    <h:column> 
+                                        <f:facet name="header">Datum sjednice</f:facet>
+                                        <h:outputText value="#{Pr.datum}">
+                                            <f:convertDateTime pattern="dd-MM-yyyy"/>
+                                        </h:outputText>
+                                    </h:column>                                                 
+                                </h:dataTable>      
                             
-                        </p>
+                            </p>
                         </h:form>  
                     </div>
                 </div>

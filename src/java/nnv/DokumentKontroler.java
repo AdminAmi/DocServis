@@ -6,15 +6,24 @@
 package nnv;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+import javax.xml.bind.JAXBException;
 import korisni.utility;
 
 /**
@@ -28,44 +37,53 @@ public class DokumentKontroler {
     private Dokument unos = new Dokument();
     private Dokument selektovani;
     private int selektovaniID;
-    private String path,user;
-    private  SjednicaKontroler SK ;
-    private Login.loginKontroler LK;
+    private String path,user, imeFajla;   
     private DokumentXML DXML = new DokumentXML();
             
     private Part datoteka;    
 
-    public DokumentKontroler() {
+    public DokumentKontroler() { 
+        try{
+            if(dokumenti.isEmpty()) this.setDokumenti(DXML.procitajIzXMLa(path));
+        }  catch (JAXBException ex) {}
+    }
+    public void ucitajDokumente(){
+        try {
+            this.setDokumenti(DXML.procitajIzXMLa(getPath()));
+        } catch (JAXBException ex) {        
+        }
     }
     
-     public int generateId(){
+    public int generateId(){
         int  temp=-1;  
-        if(dokumenti.isEmpty()) return 0;
-        for (Dokument a1 : dokumenti) {        
+        if(getDokumenti().isEmpty()) return 0;
+        for (Dokument a1 : getDokumenti()) {        
             if (a1.getId()>temp) temp=a1.getId();
         }
     return temp+1;    
     }
      
     public boolean dodajDokument(Dokument d){
-        
-        int i = dokumenti.size();
-        Dokument doc = new Dokument(d.getNaziv(), d.getNazivDatoteke(),user , d.getDatumKreiranja());
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+        int i = getDokumenti().size();
+        Dokument doc = new Dokument(d.getNaziv(), d.getNazivDatoteke(),user , date);
         doc.setId(generateId());
-        this.dokumenti.add(doc);
-        DXML.smjesti(dokumenti);
-        return (DXML.smjestiUXML(path+"/")
-                && i!=dokumenti.size());
+        this.getDokumenti().add(doc);
+        DXML.smjesti(getDokumenti());
+        return (DXML.smjestiUXML(getPath()+"/")
+                && i!=getDokumenti().size());
     }
     
     public void myListener (ActionEvent event){
-        path = (String)event.getComponent().getAttributes().get("path");
+        setPath((String)event.getComponent().getAttributes().get("path"));
         user = (String)event.getComponent().getAttributes().get("user");
-    }
-    
-    
-    
-     public void snimi(){
+        user += " " + (String)event.getComponent().getAttributes().get("user2");
+    }    
+    public void pathListener (ActionEvent event){       
+        imeFajla = (String)event.getComponent().getAttributes().get("pathDoc");       
+    }    
+    public void snimi(){
         if(unos == null) {
             //utility.poruka("UnosDokumenta:btnSnimiDokument", "Nije došlo do inicijalizacije objekta");
             
@@ -73,7 +91,7 @@ public class DokumentKontroler {
         if(getDatoteka()!=null){
             unos.setNazivDatoteke(getDatoteka().getSubmittedFileName());
             try (InputStream input = getDatoteka().getInputStream()) {
-                Files.copy(input, new File(path, 
+                Files.copy(input, new File(getPath(), 
                         getDatoteka().getSubmittedFileName()).toPath());
                 if(dodajDokument(unos)) {
                 //reset();
@@ -91,61 +109,57 @@ public class DokumentKontroler {
        
         
     }
+     
+    public void download(Dokument d ) {
+       
 
-    /**
-     * @return the unos
-     */
-    public Dokument getUnos() {
-        return unos;
+        File file = new File(getPath()+"/"+d.getNazivDatoteke());
+        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();  
+
+        response.setHeader("Content-Disposition", "attachment;filename=" + d.getNazivDatoteke() );  
+        response.setContentLength((int) file.length());  
+        ServletOutputStream out = null;  
+        try {  
+            FileInputStream input = new FileInputStream(file);  
+            byte[] buffer = new byte[1024];  
+            out = response.getOutputStream();  
+            int i = 0;  
+            while ((i = input.read(buffer)) != -1) {  
+            out.write(buffer);  
+            out.flush();  
+        }  
+        FacesContext.getCurrentInstance().getResponseComplete();  
+        } catch (IOException err) {  
+            err.printStackTrace();  
+        } finally {  
+        try {  
+            if (out != null) {  
+                out.close();  
+            }  
+        } catch (IOException err) {  
+            err.printStackTrace();  
+        }  
+    } 
     }
 
-    /**
-     * @param unos the unos to set
-     */
-    public void setUnos(Dokument unos) {
-        this.unos = unos;
+    //GETTER I SEETER
+    public Dokument getUnos() { return unos;}   
+    public void setUnos(Dokument unos) {this.unos = unos;}   
+    public Dokument getSelektovani() {return selektovani;}   
+    public void setSelektovani(Dokument selektovani) {this.selektovani = selektovani;}
+    public int getSelektovaniID() {return selektovaniID;}   
+    public void setSelektovaniID(int selektovaniID) {this.selektovaniID = selektovaniID;}    
+    public Part getDatoteka() {return datoteka;}    
+    public void setDatoteka(Part datoteka) {this.datoteka = datoteka;}
+    public ArrayList<Dokument> getDokumenti() { return dokumenti; }
+    public void setDokumenti(ArrayList<Dokument> dokumenti) {this.dokumenti = dokumenti; }
+
+    public String getPath() {
+        return path;
     }
 
-    /**
-     * @return the selektovani
-     */
-    public Dokument getSelektovani() {
-        return selektovani;
-    }
-
-    /**
-     * @param selektovani the selektovani to set
-     */
-    public void setSelektovani(Dokument selektovani) {
-        this.selektovani = selektovani;
-    }
-
-    /**
-     * @return the selektovaniID
-     */
-    public int getSelektovaniID() {
-        return selektovaniID;
-    }
-
-    /**
-     * @param selektovaniID the selektovaniID to set
-     */
-    public void setSelektovaniID(int selektovaniID) {
-        this.selektovaniID = selektovaniID;
-    }
-
-    /**
-     * @return the datoteka
-     */
-    public Part getDatoteka() {
-        return datoteka;
-    }
-
-    /**
-     * @param datoteka the datoteka to set
-     */
-    public void setDatoteka(Part datoteka) {
-        this.datoteka = datoteka;
+    public void setPath(String path) {
+        this.path = path;
     }
     
     

@@ -83,6 +83,7 @@ public class webLogIn {
     }
     
     public String registracija(){
+        utility.init();
         if(lk.LogIN(user, pass)) {
             setTestRegistracije(true);
             reset();

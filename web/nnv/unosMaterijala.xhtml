@@ -5,12 +5,15 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:comp="http://xmlns.jcp.org/jsf/composite/comp"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
     <h:head>
         <head><title>IGNORED</title></head>
         <f:metadata>
             <f:viewParam name="IDSjednice" value="#{sjednicaKontroler.selektovaniID}"/>
             <f:viewAction action="#{sjednicaKontroler.ucitajSjednicu()}"/>
+            <f:viewParam name="putDoc" value="#{dokumentKontroler.path}"/>
+            <f:viewAction action="#{dokumentKontroler.ucitajDokumente()}"/>
         </f:metadata>
     </h:head>
     <h:body>
@@ -25,36 +28,71 @@
             <ui:define name="sadrzaj"> 
                 <div >
                     <div class="w3-container w3-white">
-                        <h1>NNV broj: #{sjednicaKontroler.selektovanaSjednica.broj}</h1>
-                        <h4>Unesite potrebne podatke</h4>
-                        <h:form enctype="multipart/form-data">
-                            <ul class="w3-leftbar w3-theme-border w3-small" style="list-style-type:none">
+                        <h1>NNV broj: #{sjednicaKontroler.selektovanaSjednica.broj} od 
+                            <h:outputText value="#{sjednicaKontroler.selektovanaSjednica.datum}">
+                                <f:convertDateTime pattern="dd-MM-yyyy"/>
+                            </h:outputText>
+                            </h1>
+                        <h4 class="no-print">Unesite potrebne podatke</h4>
+                        <h:form id="materijali" enctype="multipart/form-data">
+                            <ul class="w3-leftbar w3-theme-border w3-small no-print" style="list-style-type:none">
                             <li class="ami-li"/>
-                            <li class="ami-li">
-                        <p>
-                            <label class="ami-labela">Naslov tačke sjednice</label> 
-                            <h:inputText value="#{dokumentKontroler.unos.naziv}"
-                                         style="width: 60%"
-                                     class="w3-border-0 w3-border-black w3-border-bottom " />
-                        </p>
-                        <p>
-                            <label class="ami-labela">Projekat za upload</label>
-                            <h:inputFile value="#{dokumentKontroler.datoteka}"   />
+                            <li class="ami-li"><p>                                
+                                <label class="ami-labela">Naslov tačke sjednice</label> 
+                                <h:inputText value="#{dokumentKontroler.unos.naziv}" 
+                                             class="w3-border-0 w3-border-black w3-border-bottom " />
+                                         <!--style="width: 60%"-->
+                                         
+                            </p></li>
+                            <li class="ami-li"><p>
+                                    <label class="ami-labela">Projekat za upload</label>
+                                    <h:inputFile value="#{dokumentKontroler.datoteka}"   />
                             
-                        </p>
-                        <p>
-                            <h:commandButton class="w3-btn w3-blue-grey" 
-                                             
+                            </p></li>
+                            <li class="ami-li"><p>
+                                <h:commandButton class="w3-btn w3-blue-grey"                                      
                                              value="Snimi projekat"
                                              action="#{dokumentKontroler.snimi()}"
-                                             actionListener="#{dokumentKontroler.myListener}">
-                            
-                                <f:attribute name="path" value="#{sjednicaKontroler.selektovanaSjednica.mapa_za_dokumente}"/>
-                                <f:attribute name="user" value="#{LogIn.lk.korisnik.ime}"/>
-                            </h:commandButton>
-                        </p>
-                    </li>
+                                             actionListener="#{dokumentKontroler.myListener}">                            
+                                    <f:attribute name="path" value="#{sjednicaKontroler.selektovanaSjednica.mapa_za_dokumente}"/>
+                                    <f:attribute name="user" value="#{LogIn.lk.korisnik.ime}"/>
+                                    <f:attribute name="user2" value="#{LogIn.lk.korisnik.prezime}"/>
+                                    
+                                </h:commandButton>
+                                
+                            </p></li>
                             </ul>
+                            <br/>
+                            <h4>Materijali za sjednicu</h4>
+                            <h:dataTable id="prK" 
+                                        class="w3-table  w3-bordered w3-striped w3-border  w3-tiny" 
+                                        style="width: 100%"                                   
+                                        value="#{dokumentKontroler.dokumenti}" 
+                                        var="doc">
+                                    <h:column  > 
+                                        <f:facet name="header">Naslov tačke</f:facet>#{doc.naziv}                                       
+                                    </h:column>
+                                    <h:column>
+                                     <f:facet name="header">Dokumenti</f:facet>
+                                     <h:commandLink id="L" 
+                                                    value="#{doc.nazivDatoteke}" 
+                                                    actionListener="#"
+                                                    action="#{dokumentKontroler.download(doc)}" />
+                                     <f:attribute name="pathDoc" value="#{doc.nazivDatoteke}"/>
+                                    </h:column>
+                                      
+                                    <h:column>
+                                    <f:facet name="header">Korisnik</f:facet>#{doc.korisnikUpload}
+                                    </h:column>
+                                    <h:column> 
+                                        <f:facet name="header">Datum up-loada dokumenta</f:facet>
+                                        <h:outputText value="#{doc.datumKreiranja}">
+                                            <f:convertDateTime pattern="dd-MM-yyyy"/>
+                                        </h:outputText>
+                                    </h:column>
+                                
+                                </h:dataTable>
+                            <p/>
                             
                         </h:form>
                         
