@@ -1,13 +1,9 @@
 package nnv;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.xml.bind.JAXBException;
 import korisni.utility;
 
 /**
@@ -16,11 +12,12 @@ import korisni.utility;
  */
 @ManagedBean
 @ViewScoped
-public class SjednicaKontroler {
+public final class SjednicaKontroler {
     private ArrayList<Sjednica> sjednice = new ArrayList<>();
     private ArrayList<Sjednica> pretraga = new ArrayList<>();
     private Sjednica sjednica = new Sjednica();
-    private String godina;
+    private String godina, mjesec;
+    private int brojSjednica;
     private Sjednica novaSjednica = new Sjednica();
     private Sjednica selektovanaSjednica = new Sjednica();
     private String selektovaniID;
@@ -55,51 +52,60 @@ public class SjednicaKontroler {
     }
     
     public void pretragaSjednica (){
-        for (Sjednica a1:getSjednice()){
-            if(utility.datum(a1.getDatum()).contains(godina)) getPretraga().add(a1);
+        getPretraga().clear();
+        if(getMjesec().length()==0 && getGodina().length()!=0){
+            for (Sjednica a1:getSjednice()){
+                if(utility.datum(a1.getDatum()).contains(godina)) getPretraga().add(a1);
+            }
+        } 
+        if(getGodina().length()==0 && getMjesec().length()!=0){
+            for (Sjednica a1:getSjednice()){
+                if(utility.datum(a1.getDatum()).contains(mjesec)) getPretraga().add(a1);
+            }
+        }
+        if(getMjesec().length()!=0 && getMjesec().length()!=0){
+            for (Sjednica a1:getSjednice()){
+            if(utility.datum(a1.getDatum()).contains(mjesec)
+                    && utility.datum(a1.getDatum()).contains(godina) ) getPretraga().add(a1);
+            }            
+        }
+        if(getMjesec().length()==0 && getMjesec().length()==0){
+            utility.poruka("sjednice","Niste unijeli parametre za pretraživanje");
+            
+        }
+        setBrojSjednica(getPretraga().size());
+    }
+    
+    public void obrisiSjednicu (Sjednica s){        
+        if(utility.brisiFile(utility.datumZaDirektorij(s.getDatum()))){
+            sjednice.remove(s);
+            pretragaSjednica();
+            boolean flag=Sxml.smjestiUXML();        
+            getSxml().smjesti(getSjednice());
+            if(sjednice.isEmpty()){
+                if(utility.brisiFile(utility.putZaSjednice+"sjednice.xml"))
+                    utility.poruka("sjednice","Nema nijedne sjednice NNV-a!");
+            }
+            utility.poruka("sjednice","Uspješno obrisana sjednica");        
+        }
+        else{
+            utility.poruka("sjednice", "Direktorij nije prazan");
         }
     }
     
-    public void obrisiSjednicu (Sjednica s){
-        
-        if(utility.brisiFile(utility.datumZaDirektorij(s.getDatum()))){
-            sjednice.remove(s);
-            boolean flag=Sxml.smjestiUXML();        
-            getSxml().smjesti(getSjednice());
-            if(sjednice.isEmpty()){
-                if(utility.brisiFile(utility.putZaSjednice+"sjednice.xml"))
-                    utility.poruka("sjednice","Nema nijedne sjednice NNV-a!");
-            }
-            utility.poruka("sjednice","Uspješno obrisana sjednica");
-        
-        }
-        else{
-            utility.poruka("sjednice", "Direktorij nije prazan");
-        }
-    }
-     public void obrisiSjednicuPretraga (Sjednica s){
-        
-        if(utility.brisiFile(utility.datumZaDirektorij(s.getDatum()))){
-            getPretraga().remove(s);
-            sjednice.remove(s);
-            boolean flag=Sxml.smjestiUXML();        
-            getSxml().smjesti(getSjednice());
-            if(sjednice.isEmpty()){
-                if(utility.brisiFile(utility.putZaSjednice+"sjednice.xml"))
-                    utility.poruka("sjednice","Nema nijedne sjednice NNV-a!");
-            }
-            utility.poruka("sjednice","Uspješno obrisana sjednica");
-        
-        }
-        else{
-            utility.poruka("sjednice", "Direktorij nije prazan");
-        }
+     public void obrisiSjednicuPretraga (Sjednica s){ 
+         obrisiSjednicu(s); 
+         getPretraga().remove(s);
+         setBrojSjednica(getPretraga().size());
+                               
     }
     
     public String dodajSjednicu(){
         
         if(dodajSjednicu(getNovaSjednica())) {
-            return "/nnv/pregledSjednica";
+           // return "/nnv/pregledSjednica";
+           utility.poruka("SjednicaNNV", "Uspješan unos sjednice");
+           return null;
         }
         else{
             utility.poruka("SjednicaNNV", "Neuspješan unos sjednice");
@@ -233,6 +239,22 @@ public class SjednicaKontroler {
 
     public void setGodina(String godina) {
         this.godina = godina;
+    }
+
+    public int getBrojSjednica() {
+        return brojSjednica;
+    }
+
+    public void setBrojSjednica(int brojSjednica) {
+        this.brojSjednica = brojSjednica;
+    }
+
+    public String getMjesec() {
+        return mjesec;
+    }
+
+    public void setMjesec(String mjesec) {
+        this.mjesec = mjesec;
     }
     
     

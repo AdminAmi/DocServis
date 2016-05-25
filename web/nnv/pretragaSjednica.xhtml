@@ -37,6 +37,15 @@
                                     </p>
                                 </li>
                                 <li class="ami-li">
+                                    <p>                            
+                                    <label class="ami-labela">Unesite mjesec za pretraživanje:</label>
+                                    <h:inputText class="w3-border-0 w3-border-black w3-border-bottom"                                         
+                                                 value="#{sjednicaKontroler.mjesec}"                                                
+                                                 />                        
+                                    </p>
+                                    
+                                </li>
+                                <li class="ami-li">
                                     <p>
                                         <h:commandButton class="w3-btn w3-blue-grey " 
                                              id="btnPretragaKorisnika"
@@ -47,8 +56,10 @@
                                     </p>
                                 </li>
                             </ul>
-                            
-                            
+                            <div id="pr">
+                            <h4>
+                                Rezultati pretrage : (ukupno #{sjednicaKontroler.brojSjednica})
+                            </h4>
                             <p class="w3-theme-light w3-small" style=" width: 97%"> 
                                 
                             
@@ -78,14 +89,19 @@
                                     <h:column> 
                                         <f:facet name="header" rendered="${LogIn.lk.korisnik.rola=='admin'}">-</f:facet>
                                         <h:commandButton value="OBRIŠI" 
-                                                         action="#{sjednicaKontroler.obrisiSjednicuPretraga(s)}">
+                                                         action="#{sjednicaKontroler.obrisiSjednicuPretraga(Pr)}">
                                              <!--<f:ajax  execute="@form" render="sjednice:tabela"/>-->
                                         </h:commandButton>
                                        
                                     </h:column> 
+                                    <h:column >
+                                        <f:facet name="footer"> Rezultati pretrage : (ukupno #{sjednicaKontroler.brojSjednica})
+                                        </f:facet>
+                                    </h:column>
                                 </h:dataTable>      
                             
                             </p>
+                            </div>
                             <h:messages  />
                         </h:form>  
                     </div>

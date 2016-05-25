@@ -397,9 +397,8 @@ input[type=checkbox].w3-check:disabled+.w3-validate,input[type=radio].w3-radio:d
 .ami-link-tab{text-indent: 3em;}
 .ami-font {font-size:11px!important}
 .ami-sidenav{height:100%;width:200px;background-color:#fff;position:fixed!important;z-index:1;overflow:auto}
-.LogoPic{
-	 	 -webkit-filter: invert(100%);	 filter: invert(100%); 
- }
+.LogoPic{ -webkit-filter: invert(100%);	 filter: invert(100%);}
+.hline { width:100%; height:1px; background: #eee }
  @media print
 {    
     .no-print, .no-print *
