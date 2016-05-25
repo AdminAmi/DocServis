@@ -6,73 +6,92 @@
       xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
     <h:head>
         <title>IGNORED</title>
+       
     </h:head>
     <h:body>
         <ui:composition>
             <h:form>
+                
                
             <h:graphicImage value="/resources/img/tfbgrb.png" alt="Grb" style="width: 65.5%" class="w3-circle  w3-margin-top  w3-margin-bottom "> </h:graphicImage>               
                           
             <a href="javascript:void(0)" onclick="w3_close()" class="w3-text-blue-grey w3-hide-large w3-closenav w3-large">Close &times;</a>               
             <hr/>
             
-            <div class="w3-container w3-left-align w3-small w3-accordion">
-                <a href="#" onclick="accordion('Projekti')"><strong>Projekti</strong> </a>
-                    <div id="Projekti" class="w3-accordion-content">
-                        <ul class="w3-leftbar w3-border-cyan">
+            <div  class="w3-container w3-left-align w3-small w3-accordion ">
+                <ul class="w3-leftbar w3-border-cyan w3-left-align" style="text-decoration: none; padding-left: 0">
+               <a href="#" onclick="accordion('Projekti')">
+                   <span class="w3-large w3-text-cyan fa fa-folder-open-o"  aria-hidden="true"/> 
+                   &npsb;&npsb;
+                   <strong>Projekti</strong> </a>
+                    <div id="Projekti" class="w3-accordion-content" >
+                        
                             <h:link id="pretrazivanjeProjekata" 
                                 outcome="/projekti/pretrazivanjeProjekata"
-                                class="w3-small" 
+                                class=" ami-font ami-link-tab " 
+                                
                                 value="Pretraživanje projekata" />            
-                
+                        
                             <h:link id="sviProjekti" 
                                 value="Spisak svih projekata" 
-                                 class="w3-small" 
+                                 class="ami-font ami-link-tab" 
                                 outcome="/projekti/sviProjekti" />
                             <h:link id="noviProjekat" 
                                value="Unos novog projekta" 
-                               class="w3-small" outcome="/projekti/noviProjekat" 
+                               class="ami-font ami-link-tab" 
+                               outcome="/projekti/noviProjekat" 
                                rendered="${LogIn.lk.korisnik.rola=='admin'}" />
-                        </ul>
+                        
                     </div>
+                    </ul>
             </div>
             <hr/>  
             <div class="w3-container w3-left-align w3-small  w3-accordion">
-                <a href="#" onclick="accordion('Korisnici')"><strong>Korisnički meni</strong> </a>
+                <ul class="w3-leftbar w3-border-orange" style="text-decoration: none; padding-left: 0">
+                <a href="#" onclick="accordion('Korisnici')">
+                    <span class="w3-large w3-text-orange fa fa-users"  aria-hidden="true"/> 
+                    &npsb;&npsb;
+                    <strong>Korisnički meni</strong> </a>
                 <div id="Korisnici" class="w3-accordion-content">
-                    <ul class="w3-leftbar w3-border-orange">
+                    
                     <h:link id="promjenaKorisnickihPodataka" 
                            value="Promjena lozinke"  
-                           class="w3-small" outcome="/korisnik/promjenaLozinke" 
+                           class="ami-font ami-link-tab" outcome="/korisnik/promjenaLozinke" 
                            rendered="${LogIn.lk.korisnik.rola!='guest'}" /> 
                     <h:link id="unosNovogKorisnika" 
                            value="Unos novog korisnika" 
-                           class="w3-small" 
+                           class="ami-font ami-link-tab" 
                            outcome="/korisnik/noviKorisnik" 
                            rendered="${LogIn.lk.korisnik.rola=='admin'}" /> 
                     <h:link id="pretrazivanjeKorisnika" 
                            value="Pretraživanje korisnika"  
-                           class="w3-small" outcome="/korisnik/pretrazivanjeKorisnika" 
+                           class="ami-font ami-link-tab" outcome="/korisnik/pretrazivanjeKorisnika" 
                            rendered="${LogIn.lk.korisnik.rola=='admin'}" /> 
-                    </ul>
+                    
                 </div>
+                    </ul>
             </div>
             <hr/>
             <div class="w3-container w3-left-align w3-small">
-                <a href="#" onclick="accordion('NNV')"><strong>Sjednice NNV-a</strong></a>
+                <ul class="w3-leftbar w3-border-blue" style="text-decoration: none; padding-left: 0">
+                <a href="#" onclick="accordion('NNV')">
+                    <span class="w3-large w3-text-blue fa fa-pencil-square-o"  aria-hidden="true"/>
+                    &npsb;&npsb;
+                    <strong>Sjednice NNV-a</strong></a>
                 <div id="NNV" class="w3-accordion-content">
-                    <ul class="w3-leftbar w3-border-blue">
+                    
                         <h:link id="novaSjednicaNNV" 
                            value="Nova Sjednica NNV-a"  
-                           class="w3-small" outcome="/nnv/novaSjednica" 
+                           class="ami-font ami-link-tab" outcome="/nnv/novaSjednica" 
                            rendered="${LogIn.lk.korisnik.rola=='admin'}" /> 
                 
                         <h:link id="pregledSjednicaNNV" 
                            value="Pregled sjednica NNV-a"  
-                           class="w3-small" outcome="/nnv/pregledSjednica" 
+                           class="ami-font ami-link-tab" outcome="/nnv/pregledSjednica" 
                            rendered="${LogIn.lk.korisnik.rola!='guest'}" /> 
-                    </ul>
+                    
                 </div>
+                    </ul>
             </div>
             <hr/>
             </h:form>

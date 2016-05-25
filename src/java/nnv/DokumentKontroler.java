@@ -14,6 +14,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
@@ -65,8 +66,9 @@ public class DokumentKontroler {
      
     public boolean dodajDokument(Dokument d){
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        Date date = new Date();            
-        int i = getDokumenti().size();
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+        Date date = new Date();       
+        int i= getDokumenti().size();
         Dokument doc = new Dokument(d.getNaziv(), d.getNazivDatoteke(),user , date);
         doc.setId(generateId());
         this.getDokumenti().add(doc);
@@ -85,27 +87,30 @@ public class DokumentKontroler {
     }    
     public void snimi(){
         if(unos == null) {
-            //utility.poruka("UnosDokumenta:btnSnimiDokument", "Nije došlo do inicijalizacije objekta");
+            utility.poruka("UnosDokumenta:btnSnimiDokument", "Nije došlo do inicijalizacije objekta");
             
-        }
-        if(getDatoteka()!=null){
+        } 
+        if (unos.getNaziv().length()!=0){
+            if(getDatoteka()!=null){
             unos.setNazivDatoteke(getDatoteka().getSubmittedFileName());
             try (InputStream input = getDatoteka().getInputStream()) {
                 Files.copy(input, new File(getPath(), 
                         getDatoteka().getSubmittedFileName()).toPath());
                 if(dodajDokument(unos)) {
-                //reset();
-                utility.poruka("UnosDokumenta:btnSnimiDokument", "Uspješan unos Projekta");
+                unos.setNaziv("");
+                utility.poruka("UnosDokumenta:btnSnimiDokument", "Uspješan unos dokumenta!");
             
             
-        }
+            }
             }
             catch (IOException e) {
                 utility.poruka("UnosDokumenta:btnSnimiDokument", "Problem pri prenosu datoteke");
                 //projekatUnos.setProjectPath("");  
                 // Show faces message?
             }
+            }
         }
+        
        
         
     }
@@ -143,12 +148,18 @@ public class DokumentKontroler {
     public void obrisi(Dokument d){
         String pathFile=getPath()+"/"+d.getNazivDatoteke();
         String pathXML =getPath()+"/";
-        if (utility.brisiFile(pathFile)){         
+        if (utility.brisiFile(pathFile)){             
+            dokumenti.remove(d);
+            DXML.smjesti(getDokumenti());
+            boolean b= DXML.smjestiUXML(pathXML);
+            utility.poruka("doc", "Uspješno obrisana datoteka");
+            if (dokumenti.isEmpty()) {
+                if(utility.brisiFile(pathXML+"dokumenti.xml"))                 
+                utility.poruka("doc", "Sjednica više nema radnih dokumenata!");
+            }
             
-        dokumenti.remove(d);
-        DXML.smjesti(getDokumenti());
-        boolean b= DXML.smjestiUXML(pathXML);            
         }
+        
             
         
     	

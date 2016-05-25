@@ -39,13 +39,13 @@
                             <li class="ami-li"/>
                             <li class="ami-li"><p>                                
                                 <label class="ami-labela">Naslov tačke sjednice</label> 
-                                <h:inputText value="#{dokumentKontroler.unos.naziv}" 
-                                             class="w3-border-0 w3-border-black w3-border-bottom " />
+                                <h:inputText value="#{dokumentKontroler.unos.naziv}" style="width: 90%" 
+                                             class="w3-border-0 w3-border-blue-grey w3-border-bottom " />
                                          <!--style="width: 60%"-->
                                          
                             </p></li>
                             <li class="ami-li"><p>
-                                    <label class="ami-labela">Projekat za upload</label>
+                                    <label class="ami-labela">Materijal za upload</label>
                                     <h:inputFile value="#{dokumentKontroler.datoteka}"   />
                             
                             </p></li>
@@ -65,9 +65,10 @@
                         </h:form>
                             <br/>
                             <h4>Materijali za sjednicu</h4>
-                            <h:form>
+                            <h:form id="dat">
                             <h:dataTable id="prK" 
-                                        class="w3-table  w3-bordered w3-striped w3-border  w3-tiny" 
+                                        class="w3-table  w3-bordered w3-striped w3-border  w3-tiny"
+                                        headerClass="w3-blue-grey"
                                         style="width: 100%"                                   
                                         value="#{dokumentKontroler.dokumenti}" 
                                         var="doc">
@@ -101,8 +102,8 @@
                                 
                                 </h:dataTable>
                             <p/>
-                            
-                        </h:form>
+                            <h:messages />
+                        </h:form>                         
                         
                     </div>
                 </div>

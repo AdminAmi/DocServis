@@ -24,7 +24,7 @@
                 <div >
                     <div class="w3-container w3-white">
                         <h1>Unos nove sjednice NNV</h1>
-                        <h:form>
+                        <h:form id="SjednicaNNV">
                         <ul class="w3-leftbar  w3-theme-border w3-small" style="list-style-type:none">
                             <li class="ami-li "></li>
                             <li class="ami-li ">
@@ -45,33 +45,27 @@
                                            p:required="true"> 
                                         <f:convertDateTime pattern="yyyy-MM-dd"/>
                                     </input>
-
-                                    
                                 </p>
                             </li>
                              <li class="ami-li ">
                                 <p>
                                     <label class="ami-labela">Vrijeme održavanja sjednice:</label>
-                                    <h:inputText class="w3-border-0 w3-border-black w3-border-bottom"
-                                                 value="#{sjednicaKontroler.novaSjednica.vrijemePocetka}"
-                                                 p:required="true"/>
-                                       
-
-                                    
+                                    <input type="time" jsf:value="#{sjednicaKontroler.novaSjednica.vrijemePocetka}"
+                                           class="w3-border-0 w3-border-black w3-border-bottom vrijeme"
+                                           p:required="true"/>
                                 </p>
                             </li>
                             <li >
                                     <p>
-                                    
                                         <h:commandButton id="btnNovaSjednica"
                                                          class="w3-btn w3-blue-grey"
                                                          value="UNESI PODATKE!"
-                                                         action="#{sjednicaKontroler.dodajSjednicu()}"/> 
-                                        
+                                                         action="#{sjednicaKontroler.dodajSjednicu()}"/>                                         
                                     </p>
                                 </li>
                                 <li class="ami-li "></li>
                         </ul>
+                            <strong> <h:messages class="w3-text-red" /></strong>
                         </h:form> 
                     </div>
                 </div>

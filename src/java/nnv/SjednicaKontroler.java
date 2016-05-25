@@ -56,9 +56,15 @@ public class SjednicaKontroler {
     public void obrisiSjednicu (Sjednica s){
         
         if(utility.brisiFile(utility.datumZaDirektorij(s.getDatum()))){
-        sjednice.remove(s);
-        getSxml().smjesti(getSjednice());   
-        boolean test=Sxml.smjestiUXML();
+            sjednice.remove(s);
+            boolean flag=Sxml.smjestiUXML();        
+            getSxml().smjesti(getSjednice());
+            if(sjednice.isEmpty()){
+                if(utility.brisiFile(utility.putZaSjednice+"sjednice.xml"))
+                    utility.poruka("sjednice","Nema nijedne sjednice NNV-a!");
+            }
+            utility.poruka("sjednice","Uspješno obrisana sjednica");
+        
         }
         else{
             utility.poruka("sjednice", "Direktorij nije prazan");
@@ -68,18 +74,12 @@ public class SjednicaKontroler {
     public String dodajSjednicu(){
         
         if(dodajSjednicu(getNovaSjednica())) {
-//            try{
-//            Collections.sort(sjednice, new Comparator<Sjednica>(){
-//                @Override
-//                public int compare(Sjednica o1, Sjednica o2) {
-//                   return o2.getDatum().compareTo(o1.getDatum());
-//                }
-//                
-//            });
-//            } catch (Exception ex){}
             return "/nnv/pregledSjednica";
         }
-        else return null;
+        else{
+            utility.poruka("SjednicaNNV", "Neuspješan unos sjednice");
+            return null;
+        }
     }
    
     
