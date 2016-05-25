@@ -20,6 +20,7 @@ public class SjednicaKontroler {
     private ArrayList<Sjednica> sjednice = new ArrayList<>();
     private ArrayList<Sjednica> pretraga = new ArrayList<>();
     private Sjednica sjednica = new Sjednica();
+    private String godina;
     private Sjednica novaSjednica = new Sjednica();
     private Sjednica selektovanaSjednica = new Sjednica();
     private String selektovaniID;
@@ -53,9 +54,33 @@ public class SjednicaKontroler {
         setSelektovanaSjednica(vratiSjednicuPoBroju(selektovaniID));
     }
     
+    public void pretragaSjednica (){
+        for (Sjednica a1:getSjednice()){
+            if(utility.datum(a1.getDatum()).contains(godina)) getPretraga().add(a1);
+        }
+    }
+    
     public void obrisiSjednicu (Sjednica s){
         
         if(utility.brisiFile(utility.datumZaDirektorij(s.getDatum()))){
+            sjednice.remove(s);
+            boolean flag=Sxml.smjestiUXML();        
+            getSxml().smjesti(getSjednice());
+            if(sjednice.isEmpty()){
+                if(utility.brisiFile(utility.putZaSjednice+"sjednice.xml"))
+                    utility.poruka("sjednice","Nema nijedne sjednice NNV-a!");
+            }
+            utility.poruka("sjednice","Uspješno obrisana sjednica");
+        
+        }
+        else{
+            utility.poruka("sjednice", "Direktorij nije prazan");
+        }
+    }
+     public void obrisiSjednicuPretraga (Sjednica s){
+        
+        if(utility.brisiFile(utility.datumZaDirektorij(s.getDatum()))){
+            getPretraga().remove(s);
             sjednice.remove(s);
             boolean flag=Sxml.smjestiUXML();        
             getSxml().smjesti(getSjednice());
@@ -200,6 +225,14 @@ public class SjednicaKontroler {
      */
     public void setSelektovaniID(String selektovaniID) {
         this.selektovaniID = selektovaniID;
+    }
+
+    public String getGodina() {
+        return godina;
+    }
+
+    public void setGodina(String godina) {
+        this.godina = godina;
     }
     
     

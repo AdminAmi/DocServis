@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:comp="http://xmlns.jcp.org/jsf/composite/comp"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
+    <h:head>
+        <head><title>IGNORED</title></head>
+    </h:head>
+    <h:body>
+       
+        <ui:composition template="/predlozak/masterNNV.xhtml">
+            <ui:define name="navigacija">
+                <ui:include src="/stranice/navigacija.xhtml"/>
+            </ui:define>
+            <ui:define name="zaglavlje">
+                <ui:include src="/stranice/zaglavlje.xhtml"/>
+            </ui:define>
+            <ui:define name="sadrzaj"> 
+                <div >
+                    <div class="w3-container w3-white">
+                        <h:form id="sjednice">
+                            <h3>Pretraga sjednica NNV Tehničkog fakulteta u Bihaću</h3><hr/>
+                            <h4>Unesite tražene podatke</h4>
+                            
+                             <ul class="w3-leftbar w3-theme-border w3-small" style="list-style-type:none">
+                                <li class="ami-li"/>
+                                <li class="ami-li">
+                                    <p>                            
+                                    <label class="ami-labela">Unesite godinu za pretraživanje:</label>
+                                    <h:inputText class="w3-border-0 w3-border-black w3-border-bottom"                                         
+                                                 value="#{sjednicaKontroler.godina}"                                                
+                                                 />                        
+                                    </p>
+                                </li>
+                                <li class="ami-li">
+                                    <p>
+                                        <h:commandButton class="w3-btn w3-blue-grey " 
+                                             id="btnPretragaKorisnika"
+                                             value="Pretraži"
+                                             action="#{sjednicaKontroler.pretragaSjednica()}">
+                                            <f:ajax  execute="@form" render="sjednice:tabela"/>
+                                        </h:commandButton> 
+                                    </p>
+                                </li>
+                            </ul>
+                            
+                            
+                            <p class="w3-theme-light w3-small" style=" width: 97%"> 
+                                
+                            
+                                <h:dataTable  class="w3-table  w3-bordered w3-striped w3-border  w3-tiny"
+                                              id="tabela"
+                                        style="width: 100%"                                   
+                                        value="#{sjednicaKontroler.pretraga}" 
+                                        var="Pr">
+                                    <h:column  > 
+                                        <f:facet name="header">Broj sjednice</f:facet>
+                                        <a jsf:outcome="unosMaterijala" > #{Pr.broj} 
+                                            <f:param name="IDSjednice" value="#{Pr.broj}"/> 
+                                            <f:param name="putDoc" value="#{Pr.mapa_za_dokumente}"/>
+                                        </a>
+                                    </h:column>                           
+                                    <h:column> 
+                                        <f:facet name="header">Datum sjednice</f:facet>
+                                        <h:outputText value="#{Pr.datum}">
+                                            <f:convertDateTime pattern="dd-MM-yyyy"/>
+                                        </h:outputText>
+                                    </h:column> 
+                                    <h:column> 
+                                        <f:facet name="header">Vrijeme sjednice</f:facet>
+                                        <h:outputText value="#{Pr.vrijemePocetka}"/>             
+                                       
+                                    </h:column> 
+                                    <h:column> 
+                                        <f:facet name="header" rendered="${LogIn.lk.korisnik.rola=='admin'}">-</f:facet>
+                                        <h:commandButton value="OBRIŠI" 
+                                                         action="#{sjednicaKontroler.obrisiSjednicuPretraga(s)}">
+                                             <!--<f:ajax  execute="@form" render="sjednice:tabela"/>-->
+                                        </h:commandButton>
+                                       
+                                    </h:column> 
+                                </h:dataTable>      
+                            
+                            </p>
+                            <h:messages  />
+                        </h:form>  
+                    </div>
+                </div>
+            </ui:define>
+            <ui:define name="footer">
+               <ui:include src="/stranice/footer.xhtml"/>                 
+            </ui:define> 
+        </ui:composition>
+       
+         
+    </h:body>
+</html>
+

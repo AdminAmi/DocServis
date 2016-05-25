@@ -9,12 +9,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+
 /**
  *
  * @author amel
  */
 public class utility {
     
+    private static String osnovni="c:/projekti/";
     public static String putZaProjekte="c:/projekti/pdf/";
     public static String putZaXML="c:/projekti/xml/";
     public static String putZaSjednice="c:/projekti/sjednice/";
@@ -60,11 +62,9 @@ public class utility {
     
     public static void kreirajDirektorij(String path){
         File theDir = new File(path);
-
         // if the directory does not exist, create it
         if (!theDir.exists()) {   
             boolean result = false;
-
             try{
                 theDir.mkdir();
                 result = true;
@@ -78,6 +78,7 @@ public class utility {
         }
     }
     public static void init(){
+        kreirajDirektorij(osnovni);
         kreirajDirektorij(putZaProjekte);
         kreirajDirektorij(putZaXML);
         kreirajDirektorij(putZaSjednice);
@@ -87,14 +88,26 @@ public class utility {
     public static boolean brisiFile(String path){
          try{    		
             File file = new File(path);        	
-            if(file.delete()) return true;
-            else return false;    		
-            }catch(Exception e){                           
-            e.printStackTrace(); 
-            return false;            
-    	}       
-        
+            return file.delete();    		
+            }catch(Exception e){return false; } 
     }
+    /*
+    public void postaviBoju(){
+        String currentUrl = FacesContext.getCurrentInstance().getViewRoot().getViewId();
+        if (currentUrl.contains("nnv")){
+            
+        } 
+        if (currentUrl.contains("projekti")){
+            
+        }
+        if(currentUrl.contains("nnv")){
+            
+        }
+*/
+
+
+        
+    
     
     
     
