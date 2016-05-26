@@ -20,6 +20,7 @@ public class utility {
     public static String putZaProjekte="c:/projekti/pdf/";
     public static String putZaXML="c:/projekti/xml/";
     public static String putZaSjednice="c:/projekti/sjednice/";
+    public static String putZaRep="c:/projekti/repozitorij/";
     
     /**
      *
@@ -82,6 +83,7 @@ public class utility {
         kreirajDirektorij(putZaProjekte);
         kreirajDirektorij(putZaXML);
         kreirajDirektorij(putZaSjednice);
+        kreirajDirektorij(putZaRep);
                 
     }
     

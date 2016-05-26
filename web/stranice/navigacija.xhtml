@@ -21,7 +21,7 @@
             <div  class="w3-container w3-left-align w3-small w3-accordion ">
                 <ul class="w3-leftbar w3-border-cyan w3-left-align" style="text-decoration: none; padding-left: 0">
                <a href="#" onclick="accordion('Projekti')">
-                   <span class="w3-large w3-text-cyan fa fa-folder-open-o"  aria-hidden="true"/> 
+                   <span class="w3-large w3-text-cyan fa fa-clone"  aria-hidden="true"/> 
                    &npsb;&npsb;
                    <strong>Projekti</strong> </a>
                     <div id="Projekti" class="w3-accordion-content" >
@@ -78,7 +78,7 @@
                     <span class="w3-large w3-text-blue fa fa-pencil-square-o"  aria-hidden="true"/>
                     &npsb;&npsb;
                     <strong>Sjednice NNV-a</strong></a>
-                <div id="NNV" class="w3-accordion-content">
+                        <div id="NNV" class="w3-accordion-content">
                     
                         <h:link id="novaSjednicaNNV" 
                            value="Nova Sjednica NNV-a"  
@@ -95,7 +95,34 @@
                            class="ami-font ami-link-tab" outcome="/nnv/pretragaSjednica" 
                            rendered="${LogIn.lk.korisnik.rola!='guest'}" />
                     
-                </div>
+                        </div>
+                    </ul>
+            </div>
+            <div class="hline" />
+            <div class="w3-container w3-left-align w3-small">
+                <ul class="w3-leftbar w3-border-indigo" style="text-decoration: none; padding-left: 0">
+                <a href="#" onclick="accordion('Repozitorij')">
+                    <span class="w3-large w3-text-indigo fa fa-folder-open-o"  aria-hidden="true"/>
+                    &npsb;&npsb;
+                    <strong>Repozitoriji</strong></a>
+                        <div id="Repozitorij" class="w3-accordion-content">
+                    
+                        <h:link id="noviRepozitorij" 
+                           value="Nova Sjednica NNV-a"  
+                           class="ami-font ami-link-tab" outcome="/repozitorij/noviRepozitorij" 
+                           rendered="${LogIn.lk.korisnik.rola=='admin'}" /> 
+                
+                        <h:link id="pregledRepozitorija" 
+                           value="Pregled sjednica NNV-a"  
+                           class="ami-font ami-link-tab" outcome="/repozitorij/pregledRepozitorija" 
+                           rendered="${LogIn.lk.korisnik.rola!='guest'}" /> 
+                        
+                        <h:link id="pretragaRepozitorija" 
+                           value="Pretraga sjednica NNV-a"  
+                           class="ami-font ami-link-tab" outcome="/repozitorij/pretragaRepozitorija" 
+                           rendered="${LogIn.lk.korisnik.rola!='guest'}" />
+                    
+                        </div>
                     </ul>
             </div>
             <div class="hline" />

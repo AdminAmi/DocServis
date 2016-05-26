@@ -15,8 +15,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.TimeZone;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -73,8 +71,7 @@ public class DokumentKontroler {
         doc.setId(generateId());
         this.getDokumenti().add(doc);
         DXML.smjesti(getDokumenti());
-        return (DXML.smjestiUXML(getPath()+"/")
-                && i!=getDokumenti().size());
+        return (DXML.smjestiUXML(getPath()) && i!=getDokumenti().size());
     }
     
     public void myListener (ActionEvent event){
@@ -105,8 +102,7 @@ public class DokumentKontroler {
             }
             catch (IOException e) {
                 utility.poruka("UnosDokumenta:btnSnimiDokument", "Problem pri prenosu datoteke");
-                //projekatUnos.setProjectPath("");  
-                // Show faces message?
+                
             }
             }
         }

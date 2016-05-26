@@ -5,6 +5,8 @@
  */
 package repozitorij;
 
+import Login.login;
+import Login.loginOmotac;
 import java.io.File;
 import java.util.ArrayList;
 import javax.xml.bind.JAXBContext;
@@ -15,27 +17,35 @@ import korisni.utility;
 
 /**
  *
- * @author ami
+ * @author amel
  */
-public class RepozitorijXML {
+public class zaXMLUser {
     
-    private RepozitorijOmotac li = new RepozitorijOmotac();
-    
-     public void smjesti(ArrayList<Repozitorij> sjednica){
-        li.setRepozitoriji(new ArrayList<Repozitorij>());
-        for (Repozitorij o:sjednica) li.getRepozitoriji().add(o);
+    private loginOmotac li = new loginOmotac();
+            
+/*  koristen materijal sa stranice  
+    http://howtodoinjava.com/jaxb/jaxb-exmaple-marshalling-and-unmarshalling-list-or-set-of-objects/
+*/
+
+    public zaXMLUser() {
     }
     
     
-    public  boolean smjestiUXML( ) {
+    public void smjesti(ArrayList<login> korisnik){
+        li.setKorisnici(new ArrayList<login>());
+        for (login o:korisnik) li.getKorisnici().add(o);
+    }
+    
+    
+    public  boolean smjestiUXML(String path ) {
         try {
-            JAXBContext jaxbContext = JAXBContext.newInstance(RepozitorijOmotac.class);
+            JAXBContext jaxbContext = JAXBContext.newInstance(loginOmotac.class);
             Marshaller jaxbMarshaller = jaxbContext.createMarshaller(); 
             jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true); 
             //Ovaj dio je samo radi testa ispis u konzoli
             //jaxbMarshaller.marshal(li, System.out);    
             //Upisuje u file iz liste
-            jaxbMarshaller.marshal(li, new File(utility.putZaRep + "repozitoriji.xml"));
+            jaxbMarshaller.marshal(li, new File(path + "/korisnici.xml"));
             return true;
         } catch(JAXBException ex){
             System.err.println(ex);
@@ -43,16 +53,16 @@ public class RepozitorijXML {
         }
     }
     
-    public ArrayList<Repozitorij> procitajIzXMLa() throws JAXBException {
-        JAXBContext jaxbContext = JAXBContext.newInstance(RepozitorijOmotac.class);
+    public ArrayList<login> procitajIzXMLa(String path) throws JAXBException {
+        JAXBContext jaxbContext = JAXBContext.newInstance(loginOmotac.class);
         Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();     
         //Ucitava iz xml filea
-        RepozitorijOmotac emps = (RepozitorijOmotac) 
-            jaxbUnmarshaller.unmarshal( new File(utility.putZaRep + "repozitoriji.xml") );
+        loginOmotac emps = (loginOmotac) 
+            jaxbUnmarshaller.unmarshal( new File(path + "/korisnici.xml") );
         
         // Ispis iz xml-a na konzolu
         //for(Osoba os : emps.getListaOsoba()){System.out.println(os);}    
-        return (ArrayList<Repozitorij>) emps.getRepozitoriji();
+        return (ArrayList<login>) emps.getKorisnici();
     }
     
 }

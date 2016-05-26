@@ -18,7 +18,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "dokumenti")
 @XmlAccessorType (XmlAccessType.FIELD)
 public class DokumentOmotac {
-    @XmlElement(name = "sjednica")
+    @XmlElement(name = "dokument")
     private List <Dokument> dokumenti = null;
 
     /**

@@ -26,12 +26,8 @@ public class DokumentXML {
         try {
             JAXBContext jaxbContext = JAXBContext.newInstance(DokumentOmotac.class);
             Marshaller jaxbMarshaller = jaxbContext.createMarshaller(); 
-            jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true); 
-            //Ovaj dio je samo radi testa ispis u konzoli
-            //jaxbMarshaller.marshal(li, System.out);    
-            //Upisuje u file iz liste
-           // jaxbMarshaller.marshal(li, new File(utility.putZaSjednice + "sjednice.xml"));
-           jaxbMarshaller.marshal(li, new File(path+"dokumenti.xml"));
+            jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+           jaxbMarshaller.marshal(li, new File(path+"/dokumenti.xml"));
             return true;
         } catch(JAXBException ex){
             System.err.println(ex);
@@ -41,13 +37,9 @@ public class DokumentXML {
     
     public ArrayList<Dokument> procitajIzXMLa(String path) throws JAXBException {
         JAXBContext jaxbContext = JAXBContext.newInstance(DokumentOmotac.class);
-        Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();     
-        //Ucitava iz xml filea
+        Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
         DokumentOmotac emps = (DokumentOmotac) 
             jaxbUnmarshaller.unmarshal( new File(path + "/dokumenti.xml") );
-        
-        // Ispis iz xml-a na konzolu
-        //for(Osoba os : emps.getListaOsoba()){System.out.println(os);}    
         return (ArrayList<Dokument>) emps.getDokumenti();
     }
     

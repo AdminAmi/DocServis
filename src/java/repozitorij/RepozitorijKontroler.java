@@ -39,7 +39,7 @@ public final class RepozitorijKontroler {
         }
         return temp+1;
     }
-    public Repozitorij vratiSjednicuPoBroju(String id){
+    public Repozitorij vratiRepPoImenu(String id){
         if(!repozitoriji.isEmpty()){
             for (Repozitorij s:getRepozitoriji()){
                 if(s.getNaslov().equals(id)) return s;
@@ -47,8 +47,8 @@ public final class RepozitorijKontroler {
         }
         return null;
     }
-    public void ucitajSjednicu(){
-        setSelektovaniRepozitorij(vratiSjednicuPoBroju(selektovaniID));
+    public void ucitajRepozitorij(){
+        setSelektovaniRepozitorij(vratiRepPoImenu(selektovaniID));
     }
     
     public void pretragaSjednica (){
@@ -76,17 +76,17 @@ public final class RepozitorijKontroler {
         setBrojSjednica(getPretraga().size());
     }
     
-    public void obrisiSjednicu (Repozitorij s){        
+    public void obrisiRepzitorij (Repozitorij s){        
         if(utility.brisiFile(utility.datumZaDirektorij(s.getDatum()))){
             repozitoriji.remove(s);
             pretragaSjednica();
             boolean flag=Sxml.smjestiUXML();        
             getSxml().smjesti(getRepozitoriji());
             if(repozitoriji.isEmpty()){
-                if(utility.brisiFile(utility.putZaSjednice+"sjednice.xml"))
-                    utility.poruka("sjednice","Nema nijedne sjednice NNV-a!");
+                if(utility.brisiFile(utility.putZaRep+"repozitoriji.xml"))
+                    utility.poruka("sjednice","Nema nijednog repozitorija!");
             }
-            utility.poruka("sjednice","Uspješno obrisana sjednica");        
+            utility.poruka("sjednice","Uspješno obrisan repozitorij");        
         }
         else{
             utility.poruka("sjednice", "Direktorij nije prazan");
@@ -94,7 +94,7 @@ public final class RepozitorijKontroler {
     }
     
      public void obrisiSjednicuPretraga (Repozitorij s){ 
-         obrisiSjednicu(s); 
+         obrisiRepzitorij(s); 
          getPretraga().remove(s);
          setBrojSjednica(getPretraga().size());
                                
@@ -102,7 +102,7 @@ public final class RepozitorijKontroler {
     
     public String dodajSjednicu(){
         
-        if(dodajSjednicu(getNoviRepzitorij())) {
+        if(dodajRepozitorij(getNoviRepzitorij())) {
            // return "/nnv/pregledSjednica";
            utility.poruka("SjednicaNNV", "Uspješan unos sjednice");
            return null;
@@ -114,7 +114,7 @@ public final class RepozitorijKontroler {
     }
    
     
-     public boolean dodajSjednicu(Repozitorij o) {
+     public boolean dodajRepozitorij(Repozitorij o) {
         if(provjeraSjednice(o)==false) return false;
         utility.kreirajDirektorij(utility.datumZaDirektorij(o.getDatum()));       
         int i = getRepozitoriji().size();
