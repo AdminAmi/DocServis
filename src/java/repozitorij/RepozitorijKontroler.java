@@ -15,6 +15,7 @@ import korisni.utility;
 @ManagedBean
 @RequestScoped
 public final class RepozitorijKontroler {
+    
     private ArrayList<Repozitorij> repozitoriji = new ArrayList<Repozitorij>();
     private ArrayList<Repozitorij> pretraga = new ArrayList<Repozitorij>();
     private Repozitorij repozitorij = new Repozitorij();
@@ -27,7 +28,8 @@ public final class RepozitorijKontroler {
     private Login.login korisnik = new login();
     private ArrayList<login> korisnici = new ArrayList<login>();
     private ArrayList<login> selektovani = new ArrayList<login>();
-    //Moraćui dodati i arraylist korisnika te i rad sa njima
+   
+    
     public RepozitorijKontroler() {
         try {
             if (repozitoriji.isEmpty()) this.setRepozitoriji(Sxml.procitajIzXMLa());
@@ -35,7 +37,7 @@ public final class RepozitorijKontroler {
                     -> o2.getDatum().compareTo(o1.getDatum()));
         } catch (Exception e) {}
     }
-    
+    //Moram na isti način uraditi kao sa sjednicama da se konstruktor oslobodi
     public int generateId(){
         int  temp=-1;  
         if(getRepozitoriji().isEmpty()) return 0;
@@ -93,8 +95,7 @@ public final class RepozitorijKontroler {
                                
     }
     
-    public String dodajRepozitorij(){
-        
+    public String dodajRepozitorij(){        
         if(dodajRepozitorij(getNoviRepozitorij())) {           
            utility.poruka("SjednicaNNV", "Uspješan unos repozitorija");
            return null;
@@ -127,6 +128,8 @@ public final class RepozitorijKontroler {
     public void pretragaPoImenu(String ime){
         
     }
+    
+    //Dodati metodu za ispis i odabir korisnika koji mogu raditi na repozitoriju
     
     
     //get and set
