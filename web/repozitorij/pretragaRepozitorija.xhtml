@@ -30,12 +30,13 @@
                                 <li class="ami-li"/>
                                 <li class="ami-li">
                                     <p>                            
-                                    <label class="ami-labela">Unesite godinu za pretraživanje:</label>
+                                    <label class="ami-labela">Unesite naziv repozitorija za pretraživanje:</label>
                                     <h:inputText class="w3-border-0 w3-border-black w3-border-bottom"                                         
-                                                 value="#{sjednicaKontroler.godina}"                                                
+                                                 value="#{repozitorijKontroler.naslov}"                                                
                                                  />                        
                                     </p>
                                 </li>
+                                <ui:remove>
                                 <li class="ami-li">
                                     <p>                            
                                     <label class="ami-labela">Unesite mjesec za pretraživanje:</label>
@@ -45,28 +46,26 @@
                                     </p>
                                     
                                 </li>
+                                </ui:remove>
                                 <li class="ami-li">
                                     <p>
                                         <h:commandButton class="w3-btn w3-blue-grey " 
                                              id="btnPretragaKorisnika"
                                              value="Pretraži"
-                                             action="#{sjednicaKontroler.pretragaSjednica()}">
+                                             action="#{repozitorijKontroler.pretragaRepozitorija()}">
                                             <f:ajax  execute="@form" render="sjednice:tabela"/>
                                         </h:commandButton> 
                                     </p>
                                 </li>
                             </ul>
-                            <div id="pr">
-                            <h4>
-                                Rezultati pretrage : (ukupno #{sjednicaKontroler.brojSjednica})
-                            </h4>
+                            
                             <p class="w3-theme-light w3-small" style=" width: 97%"> 
                                 
                             
                                 <h:dataTable  class="w3-table  w3-bordered w3-striped w3-border  w3-tiny"
                                               id="tabela"
                                         style="width: 100%"                                   
-                                        value="#{sjednicaKontroler.pretraga}" 
+                                        value="#{repozitorijKontroler.pretraga}" 
                                         var="Pr">
                                     <h:column  > 
                                         <f:facet name="header">Broj sjednice</f:facet>
@@ -89,13 +88,13 @@
                                     <h:column> 
                                         <f:facet name="header" rendered="${LogIn.lk.korisnik.rola=='admin'}">-</f:facet>
                                         <h:commandButton value="OBRIŠI" 
-                                                         action="#{sjednicaKontroler.obrisiSjednicuPretraga(Pr)}">
+                                                         action="#{repozitorijKontroler.obrisiRepozitorijPretraga(Pr)}">
                                              <!--<f:ajax  execute="@form" render="sjednice:tabela"/>-->
                                         </h:commandButton>
                                        
                                     </h:column> 
                                     <h:column >
-                                        <f:facet name="footer"> Rezultati pretrage : (ukupno #{sjednicaKontroler.brojSjednica})
+                                        <f:facet name="footer"> Rezultati pretrage : (ukupno #{repozitorijKontroler.brojSjednica})
                                         </f:facet>
                                     </h:column>
                                 </h:dataTable>      

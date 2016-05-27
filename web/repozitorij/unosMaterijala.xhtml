@@ -10,10 +10,10 @@
     <h:head>
         <head><title>IGNORED</title></head>
         <f:metadata>
-            <f:viewParam name="IDSjednice" value="#{sjednicaKontroler.selektovaniID}"/>
-            <f:viewAction action="#{sjednicaKontroler.ucitajSjednicu()}"/>
-            <f:viewParam name="putDoc" value="#{dokumentKontroler.path}"/>
-            <f:viewAction action="#{dokumentKontroler.ucitajDokumente()}"/>
+            <f:viewParam name="IDSjednice" value="#{dokumentKontrolerRep.selektovaniID}"/>
+            <f:viewAction action="#{dokumentKontrolerRep.ucitajSjednicu()}"/>
+            <f:viewParam name="putDoc" value="#{dokumentKontrolerRep.path}"/>
+            <f:viewAction action="#{dokumentKontrolerRep.ucitajDokumente()}"/>
         </f:metadata>
     </h:head>
     <h:body>
@@ -28,31 +28,27 @@
             <ui:define name="sadrzaj"> 
                 <div >
                     <div class="w3-container w3-white">
-                        <h1>NNV broj: #{sjednicaKontroler.selektovanaSjednica.broj} od 
-                            <h:outputText value="#{sjednicaKontroler.selektovanaSjednica.datum}">
-                                <f:convertDateTime pattern="dd-MM-yyyy"/>
-                            </h:outputText>
-                            </h1>                        
+                        <h1>Repozitorij: #{repozitorijKontroler.selektovaniRepozitorij.naslov} </h1>                        
                         <h:form id="materijali" enctype="multipart/form-data" rendered="${LogIn.lk.korisnik.rola=='admin'}">
                             <h4 class="no-print">Unesite potrebne podatke</h4>
                             <ul class="w3-leftbar w3-theme-border w3-small no-print" style="list-style-type:none">
                             <li class="ami-li"/>
                             <li class="ami-li"><p>                                
-                                <label class="ami-labela">Naslov tačke sjednice</label> 
-                                <h:inputText value="#{dokumentKontroler.unos.naziv}" style="width: 90%" 
+                                <label class="ami-labela">Opis dokmumenta i akcije </label> 
+                                <h:inputText value="#{dokumentKontrolerRep.unos.naziv}" style="width: 90%" 
                                              class="w3-border-0 w3-border-blue-grey w3-border-bottom " />
                                          <!--style="width: 60%"-->
                                          
                             </p></li>
                             <li class="ami-li"><p>
                                     <label class="ami-labela">Materijal za upload</label>
-                                    <h:inputFile value="#{dokumentKontroler.datoteka}"   />
+                                    <h:inputFile value="#{dokumentKontrolerRep.datoteka}"   />
                             
                             </p></li>
                             <li class="ami-li"><p>
                                 <h:commandButton class="w3-btn w3-blue-grey"                                      
                                              value="Snimi projekat"
-                                             action="#{dokumentKontroler.snimi()}"
+                                             action="#{dokumentKontrolerRep.snimi()}"
                                              actionListener="#{dokumentKontrolerRep.myListener}">                            
                                     <f:attribute name="path" value="#{sjednicaKontroler.selektovanaSjednica.mapa_za_dokumente}"/>
                                     <f:attribute name="user" value="#{LogIn.lk.korisnik.ime}"/>

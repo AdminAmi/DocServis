@@ -13,6 +13,7 @@ import java.nio.file.Files;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 import java.util.logging.Level;
@@ -73,9 +74,12 @@ public class DokumentKontroler {
      
     public boolean dodajDokument(Dokument d){
         
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
-        Date date = new Date();       
+       // DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        TimeZone  tz = TimeZone.getTimeZone("Europe/Zagreb");
+        DateFormat df = DateFormat.getDateTimeInstance();
+        df.setTimeZone(tz);;
+        Calendar c = Calendar.getInstance(tz);
+        Date date = c.getTime();
         int i= getDokumenti().size();
         Dokument doc = new Dokument(d.getNaziv(), d.getNazivDatoteke(),user , date);
         doc.setId(generateId());
