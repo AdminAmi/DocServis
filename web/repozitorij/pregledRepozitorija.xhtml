@@ -32,20 +32,20 @@
                                         var="Pr">
                                     <h:column  > 
                                         <f:facet name="header">Naziv repozitorija</f:facet>
-                                        <a jsf:outcome="unosMaterijala" > #{Pr.broj} 
-                                            <f:param name="IDSjednice" value="#{Pr.broj}"/> 
+                                        <a jsf:outcome="unosMaterijala" > #{Pr.naslov} 
+                                            <f:param name="IDSjednice" value="#{Pr.naslov}"/> 
                                             <f:param name="putDoc" value="#{Pr.mapa_za_dokumente}"/>
                                         </a>
                                     </h:column>                           
                                     <h:column> 
-                                        <f:facet name="header">Datum sjednice</f:facet>
+                                        <f:facet name="header">Datum kreiranja</f:facet>
                                         <h:outputText value="#{Pr.datum}">
                                             <f:convertDateTime pattern="dd-MM-yyyy"/>
                                         </h:outputText>
                                     </h:column> 
                                     <h:column> 
-                                        <f:facet name="header">Vrijeme sjednice</f:facet>
-                                        <h:outputText value="#{Pr.vrijemePocetka}"/>             
+                                        <f:facet name="header">O repozitorijue</f:facet>
+                                        <h:outputText value="#{Pr.orepozitoriju}"/>             
                                        
                                     </h:column> 
                                     <h:column rendered="#{LogIn.lk.korisnik.rola=='admin'  and LogIn.localHost}> 
