@@ -48,8 +48,8 @@
                                         <h:outputText value="#{Pr.vrijemePocetka}"/>             
                                        
                                     </h:column> 
-                                    <h:column> 
-                                        <f:facet name="header" rendered="${LogIn.lk.korisnik.rola=='admin'}">-</f:facet>
+                                    <h:column rendered="#{LogIn.lk.korisnik.rola=='admin' and LogIn.localHost}"> 
+                                        <f:facet name="header" >Akcija</f:facet>
                                         <h:commandButton value="OBRIŠI" 
                                                          action="#{sjednicaKontroler.obrisiSjednicu(Pr)}"/>             
                                        

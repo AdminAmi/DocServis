@@ -79,7 +79,7 @@ public final class SjednicaKontroler {
     public void obrisiSjednicu (Sjednica s){        
         if(utility.brisiFile(utility.datumZaDirektorij(s.getDatum()))){
             sjednice.remove(s);
-            pretragaSjednica();
+            //pretragaSjednica();
             boolean flag=Sxml.smjestiUXML();        
             getSxml().smjesti(getSjednice());
             if(sjednice.isEmpty()){

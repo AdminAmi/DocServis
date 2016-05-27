@@ -18,7 +18,7 @@
     </h:head>
     <h:body>
        
-        <ui:composition template="/predlozak/masterNNV.xhtml">
+        <ui:composition template="/predlozak/masterRepozitorij.xhtml">
             <ui:define name="navigacija">
                 <ui:include src="/stranice/navigacija.xhtml"/>
             </ui:define>
@@ -53,7 +53,7 @@
                                 <h:commandButton class="w3-btn w3-blue-grey"                                      
                                              value="Snimi projekat"
                                              action="#{dokumentKontroler.snimi()}"
-                                             actionListener="#{dokumentKontroler.myListener}">                            
+                                             actionListener="#{dokumentKontrolerRep.myListener}">                            
                                     <f:attribute name="path" value="#{sjednicaKontroler.selektovanaSjednica.mapa_za_dokumente}"/>
                                     <f:attribute name="user" value="#{LogIn.lk.korisnik.ime}"/>
                                     <f:attribute name="user2" value="#{LogIn.lk.korisnik.prezime}"/>
@@ -93,10 +93,10 @@
                                             <f:convertDateTime pattern="dd-MM-yyyy HH:mm:ss"/>
                                         </h:outputText>
                                     </h:column>
-                                <h:column class="no-print" rendered="${LogIn.lk.korisnik.rola=='admin'}">
-                                    <f:facet name="header">-</f:facet>
+                                <h:column class="no-print" rendered="${LogIn.lk.korisnik.rola=='admin' }">
+                                    <f:facet name="header">Akcija</f:facet>
                                     <h:commandButton value="OBRIŠI" 
-                                                     action="#{dokumentKontroler.obrisi(doc)}"/>
+                                                     action="#{dokumentKontrolerRep.obrisi(doc)}"/>
                                 </h:column>
                                 
                                 

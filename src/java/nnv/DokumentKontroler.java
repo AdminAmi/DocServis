@@ -18,6 +18,7 @@ import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
@@ -33,8 +34,10 @@ import korisni.utility;
  */
 @ManagedBean
 @ViewScoped
+//@RequestScoped
 public class DokumentKontroler {
     private  ArrayList<Dokument> dokumenti = new ArrayList();
+    private  ArrayList<Dokument> dokumentiNewDel = new ArrayList();
     private Dokument unos = new Dokument();
     private Dokument selektovani;
     private int selektovaniID;
@@ -43,14 +46,18 @@ public class DokumentKontroler {
             
     private Part datoteka;    
 
-    public DokumentKontroler() { 
-        try{
-            if(dokumenti.isEmpty()) this.setDokumenti(DXML.procitajIzXMLa(path));
-        }  catch (JAXBException ex) {}
-    }
+    public DokumentKontroler() { }
     public void ucitajDokumente(){
         try {
-            this.setDokumenti(DXML.procitajIzXMLa(getPath()));
+            getDokumenti().clear();
+            this.setDokumenti(DXML.procitajIzXMLa(getPath()));           
+        } catch (JAXBException ex) {        
+        }
+    }
+    public void ucitajDokumenteZaAkciju(){
+        try {
+            getDokumentiNewDel();
+            this.setDokumentiNewDel(DXML.procitajIzXMLa(getPath()));           
         } catch (JAXBException ex) {        
         }
     }
@@ -65,16 +72,24 @@ public class DokumentKontroler {
     }
      
     public boolean dodajDokument(Dokument d){
+        
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
         Date date = new Date();       
         int i= getDokumenti().size();
         Dokument doc = new Dokument(d.getNaziv(), d.getNazivDatoteke(),user , date);
         doc.setId(generateId());
-        this.getDokumenti().add(doc);
-        DXML.smjesti(getDokumenti());
-        return (DXML.smjestiUXML(getPath()+"/")
-                && i!=getDokumenti().size());
+        //getDokumenti().clear();
+        //this.getDokumenti().add(doc);
+        ucitajDokumenteZaAkciju();
+        utility.poruka("doc",String.valueOf(getDokumentiNewDel().size()) );
+        getDokumentiNewDel().add(doc);
+        utility.poruka("doc",String.valueOf(getDokumentiNewDel().size()) );
+        DXML.smjesti(getDokumentiNewDel());
+        boolean zastavica= DXML.smjestiUXML(getPath()+"/") && i!=getDokumenti().size();
+        getDokumentiNewDel().clear();
+        ucitajDokumente();        
+        return zastavica;
     }
     
     public void myListener (ActionEvent event){
@@ -85,7 +100,8 @@ public class DokumentKontroler {
     public void pathListener (ActionEvent event){       
         imeFajla = (String)event.getComponent().getAttributes().get("pathDoc");       
     }    
-    public void snimi(){
+   
+    public void snimi(){        
         if(unos == null) {
             utility.poruka("UnosDokumenta:btnSnimiDokument", "Nije došlo do inicijalizacije objekta");
             
@@ -144,19 +160,33 @@ public class DokumentKontroler {
         }  
     } 
     }
+    /*private void obrisiElement(ArrayList<Dokument> array, int id) {
+        for (Dokument d: array){
+            if (d.getId()==id)
+        }
+        
+    }*/
 
     public void obrisi(Dokument d){
+        int index=-1;
+        getDokumenti().clear(); 
+        ucitajDokumenteZaAkciju();        
         String pathFile=getPath()+"/"+d.getNazivDatoteke();
         String pathXML =getPath()+"/";
-        if (utility.brisiFile(pathFile)){             
-            dokumenti.remove(d);
-            DXML.smjesti(getDokumenti());
-            boolean b= DXML.smjestiUXML(pathXML);
+        if (utility.brisiFile(pathFile)){
+            for (int j=0;j<getDokumentiNewDel().size();j++){
+                if(getDokumentiNewDel().get(j).getId()==d.getId()) index=j; 
+            }
+            getDokumentiNewDel().remove(index);            
+            DXML.smjesti(getDokumentiNewDel());
+            boolean b= DXML.smjestiUXML(pathXML);           
             utility.poruka("doc", "Uspješno obrisana datoteka");
-            if (dokumenti.isEmpty()) {
+            if (getDokumentiNewDel().isEmpty()) {
                 if(utility.brisiFile(pathXML+"dokumenti.xml"))                 
                 utility.poruka("doc", "Sjednica više nema radnih dokumenata!");
             }
+            getDokumentiNewDel().clear();
+            ucitajDokumente();
             
         }
         
@@ -183,6 +213,14 @@ public class DokumentKontroler {
 
     public void setPath(String path) {
         this.path = path;
+    }
+
+    public ArrayList<Dokument> getDokumentiNewDel() {
+        return dokumentiNewDel;
+    }
+
+    public void setDokumentiNewDel(ArrayList<Dokument> dokumentiNewDel) {
+        this.dokumentiNewDel = dokumentiNewDel;
     }
     
     

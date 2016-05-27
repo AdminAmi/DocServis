@@ -13,7 +13,7 @@
     </h:head>
     <h:body>
        
-        <ui:composition template="/predlozak/masterNNV.xhtml">
+        <ui:composition template="/predlozak/masterRepozitorij.xhtml">
             <ui:define name="navigacija">
                 <ui:include src="/stranice/navigacija.xhtml"/>
             </ui:define>
@@ -29,14 +29,14 @@
                             <li class="ami-li "></li>
                             <li class="ami-li ">
                                 <p>
-                                    <label class="ami-labela">Broj sjednice:</label>
+                                    <label class="ami-labela">Naziv repozitorija (projekta):</label>
                                     <h:inputText class="w3-border-0 w3-border-black w3-border-bottom"
-                                                 value="#{sjednicaKontroler.novaSjednica.broj}"                                                
-                                                    p:required="true" >
-                                        <f:param name="IDSjednice" value="#{sjednicaKontroler.novaSjednica.broj}"/>
+                                                 value="#{repozitorijKontroler.noviRepozitorij.naslov}"                                                
+                                                    p:required="true" >                                        
                                     </h:inputText>
                                 </p>
                             </li>
+                            <ui:remove>
                             <li class="ami-li ">
                                 <p>
                                     <label class="ami-labela">Datum sjednice:</label>
@@ -47,6 +47,7 @@
                                     </input>
                                 </p>
                             </li>
+                            </ui:remove>
                              <li class="ami-li ">
                                 <p>
                                     <label class="ami-labela">Vrijeme održavanja sjednice:</label>

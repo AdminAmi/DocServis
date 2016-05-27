@@ -93,11 +93,11 @@
                                              <!--<f:ajax  execute="@form" render="sjednice:tabela"/>-->
                                         </h:commandButton>
                                        
-                                    </h:column> 
-                                    <h:column >
-                                        <f:facet name="footer"> Rezultati pretrage : (ukupno #{sjednicaKontroler.brojSjednica})
-                                        </f:facet>
-                                    </h:column>
+                                    </h:column>                                   
+                                    <f:facet name="footer"> 
+                                            Rezultati pretrage : (ukupno #{sjednicaKontroler.brojSjednica})
+                                    </f:facet>
+                                   
                                 </h:dataTable>      
                             
                             </p>

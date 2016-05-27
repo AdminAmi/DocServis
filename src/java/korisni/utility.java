@@ -2,6 +2,11 @@ package korisni;
 
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
+import java.nio.file.NotDirectoryException;
+import java.nio.file.Path;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.Format;
@@ -9,6 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  *
@@ -93,19 +99,49 @@ public class utility {
             return file.delete();    		
             }catch(Exception e){return false; } 
     }
-    /*
-    public void postaviBoju(){
-        String currentUrl = FacesContext.getCurrentInstance().getViewRoot().getViewId();
-        if (currentUrl.contains("nnv")){
-            
-        } 
-        if (currentUrl.contains("projekti")){
-            
+    
+    /**
+ * Returns amount of files in the folder
+ *
+ * @param dir is path to target directory
+     * @return 
+ *
+ * @throws NotDirectoryException if target {@code dir} is not Directory
+ * @throws IOException if has some problems on opening DirectoryStream
+ */
+public static int getFilesCount(Path dir) throws IOException, NotDirectoryException {
+    int c = 0;
+    if(Files.isDirectory(dir)) {
+        try(DirectoryStream<Path> files = Files.newDirectoryStream(dir)) {
+            for(Path file : files) {
+                if(Files.isRegularFile(file) || Files.isSymbolicLink(file)) {
+                    // symbolic link also looks like file
+                    c++;
+                }
+            }
         }
-        if(currentUrl.contains("nnv")){
-            
-        }
-*/
+    }
+    else
+        throw new NotDirectoryException(dir + " is not directory");
+
+    return c;
+}
+   
+public static String getRequestURL()
+{
+    Object request = FacesContext.getCurrentInstance().getExternalContext().getRequest();
+    if(request instanceof HttpServletRequest)
+    {
+            return ((HttpServletRequest) request).getRequestURL().toString();
+    }else
+    {
+        return "";
+    }
+}
+
+public static boolean provjeriLocal(){
+        return getRequestURL().contains("localhost");
+}
 
 
         

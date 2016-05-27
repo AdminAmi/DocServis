@@ -17,6 +17,7 @@ import korisni.utility;
 @SessionScoped
 @ManagedBean (name="LogIn")
 public class webLogIn {
+    private boolean localHost;
     private Login.loginKontroler lk = new loginKontroler();    
     private String user, pass;
     private boolean testRegistracije, zastavica=false;
@@ -29,6 +30,7 @@ public class webLogIn {
 
     public webLogIn() {
          setTestRegistracije(false);
+         setLocalHost(utility.provjeriLocal());
          reset();
          getTipovi().add("admin");
          getTipovi().add("korisnik");
@@ -230,6 +232,14 @@ public class webLogIn {
      */
     public void setTipovi(List<String> tipovi) {
         this.tipovi = tipovi;
+    }
+
+    public boolean isLocalHost() {
+        return localHost;
+    }
+
+    public void setLocalHost(boolean localHost) {
+        this.localHost = localHost;
     }
     
 }

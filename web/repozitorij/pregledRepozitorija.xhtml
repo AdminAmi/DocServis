@@ -12,7 +12,7 @@
     </h:head>
     <h:body>
        
-        <ui:composition template="/predlozak/masterNNV.xhtml">
+        <ui:composition template="/predlozak/masterRepozitorij.xhtml">
             <ui:define name="navigacija">
                 <ui:include src="/stranice/navigacija.xhtml"/>
             </ui:define>
@@ -28,10 +28,10 @@
                             
                                 <h:dataTable  class="w3-table  w3-bordered w3-striped w3-border  w3-tiny" 
                                         style="width: 100%"                                   
-                                        value="#{sjednicaKontroler.sjednice}" 
+                                        value="#{repozitorijKontroler.repozitoriji}" 
                                         var="Pr">
                                     <h:column  > 
-                                        <f:facet name="header">Broj sjednice</f:facet>
+                                        <f:facet name="header">Naziv repozitorija</f:facet>
                                         <a jsf:outcome="unosMaterijala" > #{Pr.broj} 
                                             <f:param name="IDSjednice" value="#{Pr.broj}"/> 
                                             <f:param name="putDoc" value="#{Pr.mapa_za_dokumente}"/>
@@ -48,10 +48,10 @@
                                         <h:outputText value="#{Pr.vrijemePocetka}"/>             
                                        
                                     </h:column> 
-                                    <h:column> 
-                                        <f:facet name="header" rendered="${LogIn.lk.korisnik.rola=='admin'}">-</f:facet>
+                                    <h:column rendered="#{LogIn.lk.korisnik.rola=='admin'  and LogIn.localHost}> 
+                                        <f:facet name="header" ">Akcija</f:facet>
                                         <h:commandButton value="OBRIŠI" 
-                                                         action="#{sjednicaKontroler.obrisiSjednicu(Pr)}"/>             
+                                                         action="#{repozitorijKontroler.obrisiRepozitorijPretraga(Pr)}"/>             
                                        
                                     </h:column> 
                                 </h:dataTable>      
