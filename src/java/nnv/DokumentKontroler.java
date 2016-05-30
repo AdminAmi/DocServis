@@ -42,7 +42,8 @@ public class DokumentKontroler {
     private Dokument unos = new Dokument();
     private Dokument selektovani;
     private int selektovaniID;
-    private String path,user, imeFajla;   
+    private String path,user, imeFajla;
+    private int id;
     private DokumentXML DXML = new DokumentXML();
             
     private Part datoteka;    
@@ -74,11 +75,8 @@ public class DokumentKontroler {
      
     public boolean dodajDokument(Dokument d){
         
-       // DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        TimeZone  tz = TimeZone.getTimeZone("Europe/Zagreb");
-        DateFormat df = DateFormat.getDateTimeInstance();
-        df.setTimeZone(tz);;
-        Calendar c = Calendar.getInstance(tz);
+       // DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");       
+        Calendar c = Calendar.getInstance();
         Date date = c.getTime();
         int i= getDokumenti().size();
         Dokument doc = new Dokument(d.getNaziv(), d.getNazivDatoteke(),user , date);
@@ -98,6 +96,8 @@ public class DokumentKontroler {
     
     public void myListener (ActionEvent event){
         setPath((String)event.getComponent().getAttributes().get("path"));
+        setId(Integer.parseInt(
+                (String)event.getComponent().getAttributes().get("korisnickiID")));
         user = (String)event.getComponent().getAttributes().get("user");
         user += " " + (String)event.getComponent().getAttributes().get("user2");
     }    
@@ -225,6 +225,14 @@ public class DokumentKontroler {
 
     public void setDokumentiNewDel(ArrayList<Dokument> dokumentiNewDel) {
         this.dokumentiNewDel = dokumentiNewDel;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
     
     

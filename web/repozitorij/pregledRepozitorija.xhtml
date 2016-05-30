@@ -47,8 +47,8 @@
                                         <h:outputText value="#{Pr.orepozitoriju}"/>             
                                        
                                     </h:column> 
-                                    <h:column rendered="#{LogIn.lk.korisnik.rola=='admin'  and LogIn.localHost}> 
-                                        <f:facet name="header" ">Akcija</f:facet>
+                                    <h:column rendered="#{LogIn.lk.korisnik.rola=='admin'  and LogIn.localHost}"> 
+                                        <f:facet name="header" >Akcija</f:facet>
                                         <h:commandButton value="OBRIŠI" 
                                                          action="#{repozitorijKontroler.obrisiRepozitorijPretraga(Pr)}"/>             
                                        

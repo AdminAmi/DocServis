@@ -23,30 +23,21 @@
                 <div >
                     <div class="w3-container w3-white">
                         <h:form id="sjednice">
-                            <h3>Pretraga sjednica NNV Tehničkog fakulteta u Bihaću</h3><hr/>
-                            <h4>Unesite tražene podatke</h4>
-                            
+                            <h3>Pretraga repozitorija</h3><hr/>
+                            <h4>Unesite tražene podatke</h4>                            
                              <ul class="w3-leftbar w3-theme-border w3-small" style="list-style-type:none">
-                                <li class="ami-li"/>
                                 <li class="ami-li">
+                                
                                     <p>                            
-                                    <label class="ami-labela">Unesite naziv repozitorija za pretraživanje:</label>
+                                        <label class="ami-labela  " style="width: 90%">Unesite naziv repozitorija za pretraživanje:</label>
+                                    </p>
+                                </li> 
+                                 <li class="ami-li"><p>
                                     <h:inputText class="w3-border-0 w3-border-black w3-border-bottom"                                         
                                                  value="#{repozitorijKontroler.naslov}"                                                
-                                                 />                        
+                                                 style="width: 90%"/>                        
                                     </p>
-                                </li>
-                                <ui:remove>
-                                <li class="ami-li">
-                                    <p>                            
-                                    <label class="ami-labela">Unesite mjesec za pretraživanje:</label>
-                                    <h:inputText class="w3-border-0 w3-border-black w3-border-bottom"                                         
-                                                 value="#{sjednicaKontroler.mjesec}"                                                
-                                                 />                        
-                                    </p>
-                                    
-                                </li>
-                                </ui:remove>
+                                </li>                               
                                 <li class="ami-li">
                                     <p>
                                         <h:commandButton class="w3-btn w3-blue-grey " 
@@ -57,11 +48,8 @@
                                         </h:commandButton> 
                                     </p>
                                 </li>
-                            </ul>
-                            
-                            <p class="w3-theme-light w3-small" style=" width: 97%"> 
-                                
-                            
+                            </ul>                            
+                            <p class="w3-theme-light w3-small" style=" width: 97%">
                                 <h:dataTable  class="w3-table  w3-bordered w3-striped w3-border  w3-tiny"
                                               id="tabela"
                                         style="width: 100%"                                   
@@ -69,22 +57,17 @@
                                         var="Pr">
                                     <h:column  > 
                                         <f:facet name="header">Broj sjednice</f:facet>
-                                        <a jsf:outcome="unosMaterijala" > #{Pr.broj} 
-                                            <f:param name="IDSjednice" value="#{Pr.broj}"/> 
+                                        <a jsf:outcome="unosMaterijala" > #{Pr.naslov} 
+                                            <f:param name="IDSjednice" value="#{Pr.naslov}"/> 
                                             <f:param name="putDoc" value="#{Pr.mapa_za_dokumente}"/>
                                         </a>
                                     </h:column>                           
                                     <h:column> 
-                                        <f:facet name="header">Datum sjednice</f:facet>
+                                        <f:facet name="header">Datum kreiranja</f:facet>
                                         <h:outputText value="#{Pr.datum}">
                                             <f:convertDateTime pattern="dd-MM-yyyy"/>
                                         </h:outputText>
-                                    </h:column> 
-                                    <h:column> 
-                                        <f:facet name="header">Vrijeme sjednice</f:facet>
-                                        <h:outputText value="#{Pr.vrijemePocetka}"/>             
-                                       
-                                    </h:column> 
+                                    </h:column>                                    
                                     <h:column> 
                                         <f:facet name="header" rendered="${LogIn.lk.korisnik.rola=='admin'}">-</f:facet>
                                         <h:commandButton value="OBRIŠI" 
@@ -92,18 +75,16 @@
                                              <!--<f:ajax  execute="@form" render="sjednice:tabela"/>-->
                                         </h:commandButton>
                                        
-                                    </h:column> 
-                                    <h:column >
+                                    </h:column>                                    
                                         <f:facet name="footer"> Rezultati pretrage : (ukupno #{repozitorijKontroler.brojSjednica})
-                                        </f:facet>
-                                    </h:column>
+                                        </f:facet>                                   
                                 </h:dataTable>      
                             
                             </p>
-                            </div>
+                           
                             <h:messages  />
                         </h:form>  
-                    </div>
+                   </div>
                 </div>
             </ui:define>
             <ui:define name="footer">

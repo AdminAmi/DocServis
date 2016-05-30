@@ -142,15 +142,17 @@ public final class RepozitorijKontroler {
     public void spremiPodatke(){
         XMLUser.smjesti(korisnici);
         noviRepozitorij.setMapa_za_dokumente(utility.putZaRep+noviRepozitorij.getNaslov());
-        if(dodajRepozitorij(noviRepozitorij) ){
+        if(dodajRepozitorij(noviRepozitorij) && 
+                XMLUser.smjestiUXML(noviRepozitorij.getMapa_za_dokumente()) ){
             utility.poruka("SjednicaNNV:Unos", "Uspješno kreiran repositorij");
+            korisnici.clear();
+           // noviRepozitorij.setOrepozitoriju("");            
+            noviRepozitorij = new Repozitorij();
+            return;
         } else {
-             //utility.poruka("SjednicaNNV:Unos", XMLUser.getGreska());
-        }
-        utility.poruka("SjednicaNNV:Unos", noviRepozitorij.getMapa_za_dokumente());
-        if (XMLUser.smjestiUXML(noviRepozitorij.getMapa_za_dokumente())){
-            
-        }
+             utility.poruka("SjednicaNNV:Unos", "Desila se greska");
+        }      
+       
         
     }
     

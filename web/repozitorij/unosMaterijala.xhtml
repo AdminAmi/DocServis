@@ -10,8 +10,8 @@
     <h:head>
         <head><title>IGNORED</title></head>
         <f:metadata>
-            <f:viewParam name="IDSjednice" value="#{dokumentKontrolerRep.selektovaniID}"/>
-            <f:viewAction action="#{dokumentKontrolerRep.ucitajSjednicu()}"/>
+            <f:viewParam name="IDSjednice" value="#{repozitorijKontroler.selektovaniID}"/>
+            <f:viewAction action="#{repozitorijKontroler.ucitajRepozitorij()}"/>
             <f:viewParam name="putDoc" value="#{dokumentKontrolerRep.path}"/>
             <f:viewAction action="#{dokumentKontrolerRep.ucitajDokumente()}"/>
         </f:metadata>
@@ -28,13 +28,15 @@
             <ui:define name="sadrzaj"> 
                 <div >
                     <div class="w3-container w3-white">
+                        <c:choose>
+                            <c:when test="${dokumentKontrolerRep.imaPristup}">
                         <h1>Repozitorij: #{repozitorijKontroler.selektovaniRepozitorij.naslov} </h1>                        
                         <h:form id="materijali" enctype="multipart/form-data" rendered="${LogIn.lk.korisnik.rola=='admin'}">
                             <h4 class="no-print">Unesite potrebne podatke</h4>
                             <ul class="w3-leftbar w3-theme-border w3-small no-print" style="list-style-type:none">
                             <li class="ami-li"/>
                             <li class="ami-li"><p>                                
-                                <label class="ami-labela">Opis dokmumenta i akcije </label> 
+                                <label class="ami-labela">Opis dokumenta i akcije </label> 
                                 <h:inputText value="#{dokumentKontrolerRep.unos.naziv}" style="width: 90%" 
                                              class="w3-border-0 w3-border-blue-grey w3-border-bottom " />
                                          <!--style="width: 60%"-->
@@ -50,8 +52,9 @@
                                              value="Snimi projekat"
                                              action="#{dokumentKontrolerRep.snimi()}"
                                              actionListener="#{dokumentKontrolerRep.myListener}">                            
-                                    <f:attribute name="path" value="#{sjednicaKontroler.selektovanaSjednica.mapa_za_dokumente}"/>
+                                    <f:attribute name="path" value="#{repozitorijKontroler.selektovaniRepozitorij.mapa_za_dokumente}"/>
                                     <f:attribute name="user" value="#{LogIn.lk.korisnik.ime}"/>
+                                    <f:attribute name="korisnickiID" value="#{LogIn.lk.korisnik.id}"/>
                                     <f:attribute name="user2" value="#{LogIn.lk.korisnik.prezime}"/>
                                     
                                 </h:commandButton>
@@ -99,7 +102,18 @@
                                 </h:dataTable>
                             <p/>
                             <h:messages />
-                        </h:form>                         
+                        </h:form> 
+                            </c:when>
+                            <c:otherwise>
+                                <br/>
+                                <h4 class="w3-red w3-center">
+                                    Nemate pristup ovome repozitoriju!
+                                </h4>
+                                <br/>
+                                Ukoliko mislite da biste trebali imati pristup kontaktirajte sistem administratora!!!
+                            </c:otherwise>
+                        </c:choose>
+                       
                         
                     </div>
                 </div>
