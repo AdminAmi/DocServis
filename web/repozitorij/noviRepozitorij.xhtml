@@ -23,7 +23,7 @@
             <ui:define name="sadrzaj"> 
                 <div >
                     <div class="w3-container w3-white">
-                        <h1>Unos nove sjednice NNV</h1>
+                        <h1>Unos novog repozitorija</h1>
                         <h:form id="SjednicaNNV">
                         <ul class="w3-leftbar  w3-theme-border w3-small" style="list-style-type:none">
                             <li class="ami-li "></li>
@@ -31,7 +31,8 @@
                                 <p>
                                     <label class="ami-labela">Naziv repozitorija (projekta):</label>
                                     <h:inputText class="w3-border-0 w3-border-black w3-border-bottom"
-                                                 value="#{repozitorijKontroler.noviRepozitorij.naslov}"                                                
+                                                 value="#{repozitorijKontroler.noviRepozitorij.naslov}"  
+                                                  style="width: 90%"
                                                     p:required="true" >                                        
                                     </h:inputText>
                                 </p>
@@ -50,23 +51,101 @@
                             </ui:remove>
                              <li class="ami-li ">
                                 <p>
-                                    <label class="ami-labela">Vrijeme održavanja sjednice:</label>
-                                    <input type="time" jsf:value="#{sjednicaKontroler.novaSjednica.vrijemePocetka}"
-                                           class="w3-border-0 w3-border-black w3-border-bottom vrijeme"
-                                           p:required="true"/>
+                                    <label class="ami-labela">O repozitoriju/projektu</label>
+                                    <h:inputTextarea value="#{repozitorijKontroler.noviRepozitorij.orepozitoriju}"
+                                                     cols="6" rows="6"
+                                                     style="width: 90%"/>
+                                    
                                 </p>
                             </li>
-                            <li >
+                            <h4>Učesnici/Korisnici na repozitoriju(projektu)</h4>
+                            <li class="ami-li">
                                     <p>
-                                        <h:commandButton id="btnNovaSjednica"
-                                                         class="w3-btn w3-blue-grey"
-                                                         value="UNESI PODATKE!"
-                                                         action="#{sjednicaKontroler.dodajSjednicu()}"/>                                         
+                                        <label class="ami-labela">Ime :</label>
+                                        <h:inputText class="w3-border-0 w3-border-black w3-border-bottom"                                         
+                                                        value="#{webKorisnik.imePretraga}"/>                                        
                                     </p>
                                 </li>
-                                <li class="ami-li "></li>
-                        </ul>
-                            <strong> <h:messages class="w3-text-red" /></strong>
+                                <li class="ami-li">
+                                    <p>
+                                        <h:commandButton class="w3-btn w3-blue-grey " 
+                                             id="btnPretragaKorisnika"
+                                             value="Pretraži!"
+                                             action="#{webKorisnik.pretraga()}">
+                                            <f:ajax  execute="@form" render="prK"/>
+                                        </h:commandButton> 
+                                    </p>
+                                </li>                                               
+                                <li>                                  
+                                    
+                                    <h:dataTable id="prK" 
+                                     class="w3-table  w3-small " 
+                                     style="width: 50%"                                      
+                                     value="#{webKorisnik.lk.pretraga}" 
+                                     var="Korisnik">
+                                    <thead>
+                                        <f:facet name="header" >                                           
+                                            <h6>Odaberite korisnike</h6>
+                                            
+                                        </f:facet>
+                                        <h:column class="w3-white" > 
+                                            <f:facet name="header">ID</f:facet>#{Korisnik.id}
+                                        </h:column>                           
+                                        <h:column> 
+                                        <f:facet name="header">Ime i prezime</f:facet>
+                                            #{Korisnik.ime} #{Korisnik.prezime}                                                       
+                                           
+                                        </h:column>
+                                        <h:column> 
+                                            <f:facet name="header">Akcija</f:facet>
+                                            <h:commandButton value="Dodaj" action="#{repozitorijKontroler.dodajKorisnika(Korisnik)}">
+                                                <f:ajax execute="@form" render="SjednicaNNV:prO"/>
+                                            </h:commandButton>
+                                        </h:column>                                        
+                                    </thead>
+                                    </h:dataTable>
+                                   
+                                    <div class="hline"/>
+                                   
+                                    <h:dataTable id="prO" 
+                                     class="w3-table  w3-small " 
+                                     style="width: 50%"                                      
+                                     value="#{repozitorijKontroler.korisnici}" 
+                                     var="Kor">
+                                    <thead>
+                                        <f:facet name="header" >                                           
+                                            <h6>Odabrani korisnici:</h6>                                            
+                                        </f:facet>
+                                        <h:column class="w3-white" > 
+                                            <f:facet name="header">ID</f:facet>#{Kor.id}
+                                        </h:column>                           
+                                        <h:column> 
+                                        <f:facet name="header">Ime i prezime</f:facet>
+                                            #{Kor.ime} #{Kor.prezime}                              
+                                           
+                                        </h:column>
+                                        <h:column> 
+                                            <f:facet name="header">Akcija</f:facet>
+                                            <h:commandButton value="Obriši" action="#{repozitorijKontroler.obrisiKorisnik(Kor)}">
+                                                <f:ajax execute="@form" render="SjednicaNNV:prO"/>
+                                            </h:commandButton>
+                                        </h:column>                                        
+                                    </thead>
+                                    </h:dataTable>
+                                    
+                                </li>
+                             <li class="ami-li"/>
+                             <li class="ami-li">
+                                 <p>
+                                <h:commandButton class="w3-btn w3-blue-grey " 
+                                                 id="Unos"
+                                                 action="#{repozitorijKontroler.spremiPodatke()}"
+                                                 value="Spremi podatke!"/>
+                                 </p>
+                            </li>
+                            </ul> 
+                            <h:messages />
+                        
                         </h:form> 
                     </div>
                 </div>

@@ -2,7 +2,9 @@ package repozitorij;
 
 import Login.login;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
@@ -13,21 +15,23 @@ import korisni.utility;
  * @author Amel Džanić 
  */
 @ManagedBean
-@RequestScoped
+//@RequestScoped
+@ViewScoped
 public final class RepozitorijKontroler {
     
     private ArrayList<Repozitorij> repozitoriji = new ArrayList<Repozitorij>();
     private ArrayList<Repozitorij> pretraga = new ArrayList<Repozitorij>();
     private Repozitorij repozitorij = new Repozitorij();
-    private String naslov, mjesec;
+    private String naslov, mjesec, imeKorisnika;
     private int brojSjednica;
     private Repozitorij noviRepozitorij = new Repozitorij();
     private Repozitorij selektovaniRepozitorij = new Repozitorij();
     private String selektovaniID;
-    private RepozitorijXML Sxml = new RepozitorijXML(); 
+    private RepozitorijXML Sxml = new RepozitorijXML();
+    private zaXMLUser XMLUser = new zaXMLUser();
     private Login.login korisnik = new login();
     private ArrayList<login> korisnici = new ArrayList<login>();
-    private ArrayList<login> selektovani = new ArrayList<login>();
+    //private ArrayList<login> selektovani = new ArrayList<login>();
    
     
     public RepozitorijKontroler() {
@@ -97,20 +101,23 @@ public final class RepozitorijKontroler {
     
     public String dodajRepozitorij(){        
         if(dodajRepozitorij(getNoviRepozitorij())) {           
-           utility.poruka("SjednicaNNV", "Uspješan unos repozitorija");
+           utility.poruka("SjednicaNNV:Unos", "Uspješan unos repozitorija");
            return null;
         }
         else{
-            utility.poruka("SjednicaNNV", "Neuspješan unos repozitorija");
+            utility.poruka("SjednicaNNV:Unos", "Neuspješan unos repozitorija");
             return null;
         }
     }
     
      public boolean dodajRepozitorij(Repozitorij o) {
-        if(provjeraSjednice(o)==false) return false;
-        utility.kreirajDirektorij(utility.datumZaDirektorij(o.getDatum()));       
+        Calendar c = Calendar.getInstance();
+        Date date = c.getTime();
+        utility.kreirajDirektorij(utility.putZaRep+o.getNaslov()); 
+        o.setDatum(date);
+        //if(provjeraSjednice(o)==false) return false;
         int i = getRepozitoriji().size();
-        Repozitorij kor = new Repozitorij(o.getNaslov(),o.getDatum(), utility.datumZaDirektorij(o.getDatum()),o.getOrepozitoriju());
+        Repozitorij kor = new Repozitorij(o.getNaslov(),o.getDatum(), o.getMapa_za_dokumente(),o.getOrepozitoriju());
         kor.setId(generateId());        
         this.getRepozitoriji().add(kor);
         getSxml().smjesti(getRepozitoriji());     
@@ -125,11 +132,31 @@ public final class RepozitorijKontroler {
         return zastavica;
     }
     
-    public void pretragaPoImenu(String ime){
+    public void dodajKorisnika (login korisnik){
+        korisnici.add(korisnik);
+    }
+    public void obrisiKorisnik(login korisnik){
+        boolean remove = korisnici.remove(korisnik);
+    }
+            
+    public void spremiPodatke(){
+        XMLUser.smjesti(korisnici);
+        noviRepozitorij.setMapa_za_dokumente(utility.putZaRep+noviRepozitorij.getNaslov());
+        if(dodajRepozitorij(noviRepozitorij) ){
+            utility.poruka("SjednicaNNV:Unos", "Uspješno kreiran repositorij");
+        } else {
+             //utility.poruka("SjednicaNNV:Unos", XMLUser.getGreska());
+        }
+        utility.poruka("SjednicaNNV:Unos", noviRepozitorij.getMapa_za_dokumente());
+        if (XMLUser.smjestiUXML(noviRepozitorij.getMapa_za_dokumente())){
+            
+        }
         
     }
     
-    //Dodati metodu za ispis i odabir korisnika koji mogu raditi na repozitoriju
+    
+    
+   
     
     
     //get and set
@@ -157,4 +184,12 @@ public final class RepozitorijKontroler {
     public void setKorisnik(Login.login korisnik) {this.korisnik = korisnik;}
     public ArrayList<login> getKorisnici() {return korisnici;}
     public void setKorisnici(ArrayList<login> korisnici) {this.korisnici = korisnici;}
+
+    public String getImeKorisnika() {
+        return imeKorisnika;
+    }
+
+    public void setImeKorisnika(String imeKorisnika) {
+        this.imeKorisnika = imeKorisnika;
+    }
 }

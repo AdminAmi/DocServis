@@ -8,6 +8,7 @@ import javax.annotation.PreDestroy;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import korisni.utility;
 
 
@@ -17,7 +18,8 @@ import korisni.utility;
  * @author amel
  */
 //@RequestScoped
-@SessionScoped
+//@SessionScoped
+@ViewScoped
 @ManagedBean 
 public class WebKorisnik {
     private Login.loginKontroler lk = new loginKontroler();

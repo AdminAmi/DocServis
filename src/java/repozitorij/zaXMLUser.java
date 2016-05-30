@@ -20,6 +20,7 @@ import korisni.utility;
  * @author amel
  */
 public class zaXMLUser {
+    private String greska ="";
     
     private loginOmotac li = new loginOmotac();
             
@@ -48,7 +49,9 @@ public class zaXMLUser {
             jaxbMarshaller.marshal(li, new File(path + "/korisnici.xml"));
             return true;
         } catch(JAXBException ex){
-            System.err.println(ex);
+            
+            utility.poruka("SjednicaNNV:Unos", ex.getMessage() +"Neznam");
+           
             return false;
         }
     }
@@ -63,6 +66,14 @@ public class zaXMLUser {
         // Ispis iz xml-a na konzolu
         //for(Osoba os : emps.getListaOsoba()){System.out.println(os);}    
         return (ArrayList<login>) emps.getKorisnici();
+    }
+
+    public String getGreska() {
+        return greska;
+    }
+
+    public void setGreska(String greska) {
+        this.greska = greska;
     }
     
 }
