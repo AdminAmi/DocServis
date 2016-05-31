@@ -28,8 +28,10 @@ public class DokumentKontrolerRep extends nnv.DokumentKontroler {
     
     public void postaviZastavicu(){
         try {
-            getDokumenti().clear();
+            try{
+            getDokumenti().clear();            
             this.setDokumenti(DXML.procitajIzXMLa(getPath()));
+            } catch (Exception e){}
             korisnici = xml.procitajIzXMLa(getPath());
            utility.poruka("greska", "Duzina liste korisnici:" + String.valueOf(korisnici.size()));
             for (login a:korisnici){

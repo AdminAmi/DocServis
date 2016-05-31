@@ -6,7 +6,8 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:comp="http://xmlns.jcp.org/jsf/composite/comp"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:jsf="http://xmlns.jcp.org/jsf">
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
     <h:head>
         <head><title>IGNORED</title></head>
         <f:metadata>
@@ -33,15 +34,22 @@
                         <c:choose>
                             <c:when test="${dokumentKontrolerRep.imaPristup}">
                                 
+                                
                         <h1>Repozitorij: #{repozitorijKontroler.selektovaniRepozitorij.naslov} </h1>                        
                         <h:form id="materijali" enctype="multipart/form-data" rendered="${LogIn.lk.korisnik.rola=='admin'}">
-                            <h4 class="no-print">Unesite potrebne podatke</h4>
+                            <div class="w3-accordion">
+                                <a href="#" class="w3-btn w3-btn-block w3-blue-grey w3-round-medium " onclick="accordion('Unos')">
+                                    <h6 class="no-print" style="text-align: left">Kliknite za novi unos u repozitorij</h6>
+                                </a>
+                                <div id="Unos" class="w3-accordion-content">
+                                    
                             <ul class="w3-leftbar w3-theme-border w3-small no-print" style="list-style-type:none">
                             <li class="ami-li"/>
                             <li class="ami-li"><p>                                
                                 <label class="ami-labela">Opis dokumenta i akcije </label> 
                                 <h:inputText value="#{dokumentKontrolerRep.unos.naziv}" style="width: 90%" 
-                                             class="w3-border-0 w3-border-blue-grey w3-border-bottom " />
+                                             class="w3-border-0 w3-border-blue-grey w3-border-bottom " 
+                                             p:required="true"/>
                                          <!--style="width: 60%"-->
                                          
                             </p></li>
@@ -63,6 +71,8 @@
                                 
                             </p></li>
                             </ul>
+                                </div>
+                            </div>
                         </h:form>
                             <br/>
                             <h4>Materijali za sjednicu</h4>
