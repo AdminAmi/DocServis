@@ -31,6 +31,7 @@ public final class SjednicaKontroler {
         } catch (Exception e) {}
     }
     
+    
     public int generateId(){
         int  temp=-1;  
         if(getSjednice().isEmpty()) return 0;

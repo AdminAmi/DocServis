@@ -43,8 +43,8 @@ public class DokumentKontroler {
     private Dokument selektovani;
     private int selektovaniID;
     private String path,user, imeFajla;
-    private int id;
-    private DokumentXML DXML = new DokumentXML();
+    protected int id;
+    protected DokumentXML DXML = new DokumentXML();
             
     private Part datoteka;    
 
@@ -95,9 +95,7 @@ public class DokumentKontroler {
     }
     
     public void myListener (ActionEvent event){
-        setPath((String)event.getComponent().getAttributes().get("path"));
-        setId(Integer.parseInt(
-                (String)event.getComponent().getAttributes().get("korisnickiID")));
+        setPath((String)event.getComponent().getAttributes().get("path"));       
         user = (String)event.getComponent().getAttributes().get("user");
         user += " " + (String)event.getComponent().getAttributes().get("user2");
     }    

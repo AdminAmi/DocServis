@@ -1,0 +1,172 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:comp="http://xmlns.jcp.org/jsf/composite/comp"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
+    <h:head>
+        <head><title>IGNORED</title></head>
+        <f:metadata>
+            <f:viewParam name="IDSjednice" value="#{repozitorijKontroler.selektovaniID}"/>
+            <f:viewAction action="#{repozitorijKontroler.ucitajRepozitorij()}"/>
+            <f:viewParam name="putDoc" value="#{dokumentKontrolerRep.path}"/>
+            <f:viewAction action="#{dokumentKontrolerRep.ucitajDokumenteRep()}"/>
+            <f:viewParam name="KorID" value="#{dokumentKontrolerRep.id}"/>
+            <f:viewAction action="#{dokumentKontrolerRep.postaviZastavicu()}"/>
+        </f:metadata>
+    </h:head>
+    <h:body>
+       
+        <ui:composition template="/predlozak/masterRepozitorij.xhtml">
+            <ui:define name="navigacija">
+                <ui:include src="/stranice/navigacija.xhtml"/>
+            </ui:define>
+            <ui:define name="zaglavlje">
+                <ui:include src="/stranice/zaglavlje.xhtml"/>
+            </ui:define>
+            <ui:define name="sadrzaj"> 
+                <div >
+                    <div class="w3-container w3-white">
+                       
+                        <h1>Repozitorij: #{repozitorijKontroler.selektovaniRepozitorij.naslov}</h1>
+                        <h:form id="SjednicaNNV">
+                        <ul class="w3-leftbar  w3-theme-border w3-small" style="list-style-type:none">
+                            <li class="ami-li "></li>
+                            <li class="ami-li ">
+                                <p>
+                                    <label class="ami-labela">Naziv repozitorija (projekta):</label>
+                                    <h:inputText class="w3-border-0 w3-border-black w3-border-bottom"
+                                                 value="#{repozitorijKontroler.selektovaniRepozitorij.naslov}"  
+                                                  style="width: 90%"
+                                                    >                                        
+                                    </h:inputText>
+                                </p>
+                            </li>
+                            <ui:remove>
+                            <li class="ami-li ">
+                                <p>
+                                    <label class="ami-labela">Datum sjednice:</label>
+                                    <input type="date" jsf:value="#{repozitorijKontroler.selektovaniRepozitorij.datum}" 
+                                           class="w3-border-0 w3-border-black w3-border-bottom"
+                                          > 
+                                        <f:convertDateTime pattern="yyyy-MM-dd"/>
+                                    </input>
+                                </p>
+                            </li>
+                            </ui:remove>
+                             <li class="ami-li ">
+                                <p>
+                                    <label class="ami-labela">O repozitoriju/projektu</label>
+                                    <h:inputTextarea value="#{repozitorijKontroler.selektovaniRepozitorij.orepozitoriju}"
+                                                     cols="6" rows="6"
+                                                     style="width: 90%"/>
+                                    
+                                </p>
+                            </li>
+                            <h4>Učesnici/Korisnici na repozitoriju(projektu)</h4>
+                            <li class="ami-li">
+                                    <p>
+                                        <label class="ami-labela">Ime :</label>
+                                        <h:inputText class="w3-border-0 w3-border-black w3-border-bottom"                                         
+                                                        value="#{webKorisnik.imePretraga}"/>                                        
+                                    </p>
+                                </li>
+                                <li class="ami-li">
+                                    <p>
+                                        <h:commandButton class="w3-btn w3-blue-grey " 
+                                             id="btnPretragaKorisnika"
+                                             value="Pretraži!"
+                                             action="#{webKorisnik.pretraga()}">
+                                            <f:ajax  execute="@form" render="prK"/>
+                                        </h:commandButton> 
+                                    </p>
+                                </li>                                               
+                                <li>                                  
+                                    
+                                    <h:dataTable id="prK" 
+                                     class="w3-table  w3-small " 
+                                     style="width: 50%"                                      
+                                     value="#{webKorisnik.lk.pretraga}" 
+                                     var="Korisnik">
+                                    <thead>
+                                        <f:facet name="header" >                                           
+                                            <h6>Odaberite korisnike</h6>
+                                            
+                                        </f:facet>
+                                        <h:column class="w3-white" > 
+                                            <f:facet name="header">ID</f:facet>#{Korisnik.id}
+                                        </h:column>                           
+                                        <h:column> 
+                                        <f:facet name="header">Ime i prezime</f:facet>
+                                            #{Korisnik.ime} #{Korisnik.prezime}                                                       
+                                           
+                                        </h:column>
+                                        <h:column> 
+                                            <f:facet name="header">Akcija</f:facet>
+                                            <h:commandButton value="Dodaj" action="#{repozitorijKontroler.dodajKorisnika(Korisnik)}">
+                                                <f:ajax execute="@form" render="SjednicaNNV:prO"/>
+                                            </h:commandButton>
+                                        </h:column>                                        
+                                    </thead>
+                                    </h:dataTable>
+                                   
+                                    <div class="hline"/>
+                                   
+                                    <h:dataTable id="prO" 
+                                     class="w3-table  w3-small " 
+                                     style="width: 50%"                                      
+                                     value="#{repozitorijKontroler.korisnici}" 
+                                     var="Kor">
+                                    <thead>
+                                        <f:facet name="header" >                                           
+                                            <h6>Odabrani korisnici:</h6>                                            
+                                        </f:facet>
+                                        <h:column class="w3-white" > 
+                                            <f:facet name="header">ID</f:facet>#{Kor.id}
+                                        </h:column>                           
+                                        <h:column> 
+                                        <f:facet name="header">Ime i prezime</f:facet>
+                                            #{Kor.ime} #{Kor.prezime}                              
+                                           
+                                        </h:column>
+                                        <h:column> 
+                                            <f:facet name="header">Akcija</f:facet>
+                                            <h:commandButton value="Obriši" action="#{repozitorijKontroler.obrisiKorisnik(Kor)}">
+                                                <f:ajax execute="@form" render="SjednicaNNV:prO"/>
+                                            </h:commandButton>
+                                        </h:column>                                        
+                                    </thead>
+                                    </h:dataTable>
+                                    
+                                </li>
+                             <li class="ami-li"/>
+                             <li class="ami-li">
+                                 <p>
+                                <h:commandButton class="w3-btn w3-blue-grey " 
+                                                 id="Unos"
+                                                 action="#{repozitorijKontroler.spremiPodatke()}"
+                                                 value="Spremi podatke!"/>
+                                 </p>
+                            </li>
+                            </ul> 
+                            <h:messages />
+                        
+                        </h:form> 
+                           
+                       
+                        
+                    </div>
+                </div>
+            </ui:define>
+            <ui:define name="footer">
+               <ui:include src="/stranice/footer.xhtml"/>                 
+            </ui:define> 
+        </ui:composition>
+       
+         
+    </h:body>
+</html>
+
