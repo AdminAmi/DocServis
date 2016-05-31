@@ -3,8 +3,6 @@ package rep;
 
 import Login.login;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -20,7 +18,7 @@ import korisni.utility;
 @ViewScoped
 public class DokumentKontrolerRep extends nnv.DokumentKontroler {
     //Treba implementirati rad sa korisnicima
-    private boolean imaPristup=true;
+    private boolean imaPristup=false;
     private Login.login korisnik = new login();
     private ArrayList<login> korisnici = new ArrayList<login>();
     private zaXMLUser xml = new zaXMLUser();
@@ -32,13 +30,13 @@ public class DokumentKontrolerRep extends nnv.DokumentKontroler {
             getDokumenti().clear();
             this.setDokumenti(DXML.procitajIzXMLa(getPath()));
             korisnici = xml.procitajIzXMLa(getPath());
-            utility.poruka("greska", "Duzina liste korisnici:" + String.valueOf(korisnici.size()));
+           // utility.poruka("greska", "Duzina liste korisnici:" + String.valueOf(korisnici.size()));
             for (login a:korisnici){
-                utility.poruka("greska", "Velicina za provjeru" + String.valueOf(getId()));
-                utility.poruka("greska", "Vrijednost iz liste" + String.valueOf(a.getId()));
+                //utility.poruka("greska", "Velicina za provjeru" + String.valueOf(getId()));
+                //utility.poruka("greska", "Vrijednost iz liste" + String.valueOf(a.getId()));
                 if (getId()==a.getId()){
                     setImaPristup(true);
-                    utility.poruka("greska", "Unutar desio se pogodak");
+                    //utility.poruka("greska", "Unutar desio se pogodak");
                 }
                 }  
         } catch (JAXBException ex) {        

@@ -60,6 +60,7 @@
                                         <a jsf:outcome="unosMaterijala" > #{Pr.naslov} 
                                             <f:param name="IDSjednice" value="#{Pr.naslov}"/> 
                                             <f:param name="putDoc" value="#{Pr.mapa_za_dokumente}"/>
+                                            <f:param name="korID" value="#{LogIn.lk.korisnik.id}"/>
                                         </a>
                                     </h:column>                           
                                     <h:column> 
@@ -74,12 +75,12 @@
                                                          action="#{repozitorijKontroler.obrisiRepozitorijPretraga(Pr)}">
                                              <!--<f:ajax  execute="@form" render="sjednice:tabela"/>-->
                                         </h:commandButton>
-                                        <h:commandButton value="Edit" 
-                                                         action="AzuriranjeRepozitorija">
+                                        <a jsf:outcome="AzuriranjeRepozitorija">Edit
                                             <f:param name="IDSjednice" value="#{Pr.naslov}"/> 
                                             <f:param name="putDoc" value="#{Pr.mapa_za_dokumente}"/>
+                                            <f:param name="korID" value="#{LogIn.lk.korisnik.id}"/>
                                              <!--<f:ajax  execute="@form" render="sjednice:tabela"/>-->
-                                        </h:commandButton>
+                                        </a>
                                        
                                     </h:column>                                    
                                         <f:facet name="footer"> Rezultati pretrage : (ukupno #{repozitorijKontroler.brojSjednica})
