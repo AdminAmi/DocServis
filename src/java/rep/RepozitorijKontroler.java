@@ -83,9 +83,9 @@ public final class RepozitorijKontroler {
     }
     
     public void obrisiRepzitorij (Repozitorij s){        
-        if(utility.brisiFile(utility.datumZaDirektorij(s.getDatum()))){
+        if(utility.brisiFile(s.getMapa_za_dokumente())){
             repozitoriji.remove(s);
-            pretragaRepozitorija();
+           // pretragaRepozitorija();
             boolean flag=Sxml.smjestiUXML();        
             getSxml().smjesti(getRepozitoriji());
             if(repozitoriji.isEmpty()){

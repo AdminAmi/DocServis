@@ -37,8 +37,8 @@ import korisni.utility;
 @ViewScoped
 //@RequestScoped
 public class DokumentKontroler {
-    private  ArrayList<Dokument> dokumenti = new ArrayList();
-    private  ArrayList<Dokument> dokumentiNewDel = new ArrayList();
+    protected  ArrayList<Dokument> dokumenti = new ArrayList();
+    protected  ArrayList<Dokument> dokumentiNewDel = new ArrayList();
     private Dokument unos = new Dokument();
     private Dokument selektovani;
     private int selektovaniID;
@@ -191,11 +191,6 @@ public class DokumentKontroler {
             ucitajDokumente();
             
         }
-        
-            
-        
-    	
-    	
     }
     //GETTER I SEETER
     public Dokument getUnos() { return unos;}   

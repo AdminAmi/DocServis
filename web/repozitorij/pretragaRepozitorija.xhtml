@@ -75,7 +75,8 @@
                                                          action="#{repozitorijKontroler.obrisiRepozitorijPretraga(Pr)}">
                                              <!--<f:ajax  execute="@form" render="sjednice:tabela"/>-->
                                         </h:commandButton>
-                                        <a jsf:outcome="AzuriranjeRepozitorija">Edit
+                                        <a  jsf:outcome="AzuriranjeRepozitorija">
+                                            <button type="button">Edit</button>
                                             <f:param name="IDSjednice" value="#{Pr.naslov}"/> 
                                             <f:param name="putDoc" value="#{Pr.mapa_za_dokumente}"/>
                                             <f:param name="korID" value="#{LogIn.lk.korisnik.id}"/>
