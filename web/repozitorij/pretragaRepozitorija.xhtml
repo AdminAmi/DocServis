@@ -60,7 +60,7 @@
                                         <a jsf:outcome="unosMaterijala" > #{Pr.naslov} 
                                             <f:param name="IDSjednice" value="#{Pr.naslov}"/> 
                                             <f:param name="putDoc" value="#{Pr.mapa_za_dokumente}"/>
-                                            <f:param name="korID" value="#{LogIn.lk.korisnik.id}"/>
+                                            <f:param name="korID" value="#{LogIn.korisnik.id}"/>
                                         </a>
                                     </h:column>                           
                                     <h:column> 
@@ -70,7 +70,7 @@
                                         </h:outputText>
                                     </h:column>                                    
                                     <h:column> 
-                                        <f:facet name="header" rendered="${LogIn.lk.korisnik.rola=='admin'}">-</f:facet>
+                                        <f:facet name="header" rendered="${LogIn.korisnik.rola=='admin'}">-</f:facet>
                                         <h:commandButton value="OBRIŠI" 
                                                          action="#{repozitorijKontroler.obrisiRepozitorijPretraga(Pr)}">
                                              <!--<f:ajax  execute="@form" render="sjednice:tabela"/>-->
@@ -79,7 +79,7 @@
                                             <button type="button">Edit</button>
                                             <f:param name="IDSjednice" value="#{Pr.naslov}"/> 
                                             <f:param name="putDoc" value="#{Pr.mapa_za_dokumente}"/>
-                                            <f:param name="korID" value="#{LogIn.lk.korisnik.id}"/>
+                                            <f:param name="korID" value="#{LogIn.korisnik.id}"/>
                                              <!--<f:ajax  execute="@form" render="sjednice:tabela"/>-->
                                         </a>
                                        

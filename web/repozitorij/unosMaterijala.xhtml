@@ -32,11 +32,12 @@
                 <div >
                     <div class="w3-container w3-white">
                         <c:choose>
-                            <c:when test="${dokumentKontrolerRep.imaPristup}">
+                            <c:when test="${dokumentKontrolerRep.imaPristup}">                                
+                                        
                                 
                                 
                         <h1>Repozitorij: #{repozitorijKontroler.selektovaniRepozitorij.naslov} </h1>                        
-                        <h:form id="materijali" enctype="multipart/form-data" rendered="${LogIn.lk.korisnik.rola=='admin'}">
+                        <h:form id="materijali" enctype="multipart/form-data" rendered="${LogIn.korisnik.rola!='guest'}">
                             <div class="w3-accordion">
                                 <a href="#" class="w3-btn w3-btn-block w3-blue-grey w3-round-medium " onclick="accordion('Unos')">
                                     <h6 class="no-print" style="text-align: left">Kliknite za novi unos u repozitorij</h6>
@@ -64,8 +65,8 @@
                                              action="#{dokumentKontrolerRep.snimi()}"
                                              actionListener="#{dokumentKontrolerRep.myListener}">                            
                                     <f:attribute name="path" value="#{repozitorijKontroler.selektovaniRepozitorij.mapa_za_dokumente}"/>
-                                    <f:attribute name="user" value="#{LogIn.lk.korisnik.ime}"/>                                    
-                                    <f:attribute name="user2" value="#{LogIn.lk.korisnik.prezime}"/>
+                                    <f:attribute name="user" value="#{LogIn.korisnik.ime}"/>                                    
+                                    <f:attribute name="user2" value="#{LogIn.korisnik.prezime}"/>
                                     
                                 </h:commandButton>
                                 
@@ -91,7 +92,7 @@
                                      <h:commandLink id="L" 
                                                     value="#{doc.nazivDatoteke}" 
                                                     actionListener="#"
-                                                    action="#{dokumentKontroler.download(doc)}" />
+                                                    action="#{dokumentKontrolerRep.download(doc)}" />
                                      <f:attribute name="pathDoc" value="#{doc.nazivDatoteke}"/>
                                     </h:column>
                                       
@@ -104,16 +105,17 @@
                                             <f:convertDateTime pattern="dd-MM-yyyy HH:mm:ss"/>
                                         </h:outputText>
                                     </h:column>
-                                <h:column class="no-print" rendered="${LogIn.lk.korisnik.rola=='admin' }">
+                                <h:column class="no-print" rendered="${LogIn.korisnik.rola=='admin' }">
                                     <f:facet name="header">Akcija</f:facet>
                                     <h:commandButton value="OBRIŠI" 
-                                                     action="#{dokumentKontrolerRep.obrisi(doc)}"/>
+                                                     action="#{dokumentKontrolerRep.ObrisiRepDoc(doc)}"/>
                                 </h:column>
                                 
                                 
                                 </h:dataTable>
-                            <p/>
-                            <h:messages />
+                                <h:messages style="display: none"/>
+                           <p/>
+                          
                         </h:form> 
                             </c:when>
                             <c:otherwise>
@@ -123,10 +125,7 @@
                                 </h4>
                                 <br/>
                                 Ukoliko mislite da biste trebali imati pristup kontaktirajte sistem administratora!!!
-                                <h:form id="greska">
-                                    Bezeze
-                                    <h:messages/>
-                                </h:form>
+                                
                             </c:otherwise>
                         </c:choose>
                        

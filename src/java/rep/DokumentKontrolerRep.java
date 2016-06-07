@@ -33,13 +33,14 @@ public class DokumentKontrolerRep extends nnv.DokumentKontroler {
             this.setDokumenti(DXML.procitajIzXMLa(getPath()));
             } catch (Exception e){}
             korisnici = xml.procitajIzXMLa(getPath());
-           utility.poruka("greska", "Duzina liste korisnici:" + String.valueOf(korisnici.size()));
+           //utility.poruka("greska", "Duzina liste korisnici:" + String.valueOf(korisnici.size()));
             for (login a:korisnici){
-                utility.poruka("greska", "Velicina za provjeru" + String.valueOf(getId()));
-                utility.poruka("greska", "Vrijednost iz liste" + String.valueOf(a.getId()));
+//                utility.errPoruka("greska","Velicina za provjeru" + String.valueOf(getId()));
+//                utility.poruka("greska", "Velicina za provjeru" + String.valueOf(getId()));
+//                utility.poruka("greska", "Vrijednost iz liste" + String.valueOf(a.getId()));
                 if (getId()==a.getId()){
                     setImaPristup(true);
-                    utility.poruka("greska", "Unutar desio se pogodak");
+//                    utility.infoPoruka("Unutar desio se pogodak","");
                 }
                 }  
         } catch (JAXBException ex) {        
@@ -71,7 +72,8 @@ public class DokumentKontrolerRep extends nnv.DokumentKontroler {
      }
      
      public void ObrisiRepDoc(Dokument d){
-        int index=-1;
+        boolean a = false;
+        int br=0,index=-1;
         getDokumenti().clear(); 
         ucitajDokumenteZaAkciju();        
         String pathFile=getPath()+"/"+d.getNazivDatoteke();
@@ -84,15 +86,26 @@ public class DokumentKontrolerRep extends nnv.DokumentKontroler {
             getDokumentiNewDel().remove(index);            
             DXML.smjesti(getDokumentiNewDel());
             boolean b= DXML.smjestiUXML(pathXML);           
-            utility.poruka("doc", "Uspješno obrisana datoteka");
+            
             if (getDokumentiNewDel().isEmpty()) {
-                if(utility.brisiFile(pathXML+"dokumenti.xml") && utility.brisiFile(pathXML + "korisnici.xml"))                 
-                utility.poruka("doc", "Sjednica više nema radnih dokumenata!");
+                br++;
+                if(utility.brisiFile(pathXML+"dokumenti.xml") )
+                    a=true;                                 
+                    
+            }
+            if (br==0 && b) {
+                utility.infoPoruka( "Uspješno obrisana datoteka","AAA");
+                } else if((b && a) && (br>0) ){
+                utility.infoPoruka( "Uspješno obrisana datoteka","");
+                utility.infoPoruka( "Repozitorij više nema radnih dokumenata!","");
+                } else {
+                utility.errPoruka( "Desila se greška","");
+                }
             }
             getDokumentiNewDel().clear();
             ucitajDokumente();
             
-        }
+       
          
      }
         

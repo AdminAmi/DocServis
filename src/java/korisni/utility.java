@@ -22,11 +22,11 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class utility {
     
-    private static String osnovni="c:/projekti/";
-    public static String putZaProjekte="c:/projekti/pdf/";
-    public static String putZaXML="c:/projekti/xml/";
-    public static String putZaSjednice="c:/projekti/sjednice/";
-    public static String putZaRep="c:/projekti/repozitorij/";
+    private static String osnovni="c:/test/";
+    public static String putZaProjekte="c:/test/pdf/";
+    public static String putZaXML="c:/test/xml/";
+    public static String putZaSjednice="c:/test/sjednice/";
+    public static String putZaRep="c:/test/repozitorij/";
     
     /**
      *
@@ -52,6 +52,21 @@ public class utility {
      */
     public static void poruka(String komponenta, String poruka){
         FacesMessage message = new FacesMessage(poruka);
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(komponenta, message);
+    }
+    public static void errPoruka(String poruka, String komponenta){
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, poruka, poruka);
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(komponenta, message);
+    }
+    public static void warPoruka(String poruka, String komponenta){
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, poruka, poruka);
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(komponenta, message);
+    }
+    public static void infoPoruka(String poruka, String komponenta){
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, poruka, poruka);
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(komponenta, message);
     }

@@ -27,7 +27,7 @@
                         <h1>Pretraživanje korisnika!</h1>
                         <h5>Unesite tražene podatke</h5>
                         <h:form id="pr">
-                        <c:if test="${LogIn.lk.korisnik.rola != 'admin' }">
+                        <c:if test="${LogIn.korisnik.rola!= 'admin' }">
                             <comp:errorURL/>
                         </c:if>
                             <ul class="w3-leftbar w3-theme-border w3-small" style="list-style-type:none">

@@ -46,7 +46,7 @@ public class DokumentKontroler {
     protected int id;
     protected DokumentXML DXML = new DokumentXML();
             
-    private Part datoteka;    
+    protected Part datoteka;    
 
     public DokumentKontroler() { }
     public void ucitajDokumente(){
@@ -84,13 +84,21 @@ public class DokumentKontroler {
         //getDokumenti().clear();
         //this.getDokumenti().add(doc);
         ucitajDokumenteZaAkciju();
-        utility.poruka("doc",String.valueOf(getDokumentiNewDel().size()) );
+//        utility.poruka("doc",String.valueOf(getDokumentiNewDel().size()) );
         getDokumentiNewDel().add(doc);
-        utility.poruka("doc",String.valueOf(getDokumentiNewDel().size()) );
+        snimi();
+//        utility.infoPoruka(getPath()+"/", "");
+//        utility.poruka("doc",String.valueOf(getDokumentiNewDel().size()) );
+//        try (InputStream input = getDatoteka().getInputStream()){
+//             Files.copy(input, new File(getPath()+"/", getDatoteka().getSubmittedFileName()).toPath());
+//             
+//        } catch (Exception e){}
         DXML.smjesti(getDokumentiNewDel());
-        boolean zastavica= DXML.smjestiUXML(getPath()+"/") && i!=getDokumenti().size();
+        boolean zastavica= DXML.smjestiUXML(getPath()+"/") ;
         getDokumentiNewDel().clear();
-        ucitajDokumente();        
+        ucitajDokumente(); 
+        if(zastavica) utility.infoPoruka("Uspješan unos dokumenta!", "");
+        else utility.errPoruka("Greška pri unosu dokumenta", "");
         return zastavica;
     }
     
@@ -116,25 +124,29 @@ public class DokumentKontroler {
                         getDatoteka().getSubmittedFileName()).toPath());
                 if(dodajDokument(unos)) {
                 unos.setNaziv("");
-                utility.poruka("UnosDokumenta:btnSnimiDokument", "Uspješan unos dokumenta!");
+//                utility.poruka("UnosDokumenta:btnSnimiDokument", "Uspješan unos dokumenta!");
             
             
             }
             }
             catch (IOException e) {
-                utility.poruka("UnosDokumenta:btnSnimiDokument", "Problem pri prenosu datoteke");
+//                utility.poruka("UnosDokumenta:btnSnimiDokument", "Problem pri prenosu datoteke");
                 //projekatUnos.setProjectPath("");  
                 // Show faces message?
             }
             }
+            else {
+            utility.warPoruka("Niste unijeli datoteku", "");
+        }    
         }
-        
        
         
     }
      
     public void download(Dokument d ) {
+        utility.infoPoruka(getPath()+"/"+d.getNazivDatoteke(), "");
         File file = new File(getPath()+"/"+d.getNazivDatoteke());
+        utility.infoPoruka(getPath()+"/"+d.getNazivDatoteke(), "");
         HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();  
 
         response.setHeader("Content-Disposition", "attachment;filename=" + d.getNazivDatoteke() );  
@@ -182,10 +194,12 @@ public class DokumentKontroler {
             getDokumentiNewDel().remove(index);            
             DXML.smjesti(getDokumentiNewDel());
             boolean b= DXML.smjestiUXML(pathXML);           
-            utility.poruka("doc", "Uspješno obrisana datoteka");
+//            utility.poruka("doc", "Uspješno obrisana datoteka");
+            utility.infoPoruka("Uspješno obrisana datoteka!", "");
             if (getDokumentiNewDel().isEmpty()) {
-                if(utility.brisiFile(pathXML+"dokumenti.xml"))                 
-                utility.poruka("doc", "Sjednica više nema radnih dokumenata!");
+                if(utility.brisiFile(pathXML+"dokumenti.xml")) {}                
+//                utility.poruka("doc", "Sjednica više nema radnih dokumenata!");
+                    utility.infoPoruka("Sjednica više nema radnih dokumenata!", "");
             }
             getDokumentiNewDel().clear();
             ucitajDokumente();
@@ -203,30 +217,12 @@ public class DokumentKontroler {
     public void setDatoteka(Part datoteka) {this.datoteka = datoteka;}
     public ArrayList<Dokument> getDokumenti() { return dokumenti; }
     public void setDokumenti(ArrayList<Dokument> dokumenti) {this.dokumenti = dokumenti; }
-
-    public String getPath() {
-        return path;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
-    }
-
-    public ArrayList<Dokument> getDokumentiNewDel() {
-        return dokumentiNewDel;
-    }
-
-    public void setDokumentiNewDel(ArrayList<Dokument> dokumentiNewDel) {
-        this.dokumentiNewDel = dokumentiNewDel;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
+    public String getPath() {   return path; }
+    public void setPath(String path) {    this.path = path;  }
+    public ArrayList<Dokument> getDokumentiNewDel() {    return dokumentiNewDel;  }
+    public void setDokumentiNewDel(ArrayList<Dokument> dokumentiNewDel) {   this.dokumentiNewDel = dokumentiNewDel; }
+    public int getId() {   return id;  }
+    public void setId(int id) {  this.id = id; }
     
     
 }

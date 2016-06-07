@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>IGNORED</title>
+       
+    </h:head>
+    <h:body>
+        <ui:composition>
+         <h:panelGroup rendered="#{facesContext.maximumSeverity.ordinal==0}">
+              <div class="w3-container w3-section w3-blue w3-card-8 w3-round-large w3-quarter w3-section w3-animate-zoom topright">
+                <span onclick="this.parentElement.style.display='none'" class="w3-closebtn ">&times;</span>
+                                     <p> Info! </p>
+                                     <ul class="w3-small">
+                                         <ui:repeat var="msg"  value="#{facesContext.messageList}">
+                                             <li>#{msg.summary}</li>
+                                         </ui:repeat>
+                                     </ul>                         
+        
+            </div>
+             </h:panelGroup>
+            <h:panelGroup rendered="#{facesContext.maximumSeverity.ordinal==1}">
+              <div class="w3-container w3-section w3-yellow w3-card-8 w3-quarter w3-right topright">
+                <span onclick="this.parentElement.style.display='none'" class="w3-closebtn">&times;</span>
+                                     <p> Oprez! </p>
+                                     <ul class="w3-small">
+                                         <ui:repeat var="msg"  value="#{facesContext.messageList}">
+                                             <li>#{msg.summary}</li>
+                                         </ui:repeat>
+                                     </ul>                         
+        
+            </div>
+             </h:panelGroup>
+            <h:panelGroup rendered="#{facesContext.maximumSeverity.ordinal==2}">
+              <div class="w3-container w3-section w3-red w3-card-8 w3-quarter w3-right topright">
+                <span onclick="this.parentElement.style.display='none'" class="w3-closebtn">&times;</span>
+                                     <p> Greška! </p>
+                                     <ul class="w3-small">
+                                         <ui:repeat var="msg"  value="#{facesContext.messageList}">
+                                             <li>#{msg.summary}</li>
+                                         </ui:repeat>
+                                     </ul>                         
+        
+            </div>
+             </h:panelGroup>
+            </ui:composition>
+    </h:body>
+    
+</html>
+

@@ -34,7 +34,7 @@
                                         <a jsf:outcome="unosMaterijala" > #{Pr.naslov} 
                                            <f:param name="IDSjednice" value="#{Pr.naslov}"/> 
                                             <f:param name="putDoc" value="#{Pr.mapa_za_dokumente}"/>
-                                            <f:param name="korID" value="#{LogIn.lk.korisnik.id}"/>
+                                            <f:param name="korID" value="#{LogIn.korisnik.id}"/>
                                         </a>
                                         
                                     </h:column>                           
@@ -49,7 +49,7 @@
                                         <h:outputText value="#{Pr.orepozitoriju}"/>             
                                        
                                     </h:column> 
-                                    <h:column rendered="#{LogIn.lk.korisnik.rola=='admin'  and LogIn.localHost}"> 
+                                    <h:column rendered="#{LogIn.korisnik.rola=='admin'  and LogIn.localHost}"> 
                                         <f:facet name="header" >Akcija</f:facet>
                                         <h:commandButton value="OBRIŠI" 
                                                          action="#{repozitorijKontroler.obrisiRepozitorijPretraga(Pr)}"/>
@@ -58,7 +58,7 @@
                                              <button type="button">Edit</button>
                                             <f:param name="IDSjednice" value="#{Pr.naslov}"/> 
                                             <f:param name="putDoc" value="#{Pr.mapa_za_dokumente}"/>
-                                            <f:param name="korID" value="#{LogIn.lk.korisnik.id}"/>
+                                            <f:param name="korID" value="#{LogIn.korisnik.id}"/>
                                              <!--<f:ajax  execute="@form" render="sjednice:tabela"/>-->
                                         </a>
                                        

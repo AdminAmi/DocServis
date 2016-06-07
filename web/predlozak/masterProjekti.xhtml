@@ -33,6 +33,8 @@
     <h:body onload="accordion('Projekti')">
         
         <c:if test="${LogIn.testRegistracije == true }" > 
+             <ui:include src="../stranice/infos.xhtml"/>   
+            <h:messages style="display: none"/>
         
       <!-- Navigacija-->  
       <nav class="w3-sidenav w3-collapse w3-theme-light w3-animate-left w3-card-16 w3-center ami-meni " style="display:none; background-color: #eee">
@@ -50,6 +52,8 @@
       </div>    
       <!-- Sadržaj -->
       <div class="w3-container w3-padding-medium ">
+           <ui:include src="../stranice/infos.xhtml"/>   
+            <h:messages style="display: none"/>
          <ui:insert name="sadrzaj"/>
       </div>
        

@@ -33,7 +33,7 @@
                                 <f:convertDateTime pattern="dd-MM-yyyy"/>
                             </h:outputText>
                             </h1>                        
-                        <h:form id="materijali" enctype="multipart/form-data" rendered="${LogIn.lk.korisnik.rola=='admin'}">
+                        <h:form id="materijali" enctype="multipart/form-data" rendered="${LogIn.korisnik.rola=='admin'}">
                             <h4 class="no-print">Unesite potrebne podatke</h4>
                             <ul class="w3-leftbar w3-theme-border w3-small no-print" style="list-style-type:none">
                             <li class="ami-li"/>
@@ -55,8 +55,8 @@
                                              action="#{dokumentKontroler.snimi()}"
                                              actionListener="#{dokumentKontroler.myListener}">                            
                                     <f:attribute name="path" value="#{sjednicaKontroler.selektovanaSjednica.mapa_za_dokumente}"/>
-                                    <f:attribute name="user" value="#{LogIn.lk.korisnik.ime}"/>
-                                    <f:attribute name="user2" value="#{LogIn.lk.korisnik.prezime}"/>
+                                    <f:attribute name="user" value="#{LogIn.korisnik.ime}"/>
+                                    <f:attribute name="user2" value="#{LogIn.korisnik.prezime}"/>
                                     
                                 </h:commandButton>
                                 
@@ -93,7 +93,7 @@
                                             <f:convertDateTime pattern="dd-MM-yyyy HH:mm:ss"/>
                                         </h:outputText>
                                     </h:column>
-                                <h:column class="no-print" rendered="${LogIn.lk.korisnik.rola=='admin'}">
+                                <h:column class="no-print" rendered="${LogIn.korisnik.rola=='admin'}">
                                     <f:facet name="header">-</f:facet>
                                     <h:commandButton value="OBRIŠI" 
                                                      action="#{dokumentKontroler.obrisi(doc)}"/>
@@ -102,7 +102,7 @@
                                 
                                 </h:dataTable>
                             <p/>
-                            <h:messages />
+                           
                         </h:form>                         
                         
                     </div>

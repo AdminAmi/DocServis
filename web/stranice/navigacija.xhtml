@@ -39,12 +39,13 @@
                                value="Unos novog projekta" 
                                class="ami-font ami-link-tab" 
                                outcome="/projekti/noviProjekat" 
-                               rendered="${LogIn.lk.korisnik.rola=='admin'}" />
+                               rendered="${LogIn.korisnik.rola=='admin'}" />
                         
                     </div>
                     </ul>
             </div>
-            <div class="hline" />  
+            <div class="hline" />
+            
             <div class="w3-container w3-left-align w3-small  w3-accordion">
                 <ul class="w3-leftbar w3-border-orange" style="text-decoration: none; padding-left: 0">
                 <a href="#" onclick="accordion('Korisnici')">
@@ -56,21 +57,22 @@
                     <h:link id="promjenaKorisnickihPodataka" 
                            value="Promjena lozinke"  
                            class="ami-font ami-link-tab" outcome="/korisnik/promjenaLozinke" 
-                           rendered="${LogIn.lk.korisnik.rola!='guest'}" /> 
+                           rendered="${LogIn.korisnik.rola!='guest'}" /> 
                     <h:link id="unosNovogKorisnika" 
                            value="Unos novog korisnika" 
                            class="ami-font ami-link-tab" 
                            outcome="/korisnik/noviKorisnik" 
-                           rendered="${LogIn.lk.korisnik.rola=='admin'}" /> 
+                           rendered="${LogIn.korisnik.rola=='admin'}" /> 
                     <h:link id="pretrazivanjeKorisnika" 
                            value="Pretraživanje korisnika"  
                            class="ami-font ami-link-tab" outcome="/korisnik/pretrazivanjeKorisnika" 
-                           rendered="${LogIn.lk.korisnik.rola=='admin'}" /> 
+                           rendered="${LogIn.korisnik.rola=='admin'}" /> 
                     
                 </div>
                     </ul>
             </div>
             <div class="hline" />
+            
             <div class="w3-container w3-left-align w3-small">
                 <ul class="w3-leftbar w3-border-blue" style="text-decoration: none; padding-left: 0">
                 <a href="#" onclick="accordion('NNV')">
@@ -82,17 +84,17 @@
                         <h:link id="novaSjednicaNNV" 
                            value="Nova Sjednica NNV-a"  
                            class="ami-font ami-link-tab" outcome="/nnv/novaSjednica" 
-                           rendered="${LogIn.lk.korisnik.rola=='admin'}" /> 
+                           rendered="${LogIn.korisnik.rola=='admin'}" /> 
                 
                         <h:link id="pregledSjednicaNNV" 
                            value="Pregled sjednica NNV-a"  
                            class="ami-font ami-link-tab" outcome="/nnv/pregledSjednica" 
-                           rendered="${LogIn.lk.korisnik.rola!='guest'}" /> 
+                           rendered="${LogIn.korisnik.rola!='guest'  and LogIn.localHost}" /> 
                         
                         <h:link id="pretragaSjednicaNNV" 
                            value="Pretraga sjednica NNV-a"  
                            class="ami-font ami-link-tab" outcome="/nnv/pretragaSjednica" 
-                           rendered="${LogIn.lk.korisnik.rola!='guest'}" />
+                           rendered="${LogIn.korisnik.rola!='guest'}" />
                     
                         </div>
                     </ul>
@@ -109,17 +111,17 @@
                         <h:link id="noviRepozitorij" 
                            value="Novi repozitorij"  
                            class="ami-font ami-link-tab" outcome="/repozitorij/noviRepozitorij" 
-                           rendered="${LogIn.lk.korisnik.rola=='admin'}" /> 
+                           rendered="${LogIn.korisnik.rola!='guest'}" /> 
                 
                         <h:link id="pregledRepozitorija" 
                            value="Pregled repozitorija"  
                            class="ami-font ami-link-tab" outcome="/repozitorij/pregledRepozitorija" 
-                           rendered="${LogIn.lk.korisnik.rola!='guest'}" /> 
+                           rendered="${LogIn.korisnik.rola!='guest'  and LogIn.localHost}" /> 
                         
                         <h:link id="pretragaRepozitorija" 
                            value="Pretraga repozitorija"  
                            class="ami-font ami-link-tab" outcome="/repozitorij/pretragaRepozitorija" 
-                           rendered="${LogIn.lk.korisnik.rola!='guest'}" />
+                           rendered="${LogIn.korisnik.rola!='guest'}" />
                     
                         </div>
                     </ul>

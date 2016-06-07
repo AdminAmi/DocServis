@@ -23,11 +23,15 @@ public class loginKontroler {
     private login noviKorisnik = new login();
     private zaXML xml = new zaXML();
     
-    public loginKontroler(){
-        try {
-        if (korisnici.isEmpty()) this.setKorisnici(xml.procitajIzXMLa());        
-    } catch (JAXBException ex) { }
+    public loginKontroler(){ 
+        ucitajKorisnike();
         
+    }
+    public void ucitajKorisnike(){
+        getKorisnici().clear();
+        try {
+         this.setKorisnici(xml.procitajIzXMLa());        
+        } catch (JAXBException ex) { }
     }
     public login getUserFromID(int id){
         if(!korisnici.isEmpty()){
@@ -37,6 +41,8 @@ public class loginKontroler {
     }
        
     public void pretragaPoImenu(String ime){
+        getKorisnici().clear();
+        ucitajKorisnike();
         if (ime==null || ime.length()==0) return ;
         for(login kor:korisnici) {if (kor.getIme().contains(ime)) getPretraga().add(kor);}
     }
@@ -48,7 +54,8 @@ public class loginKontroler {
     }
     return temp+1;    
     }
-    public boolean dodajOsobu(login o) throws NoSuchAlgorithmException{
+    public boolean dodajOsobu(login o) throws NoSuchAlgorithmException{        
+        ucitajKorisnike();
         int i = korisnici.size();
         login kor = new login(o.getUser(),utility.sha1(o.getPass()) , o.getIme(), o.getPrezime(), o.getRola());
         kor.setId(generateId());
@@ -57,7 +64,8 @@ public class loginKontroler {
         return (i!=korisnici.size() && xml.smjestiUXML());
     }
     
-    public boolean azurirajOsobu(login log,int id) throws NoSuchAlgorithmException{
+    public boolean azurirajOsobu(login log,int id) throws NoSuchAlgorithmException{        
+        ucitajKorisnike();
         korisnici.get(id).setIme(log.getIme());
         korisnici.get(id).setPrezime(log.getPrezime());
         korisnici.get(id).setRola(log.getRola());
@@ -68,11 +76,18 @@ public class loginKontroler {
         return xml.smjestiUXML();
     }
     
-   public boolean obrisiOsobu(login log){
-       int ukupno = korisnici.size(); 
-       korisnici.remove(log);
+   public boolean obrisiOsobu(login log){       
+       ucitajKorisnike();
+       int index = -1;
+       utility.poruka("", "Ušao u formu za brisanje: " +String.valueOf(log.getId()));
+       for (int i=0 ;i<getKorisnici().size();i++){
+           if(getKorisnici().get(i).getId()==log.getId()) index=log.getId();
+       }
+       korisnici.remove(index);
+        
        xml.smjesti(korisnici);
        return xml.smjestiUXML();
+      
    }
 
     /**

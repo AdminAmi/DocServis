@@ -30,28 +30,28 @@
                         <p>
                             <label class="ami-labela">Ime :</label>
                             <b><h:outputText class="w3-border-0 w3-border-blackl w3-border-bottom"
-                                          value="#{LogIn.lk.korisnik.ime}"/></b>
+                                          value="#{LogIn.korisnik.ime}"/></b>
                         </p>
                         <p>
                             <label class="ami-labela">Prezime :</label>
                             <b><h:outputText class="w3-border-0 w3-border-black w3-border-bottom"
-                                             value="#{LogIn.lk.korisnik.prezime}"/></b>
+                                             value="#{LogIn.korisnik.prezime}"/></b>
                         </p>
                         <p>
                             <label class="ami-labela">Rola :</label>
                             <b><h:outputText class="w3-border-0 w3-border-black w3-border-bottom"
-                                             value="#{LogIn.lk.korisnik.rola}"/></b>
+                                             value="#{LogIn.korisnik.rola}"/></b>
                         </p>
                         <p>
                             <label class="ami-labela">Korisničko ime :</label>
                             <b><h:outputText class="w3-border-0 w3-border-black w3-border-bottom"
-                                             value="#{LogIn.lk.korisnik.ime}"/></b>
+                                             value="#{LogIn.korisnik.ime}"/></b>
                         </p>
                     </li>
                 </ul>
                 <h5>Promjena zaporke korisnika:</h5>
                  <h:form id="promjenaLozinke">
-                 <c:if test="${LogIn.lk.korisnik.rola == 'guest' }">
+                 <c:if test="${LogIn.korisnik.rola== 'guest' }">
                             <comp:errorURL/>
                  </c:if>
                 <ul class="w3-leftbar w3-theme-border w3-small" style="list-style-type:none">

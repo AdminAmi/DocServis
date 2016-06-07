@@ -24,7 +24,7 @@
                         <h1>Unos novog korisnika.</h1>                       
                         <h5><strong>Unesite tražene podatke!</strong></h5>
                         <h:form > 
-                        <c:if test="${LogIn.lk.korisnik.rola != 'admin' }" >
+                        <c:if test="${LogIn.korisnik.rola!= 'admin' }" >
                             <comp:errorURL/>
                         </c:if>
                             <ul class="w3-leftbar  w3-theme-border w3-small" style="list-style-type:none">
@@ -33,7 +33,7 @@
                                     <p>
                                     <label class="ami-labela">Ime :</label>
                                     <h:inputText class="w3-border-0 w3-border-black w3-border-bottom"
-                                        value="#{LogIn.lk.noviKorisnik.ime}"                                                
+                                        value="#{LogIn.noviKorisnik.ime}"                                                
                                         p:required="true" /> 
                                     </p>
                                 </li>
@@ -41,7 +41,7 @@
                                     <p>
                                     <label class="ami-labela">Prezime :</label>
                                     <h:inputText class="w3-border-0 w3-border-black w3-border-bottom"
-                                        value="#{LogIn.lk.noviKorisnik.prezime}"                                                
+                                        value="#{LogIn.noviKorisnik.prezime}"                                                
                                         p:required="true" /> 
                                     </p>
                                 </li>
@@ -49,7 +49,7 @@
                                     <p>
                                     <label class="ami-labela">Rola :</label>
                                     <h:selectOneMenu  class="w3-border-0 w3-border-black w3-border-bottom"                                            
-                                             value="#{LogIn.lk.noviKorisnik.rola}" >
+                                             value="#{LogIn.noviKorisnik.rola}" >
                                             <f:selectItem itemValue="admin" itemDescription="Administrator"/>
                                             <f:selectItem itemValue="korisnik" itemDescription="Korisnik"/>
                                             <f:selectItem itemValue="gost" itemDescription="gost"/>
@@ -60,7 +60,7 @@
                                     <p>
                                     <label class="ami-labela">Korisničko ime :</label>
                                     <h:inputText class="w3-border-0 w3-border-black w3-border-bottom"
-                                                 value="#{LogIn.lk.noviKorisnik.user}"                                                
+                                                 value="#{LogIn.noviKorisnik.user}"                                                
                                                 p:required="true" /> 
                                     </p>
                                 </li>

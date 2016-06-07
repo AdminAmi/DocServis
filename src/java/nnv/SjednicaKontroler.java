@@ -33,7 +33,8 @@ public final class SjednicaKontroler {
     
     
     public int generateId(){
-        int  temp=-1;  
+        int  temp=-1; 
+        if (getSjednice()==null) return 0;
         if(getSjednice().isEmpty()) return 0;
         for (Sjednica a1 : getSjednice()) {        
         if (a1.getId()>temp) temp=a1.getId();
@@ -71,7 +72,8 @@ public final class SjednicaKontroler {
             }            
         }
         if(getMjesec().length()==0 && getMjesec().length()==0){
-            utility.poruka("sjednice","Niste unijeli parametre za pretraživanje");
+//            utility.poruka("sjednice","Niste unijeli parametre za pretraživanje");
+             utility.warPoruka("Niste unijeli parametre za pretraživanje!", "");
             
         }
         setBrojSjednica(getPretraga().size());
@@ -85,12 +87,14 @@ public final class SjednicaKontroler {
             getSxml().smjesti(getSjednice());
             if(sjednice.isEmpty()){
                 if(utility.brisiFile(utility.putZaSjednice+"sjednice.xml"))
-                    utility.poruka("sjednice","Nema nijedne sjednice NNV-a!");
+                    utility.infoPoruka("Nema nijedne sjednice NNV-a!","");
             }
-            utility.poruka("sjednice","Uspješno obrisana sjednica");        
+//            utility.poruka("sjednice","Uspješno obrisana sjednica");
+                 utility.infoPoruka("Uspješno obrisana sjednica!","");
         }
         else{
-            utility.poruka("sjednice", "Direktorij nije prazan");
+//            utility.poruka("sjednice", "Direktorij nije prazan");
+                utility.warPoruka("Direktorij nije prazan!", "");
         }
     }
     
@@ -105,11 +109,13 @@ public final class SjednicaKontroler {
         
         if(dodajSjednicu(getNovaSjednica())) {
            // return "/nnv/pregledSjednica";
-           utility.poruka("SjednicaNNV", "Uspješan unos sjednice");
+//           utility.poruka("SjednicaNNV", "Uspješan unos sjednice");
+            utility.infoPoruka("Uspješan unos sjednice!", "");
            return null;
         }
         else{
-            utility.poruka("SjednicaNNV", "Neuspješan unos sjednice");
+//            utility.poruka("SjednicaNNV", "Neuspješan unos sjednice");
+            utility.errPoruka("Neuspješan unos sjednice!", "");
             return null;
         }
     }
@@ -117,8 +123,12 @@ public final class SjednicaKontroler {
     
      public boolean dodajSjednicu(Sjednica o) {
         if(provjeraSjednice(o)==false) return false;
-        utility.kreirajDirektorij(utility.datumZaDirektorij(o.getDatum()));       
-        int i = getSjednice().size();
+        int i;
+        utility.kreirajDirektorij(utility.datumZaDirektorij(o.getDatum())); 
+        if (getSjednice()==null) i = 0 ;
+        else{
+        i = getSjednice().size();
+        }
         Sjednica kor = new Sjednica(o.getBroj(),o.getDatum(), utility.datumZaDirektorij(o.getDatum()));
         kor.setId(generateId());
         kor.setVrijemePocetka(o.getVrijemePocetka());
@@ -128,135 +138,38 @@ public final class SjednicaKontroler {
     }
     
     private boolean provjeraSjednice(Sjednica o){
+        try{
         boolean zastavica = true;
         for(Sjednica a: getSjednice()){
             if(a.getBroj().equals(o.getBroj())) zastavica=false; 
         }
         return zastavica;
+        } catch (Exception e){}
+        return true;
     }
     
 
-    /**
-     * @return the sjednice
-     */
-    public ArrayList<Sjednica> getSjednice() {
-        return sjednice;
-    }
-
-    /**
-     * @param sjednice the sjednice to set
-     */
-    public void setSjednice(ArrayList<Sjednica> sjednice) {
-        this.sjednice = sjednice;
-    }
-
-    /**
-     * @return the pretraga
-     */
-    public ArrayList<Sjednica> getPretraga() {
-        return pretraga;
-    }
-
-    /**
-     * @param pretraga the pretraga to set
-     */
-    public void setPretraga(ArrayList<Sjednica> pretraga) {
-        this.pretraga = pretraga;
-    }
-
-    /**
-     * @return the sjednica
-     */
-    public Sjednica getSjednica() {
-        return sjednica;
-    }
-
-    /**
-     * @param sjednica the sjednica to set
-     */
-    public void setSjednica(Sjednica sjednica) {
-        this.sjednica = sjednica;
-    }
-
-    /**
-     * @return the Sxml
-     */
-    public SjednicaXML getSxml() {
-        return Sxml;
-    }
-
-    /**
-     * @param Sxml the Sxml to set
-     */
-    public void setSxml(SjednicaXML Sxml) {
-        this.Sxml = Sxml;
-    }
-
-    /**
-     * @return the novaSjednica
-     */
-    public Sjednica getNovaSjednica() {
-        return novaSjednica;
-    }
-
-    /**
-     * @param novaSjednica the novaSjednica to set
-     */
-    public void setNovaSjednica(Sjednica novaSjednica) {
-        this.novaSjednica = novaSjednica;
-    }
-
-    /**
-     * @return the selektovanaSjednica
-     */
-    public Sjednica getSelektovanaSjednica() {
-        return selektovanaSjednica;
-    }
-
-    /**
-     * @param selektovanaSjednica the selektovanaSjednica to set
-     */
-    public void setSelektovanaSjednica(Sjednica selektovanaSjednica) {
-        this.selektovanaSjednica = selektovanaSjednica;
-    }
-
-    /**
-     * @return the selektovaniID
-     */
-    public String getSelektovaniID() {
-        return selektovaniID;
-    }
-
-    /**
-     * @param selektovaniID the selektovaniID to set
-     */
-    public void setSelektovaniID(String selektovaniID) {
-        this.selektovaniID = selektovaniID;
-    }
-
-    public String getGodina() {
-        return godina;
-    }
-
-    public void setGodina(String godina) {
-        this.godina = godina;
-    }
-
-    public int getBrojSjednica() {
-        return brojSjednica;
-    }
-
-    public void setBrojSjednica(int brojSjednica) {
-        this.brojSjednica = brojSjednica;
-    }
-
-    public String getMjesec() {
-        return mjesec;
-    }
-
-    public void setMjesec(String mjesec) {
-        this.mjesec = mjesec;
-    }
+    //getter & setter
+    public ArrayList<Sjednica> getSjednice() { return sjednice; }
+    public void setSjednice(ArrayList<Sjednica> sjednice) { this.sjednice = sjednice; }
+    public ArrayList<Sjednica> getPretraga() {return pretraga;}
+    public void setPretraga(ArrayList<Sjednica> pretraga) {this.pretraga = pretraga;}
+    public Sjednica getSjednica() {return sjednica;}
+    public void setSjednica(Sjednica sjednica) {this.sjednica = sjednica;}
+    public SjednicaXML getSxml() {return Sxml;}
+    public void setSxml(SjednicaXML Sxml) {this.Sxml = Sxml; }
+    public Sjednica getNovaSjednica() { return novaSjednica; }
+    public void setNovaSjednica(Sjednica novaSjednica) { this.novaSjednica = novaSjednica;}
+    public Sjednica getSelektovanaSjednica() { return selektovanaSjednica; }
+    public void setSelektovanaSjednica(Sjednica selektovanaSjednica) { this.selektovanaSjednica = selektovanaSjednica;}
+    public String getSelektovaniID() { return selektovaniID; }
+    public void setSelektovaniID(String selektovaniID) {this.selektovaniID = selektovaniID; }
+    public String getGodina() { return godina;}
+    public void setGodina(String godina) { this.godina = godina; }
+    public int getBrojSjednica() { return brojSjednica; }
+    public void setBrojSjednica(int brojSjednica) {this.brojSjednica = brojSjednica; }
+    public String getMjesec() { return mjesec;  }
+    public void setMjesec(String mjesec) {    this.mjesec = mjesec;  }
     
     
     

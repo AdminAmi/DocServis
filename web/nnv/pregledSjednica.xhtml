@@ -48,16 +48,20 @@
                                         <h:outputText value="#{Pr.vrijemePocetka}"/>             
                                        
                                     </h:column> 
-                                    <h:column rendered="#{LogIn.lk.korisnik.rola=='admin' and LogIn.localHost}"> 
+                                    <h:column rendered="#{LogIn.korisnik.rola=='admin' and LogIn.localHost}"> 
                                         <f:facet name="header" >Akcija</f:facet>
-                                        <h:commandButton value="OBRIŠI" 
-                                                         action="#{sjednicaKontroler.obrisiSjednicu(Pr)}"/>             
+                                        <h:commandLink id="btnsearch" class="linkbtn"
+                                            action="#{sjednicaKontroler.obrisiSjednicu(Pr)}"
+                                            >
+                                            <span class="w3-large fa fa-trash-o" aria-hidden="true"></span> 
+                                             </h:commandLink> 
+                                                   
                                        
                                     </h:column> 
                                 </h:dataTable>      
                             
                             </p>
-                            <h:messages  />
+                           
                         </h:form>  
                     </div>
                 </div>

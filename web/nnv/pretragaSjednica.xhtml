@@ -87,7 +87,7 @@
                                        
                                     </h:column> 
                                     <h:column> 
-                                        <f:facet name="header" rendered="${LogIn.lk.korisnik.rola=='admin'}">-</f:facet>
+                                        <f:facet name="header" rendered="${LogIn.korisnik.rola=='admin'}">-</f:facet>
                                         <h:commandButton value="OBRIŠI" 
                                                          action="#{sjednicaKontroler.obrisiSjednicuPretraga(Pr)}">
                                              <!--<f:ajax  execute="@form" render="sjednice:tabela"/>-->
@@ -102,7 +102,7 @@
                             
                             </p>
                             </div>
-                            <h:messages  />
+                           
                         </h:form>  
                     </div>
                 </div>

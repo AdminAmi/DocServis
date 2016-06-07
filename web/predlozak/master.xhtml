@@ -36,6 +36,7 @@
     <h:body>
         
         <c:if test="${LogIn.testRegistracije == true }" > 
+            
         
       <!-- Navigacija-->  
       <nav class="w3-sidenav w3-collapse w3-theme-light w3-animate-left w3-card-16 w3-center ami-meni  " style="display:none; background-color: #eee">
@@ -53,11 +54,13 @@
       </div>    
       <!-- Sadržaj -->
       <div class="w3-container w3-padding-medium ">
+           <ui:include src="../stranice/infos.xhtml"/>   
+            <h:messages style="display: none"/>
          <ui:insert name="sadrzaj"/>
       </div>
        
        <!-- Footer -->
-      <div id="footer" class=" w3-display-container w3-padding-4 w3-theme-l1  w3-bottom  " style="opacity: 0.9">
+      <div id="footer" class=" w3-display-container w3-padding-4 w3-theme-l1  w3-bottom w3-hide-small " style="opacity: 0.9 ; display: none;">
          <ui:insert name="footer"/>
       </div>
        </div>
