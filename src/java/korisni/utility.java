@@ -22,11 +22,11 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class utility {
     
-    private static String osnovni="c:/test/";
-    public static String putZaProjekte="c:/test/pdf/";
-    public static String putZaXML="c:/test/xml/";
-    public static String putZaSjednice="c:/test/sjednice/";
-    public static String putZaRep="c:/test/repozitorij/";
+    private static String osnovni="c:/projekti/";
+    public static String putZaProjekte=osnovni+"pdf/";
+    public static String putZaXML=osnovni+"xml/";
+    public static String putZaSjednice=osnovni+"sjednice/";
+    public static String putZaRep=osnovni+"repozitorij/";
     
     /**
      *
