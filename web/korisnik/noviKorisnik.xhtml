@@ -45,6 +45,25 @@
                                         p:required="true" /> 
                                     </p>
                                 </li>
+                                 <li class="ami-li">
+                                    <p>
+                                    <label class="ami-labela">Da li je član NNV-a :</label>
+                                     <h:selectOneMenu class=" w3-border w3-border-black"                                                                                          
+                                                      value="#{LogIn.noviKorisnik.clanNNV}" >
+                                         <f:selectItems value="#{LogIn.bool}"  /> 
+                                     </h:selectOneMenu>
+                                    </p>
+                                </li>
+                                 <li class="ami-li">
+                                    <p>
+                                    <label class="ami-labela">EMail :</label>
+                                    <h:inputText label="email" class="w3-border-0 w3-border-black w3-border-bottom"
+                                                 value="#{LogIn.noviKorisnik.email}" 
+                                                p:placeholder="neko@nekiserver.ba" 
+                                                p:pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                                                p:required="true" /> 
+                                    </p>
+                                </li>
                                 <li class="ami-li">
                                     <p>
                                     <label class="ami-labela">Rola :</label>

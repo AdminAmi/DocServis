@@ -5,7 +5,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:comp="http://xmlns.jcp.org/jsf/composite/comp"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
     <h:head>
         <head><title>IGNORED</title></head>
         <f:metadata>
@@ -53,6 +54,29 @@
                                          value="#{webKorisnik.selektovaniKorisnik.prezime}"/>
                                 </p>
                             </li>
+                             <li class="ami-li">
+                                    <p>
+                                    <label class="ami-labela">Da li je član NNV-a :</label>
+                                     <h:selectOneMenu class=" w3-border w3-border-black"                                                                                          
+                                                      value="#{webKorisnik.selektovaniKorisnik.clanNNV}" >
+                                         <f:selectItems value="#{LogIn.bool}"  /> 
+                                     </h:selectOneMenu>
+                                    </p>
+                                </li>
+                                 <li class="ami-li">
+                                    <p>
+                                    <label class="ami-labela">EMail :</label>
+                                    <h:inputText label="email" class="w3-border-0 w3-border-black w3-border-bottom"
+                                                 value="#{webKorisnik.selektovaniKorisnik.email}" 
+                                                p:placeholder="neko@nekiserver.ba" 
+                                                p:pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                                                p:required="true" /> 
+                                    </p>
+                                </li>
+                            
+                            
+                            
+                            
                             <li class="ami-li">
                                 <p>
                                     <label class="ami-labela">Korisnička uloga :</label>                            

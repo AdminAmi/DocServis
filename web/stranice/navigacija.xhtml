@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
     <h:head>
         <title>IGNORED</title>
        
@@ -12,13 +13,20 @@
         <ui:composition>
             <h:form>
                 
-               
+                <div class="w3-center">   
             <h:graphicImage value="/resources/img/tfbgrb.png" alt="Grb" style="width: 61.5%" class="w3-circle  w3-margin-top  w3-margin-bottom "> </h:graphicImage>               
-                          
-            <a href="javascript:void(0)" onclick="w3_close()" class="w3-text-blue-grey w3-hide-large w3-closenav w3-large">Close &times;</a>               
+                </div>            
+            <a href="javascript:void(0)" onclick="w3_close()" class="w3-text-blue-grey w3-hide-large w3-closenav w3-large">Close &times;</a> 
+           
             <div class="hline" />
-            
             <div  class="w3-container w3-left-align w3-small w3-accordion ">
+                <ul class="w3-leftbar w3-border-deep-purple w3-left-align" style="text-decoration: none; padding-left: 0">  
+                    <a  jsf:outcome="/test">
+                   <span class="w3-large w3-text-deep-purple fa fa-user"  aria-hidden="true"/> 
+                   &npsb;&npsb;
+                   <strong class="w3-text-deep-purple">#{LogIn.korisnik.ime} &npsb; #{LogIn.korisnik.prezime}</strong> </a>
+                </ul>
+                <div class="hline" />
                 <ul class="w3-leftbar w3-border-cyan w3-left-align" style="text-decoration: none; padding-left: 0">
                <a href="#" onclick="accordion('Projekti')">
                    <span class="w3-large w3-text-cyan fa fa-clone"  aria-hidden="true"/> 

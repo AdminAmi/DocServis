@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Login;
 
 import java.security.NoSuchAlgorithmException;
@@ -23,10 +19,8 @@ public class loginKontroler {
     private login noviKorisnik = new login();
     private zaXML xml = new zaXML();
     
-    public loginKontroler(){ 
-        ucitajKorisnike();
-        
-    }
+    public loginKontroler(){  ucitajKorisnike();}
+   
     public void ucitajKorisnike(){
         getKorisnici().clear();
         try {
@@ -38,8 +32,7 @@ public class loginKontroler {
             for(login selektovan: korisnici){if (selektovan.getId()==id) return selektovan;}
         }
         return null;
-    }
-       
+    }       
     public void pretragaPoImenu(String ime){
         getKorisnici().clear();
         ucitajKorisnike();
@@ -57,7 +50,8 @@ public class loginKontroler {
     public boolean dodajOsobu(login o) throws NoSuchAlgorithmException{        
         ucitajKorisnike();
         int i = korisnici.size();
-        login kor = new login(o.getUser(),utility.sha1(o.getPass()) , o.getIme(), o.getPrezime(), o.getRola());
+        login kor = new login(o.getUser(),utility.sha1(o.getPass()) , 
+                o.getIme(), o.getPrezime(), o.getRola(),o.getClanNNV(),o.getEmail());
         kor.setId(generateId());
         this.korisnici.add(kor);
         xml.smjesti(korisnici);     
@@ -70,39 +64,26 @@ public class loginKontroler {
         korisnici.get(id).setPrezime(log.getPrezime());
         korisnici.get(id).setRola(log.getRola());
         korisnici.get(id).setUser(log.getUser());
+        korisnici.get(id).setClanNNV(log.getClanNNV());
+        korisnici.get(id).setEmail(log.getEmail());
         if(log.getPass().length()>0) 
             korisnici.get(id).setPass(utility.sha1(log.getPass()));
         xml.smjesti(korisnici); 
         return xml.smjestiUXML();
     }
     
-   public boolean obrisiOsobu(login log){       
+    
+    public boolean obrisiOsobu(login log){       
        ucitajKorisnike();
        int index = -1;
        utility.poruka("", "Ušao u formu za brisanje: " +String.valueOf(log.getId()));
        for (int i=0 ;i<getKorisnici().size();i++){
            if(getKorisnici().get(i).getId()==log.getId()) index=log.getId();
        }
-       korisnici.remove(index);
-        
+       korisnici.remove(index);        
        xml.smjesti(korisnici);
-       return xml.smjestiUXML();
-      
+       return xml.smjestiUXML();      
    }
-
-    /**
-     * @return the korisnici
-     */
-    public ArrayList<login> getKorisnici() {
-        return korisnici;
-    }
-
-    /**
-     * @param korisnici the korisnici to set
-     */
-    public void setKorisnici(ArrayList<login> korisnici) {
-        this.korisnici = korisnici;
-    }
     
     public boolean LogIN(String user, String pass){
         if (user == null || user.length()==0 || pass==null || pass.length()==0) {
@@ -122,47 +103,14 @@ public class loginKontroler {
         }
         return false;                
     }
-
-    /**
-     * @return the korisnik
-     */
-    public login getKorisnik() {
-        return korisnik;
-    }
-
-    /**
-     * @param korisnik the korisnik to set
-     */
-    public void setKorisnik(login korisnik) {
-        this.korisnik = korisnik;
-    }
-
-    /**
-     * @return the noviKorisnik
-     */
-    public login getNoviKorisnik() {
-        return noviKorisnik;
-    }
-
-    /**
-     * @param noviKorisnik the noviKorisnik to set
-     */
-    public void setNoviKorisnik(login noviKorisnik) {
-        this.noviKorisnik = noviKorisnik;
-    }
-
-    /**
-     * @return the pretraga
-     */
-    public ArrayList<login> getPretraga() {
-        return pretraga;
-    }
-
-    /**
-     * @param pretraga the pretraga to set
-     */
-    public void setPretraga(ArrayList<login> pretraga) {
-        this.pretraga = pretraga;
-    }
+    //getter and setter
+    public ArrayList<login> getKorisnici() {    return korisnici;  }
+    public void setKorisnici(ArrayList<login> korisnici) {  this.korisnici = korisnici; }
+    public login getKorisnik() { return korisnik; }
+    public void setKorisnik(login korisnik) {  this.korisnik = korisnik; }
+    public login getNoviKorisnik() { return noviKorisnik; }
+    public void setNoviKorisnik(login noviKorisnik) { this.noviKorisnik = noviKorisnik;}
+    public ArrayList<login> getPretraga() {return pretraga; }
+    public void setPretraga(ArrayList<login> pretraga) { this.pretraga = pretraga;}
     
 }

@@ -165,6 +165,7 @@ public class SendEmailToGroupDemo {
  
 // Creating a class for Username and Password authentication
 // provided by the user.
+/*
 class LoginAuthenticator extends Authenticator {
  PasswordAuthentication authentication = null;
  
@@ -177,3 +178,4 @@ class LoginAuthenticator extends Authenticator {
   return authentication;
  }
 }
+*/

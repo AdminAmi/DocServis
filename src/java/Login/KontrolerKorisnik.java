@@ -27,7 +27,8 @@ public class KontrolerKorisnik {
     private boolean testRegistracije, zastavica=false;
     private String newPass, confirmPass;  
     private int serverResponse = 0;
-    private List<String> tipovi = new ArrayList<>(); 
+    private List<String> tipovi = new ArrayList<>();
+    private List<String> bool = new ArrayList<>(); 
      private login noviKorisnik = new login();
 
     public KontrolerKorisnik() {
@@ -37,6 +38,8 @@ public class KontrolerKorisnik {
          getTipovi().add("admin");
          getTipovi().add("korisnik");
          getTipovi().add("guest"); 
+         getBool().add("DA");
+         getBool().add("NE");
     }
     
     private void reset(){
@@ -97,6 +100,7 @@ public class KontrolerKorisnik {
         Login.loginKontroler lk = new loginKontroler();        
         if( getNewPass().equals(getConfirmPass()) && getNewPass().length()>0){
             getNoviKorisnik().setPass(getNewPass());
+            
             lk.dodajOsobu(getNoviKorisnik());            
 //            utility.poruka("unosNovogKorisnika:btnNoviKorisnik","Uspješno dodavanje novog korisnika!!!");
             utility.infoPoruka("Uspješno dodavanje novog korisnika!", "");
@@ -180,5 +184,19 @@ public class KontrolerKorisnik {
      */
     public void setNoviKorisnik(login noviKorisnik) {
         this.noviKorisnik = noviKorisnik;
+    }
+
+    /**
+     * @return the bool
+     */
+    public List<String> getBool() {
+        return bool;
+    }
+
+    /**
+     * @param bool the bool to set
+     */
+    public void setBool(List<String> bool) {
+        this.bool = bool;
     }
 }

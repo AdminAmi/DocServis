@@ -6,7 +6,7 @@ package Login;
  * @author amel
  */
 public class login {
-    private String user,pass, ime, prezime, rola;
+    private String user,pass, ime, prezime, rola, clanNNV, email;
     private int id;
 
     public login() {
@@ -19,6 +19,17 @@ public class login {
         this.prezime = prezime;
         this.rola = rola;
     }
+
+    public login(String user, String pass, String ime, String prezime, String rola, String clanNNV, String eMail) {
+        this.user = user;
+        this.pass = pass;
+        this.ime = ime;
+        this.prezime = prezime;
+        this.rola = rola;
+        this.clanNNV = clanNNV;
+        this.email = eMail;       
+    }
+    
     
 
     /**
@@ -104,6 +115,36 @@ public class login {
     public void setId(int id) {
         this.id = id;
     }
+
+    /**
+     * @return the clanNNV
+     */
+    public String getClanNNV() {
+        return clanNNV;
+    }
+
+    /**
+     * @param clanNNV the clanNNV to set
+     */
+    public void setClanNNV(String clanNNV) {
+        this.clanNNV = clanNNV;
+    }
+
+    /**
+     * @return the email
+     */
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * @param email the email to set
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+   
     
     
     
