@@ -67,6 +67,7 @@
                                     <f:attribute name="path" value="#{repozitorijKontroler.selektovaniRepozitorij.mapa_za_dokumente}"/>
                                     <f:attribute name="user" value="#{LogIn.korisnik.ime}"/>                                    
                                     <f:attribute name="user2" value="#{LogIn.korisnik.prezime}"/>
+                                    <f:attribute name="idK" value="#{LogIn.korisnik.id}"/>
                                     
                                 </h:commandButton>
                                 
@@ -105,10 +106,11 @@
                                             <f:convertDateTime pattern="dd-MM-yyyy HH:mm:ss"/>
                                         </h:outputText>
                                     </h:column>
-                                <h:column class="no-print" rendered="${LogIn.korisnik.rola=='admin' }">
+                                <h:column class="no-print" >
                                     <f:facet name="header">Akcija</f:facet>
-                                    <h:commandButton value="OBRIŠI" 
+                                    <h:commandButton value="OBRIŠI" rendered="${LogIn.korisnik.id==doc.idKorisnik }"
                                                      action="#{dokumentKontrolerRep.ObrisiRepDoc(doc)}"/>
+                                   
                                 </h:column>
                                 
                                 

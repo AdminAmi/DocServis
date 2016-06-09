@@ -10,16 +10,10 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.TimeZone;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
@@ -41,7 +35,7 @@ public class DokumentKontroler {
     protected  ArrayList<Dokument> dokumentiNewDel = new ArrayList();
     private Dokument unos = new Dokument();
     private Dokument selektovani;
-    private int selektovaniID;
+    private int selektovaniID, IDKor;
     private String path,user, imeFajla;
     protected int id;
     protected DokumentXML DXML = new DokumentXML();
@@ -79,7 +73,7 @@ public class DokumentKontroler {
         Calendar c = Calendar.getInstance();
         Date date = c.getTime();
         int i= getDokumenti().size();
-        Dokument doc = new Dokument(d.getNaziv(), d.getNazivDatoteke(),user , date);
+        Dokument doc = new Dokument(d.getNaziv(), d.getNazivDatoteke(),user , date, IDKor);
         doc.setId(generateId());
         //getDokumenti().clear();
         //this.getDokumenti().add(doc);
@@ -106,6 +100,9 @@ public class DokumentKontroler {
         setPath((String)event.getComponent().getAttributes().get("path"));       
         user = (String)event.getComponent().getAttributes().get("user");
         user += " " + (String)event.getComponent().getAttributes().get("user2");
+        IDKor = (int)event.getComponent().getAttributes().get("idK");
+       // IDKor = Integer.valueOf(temp);
+        
     }    
     public void pathListener (ActionEvent event){       
         imeFajla = (String)event.getComponent().getAttributes().get("pathDoc");       

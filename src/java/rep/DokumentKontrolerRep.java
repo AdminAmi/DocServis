@@ -109,9 +109,7 @@ public class DokumentKontrolerRep extends nnv.DokumentKontroler {
          
      }
         
-    @PostConstruct
-    private void init(){
-    }
+    
     
     
 
