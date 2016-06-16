@@ -3,6 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+function autoGrow(textarea) {
+    if (textarea.clientHeight < textarea.scrollHeight) {
+        textarea.style.height = textarea.scrollHeight + "px";
+    }
+}
+//function autoGrow(id) {
+//    var textarea = document.getElementById(id);
+//    if (textarea.clientHeight < textarea.scrollHeight) {
+//        textarea.style.height = textarea.scrollHeight + "px";
+//    }
+//}
+//function auto_grow(element) {
+//    element.style.height = "5px";
+//    element.style.height = (element.scrollHeight+20)+"px";
+//}
 
 function w3_open() {
             document.getElementsByClassName("w3-sidenav")[0].style.display = "block";
@@ -77,11 +92,35 @@ function printPage() {
 
     var myWindow=window.open('','','');
     myWindow.document.write("<html><head>"+head+
-            "<style>body{padding:15px;} @media print {.printbtn {display:none;}body{ background-color:#FFFFFF; background-image:none; color:#000000; width:100%;#print{font-size: 10px;} }}</style></head><body><button class='printbtn' onclick='window.print()'>Print Page</button><br><br>"
-            +content+"</body></html>");
+            "<style>\n\
+            body{width: 21 cm; min-height: 29.7cm;pading 15px} \n\
+            page {background :white;display:block; margin: 0 auto; margin-bottom: 0; box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);} page[size='A4']{width:21cm;height: 29.7cm;}\n\
+            @media print {\n\
+            .printbtn {display:none;}\n\
+            body{ background-color:#FFFFFF; background-image:none; color:#000000; width:100%;#print{font-size: 10px;} \n\
+            }}\n\
+            </style>\n\
+            </head>\n\
+            <body>\n\
+            <button class='printbtn' onclick='window.print()'>Print Page</button><br><page size='A4'> "
+            +content+"</page></body></html>");
    /* window.alert("<html><head>"+head+
             "<style>body{padding:15px;} @media print {.printbtn {display:none;}body{ background-color:#FFFFFF; background-image:none; color:#000000; width:100%;#print{font-size: 10px;} }}</style></head><body><button class='printbtn' onclick='window.print()'>Print Page</button><br><br>"
-            +content+"</body></html>");*/
+            +content+"</body></html>");
+     
+     *
+     *page {
+  background: white;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 0.5cm;
+  box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
+}
+page[size="A4"] {  
+  width: 21cm;
+  height: 29.7cm; 
+}
+     **/
 }
 //edituje formu na event tastature
 //<h:form id="YourForm" onkeypress ="if (event.keyCode == 84) {saveForm(); return false;}; return true;">

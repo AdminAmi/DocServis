@@ -47,10 +47,15 @@
                             <ul class="w3-leftbar w3-theme-border w3-small no-print" style="list-style-type:none">
                             <li class="ami-li"/>
                             <li class="ami-li"><p>                                
-                                <label class="ami-labela">Opis dokumenta i akcije </label> 
+                                <label class="ami-labela">Opis dokumenta i akcije </label>
+                                <h:inputTextarea value="#{dokumentKontrolerRep.unos.naziv}" style="width: 90%" 
+                                                 rows="5"
+                                                 p:required="true"/>
+                                <ui:remove>
                                 <h:inputText value="#{dokumentKontrolerRep.unos.naziv}" style="width: 90%" 
                                              class="w3-border-0 w3-border-blue-grey w3-border-bottom " 
                                              p:required="true"/>
+                                </ui:remove>
                                          <!--style="width: 60%"-->
                                          
                             </p></li>
@@ -61,7 +66,7 @@
                             </p></li>
                             <li class="ami-li"><p>
                                 <h:commandButton class="w3-btn w3-blue-grey"                                      
-                                             value="Snimi projekat"
+                                             value="Snimi!"
                                              action="#{dokumentKontrolerRep.snimi()}"
                                              actionListener="#{dokumentKontrolerRep.myListener}">                            
                                     <f:attribute name="path" value="#{repozitorijKontroler.selektovaniRepozitorij.mapa_za_dokumente}"/>

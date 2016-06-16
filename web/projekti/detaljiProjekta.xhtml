@@ -5,7 +5,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:comp="http://xmlns.jcp.org/jsf/composite/comp"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
     <h:head>
         <head><title>IGNORED</title></head>
         <f:metadata>
@@ -23,12 +24,13 @@
             <ui:define name="zaglavlje">
                 <ui:include src="/stranice/zaglavlje.xhtml"/>
             </ui:define>
-            <ui:define name="sadrzaj"> 
+            <ui:define name="sadrzaj">
+                
                 <div>
-                    <div class="w3-container w3-white">
+                    <div class="w3-container w3-white" style="width: 20.5cm;">
                         <h1>Detalji projekta</h1>
                         <h4><strong><i>"#{projekat.selektovani.projectTitle}"</i></strong></h4>
-                        <h:form>
+                        <h:form >
                             <div class="w3-container ">
                                 
                                 <table class="w3-table w3-bordered w3-border w3-tiny "  >                                
@@ -72,7 +74,14 @@
                                 </tr>
                                 <tr>                                    
                                     <td ><b>Ciljevi projekta:</b></td>
-                                    <td><i>#{projekat.selektovani.objectives}</i></td>
+                                    <td>
+                                        <i>
+                                            <ui:remove>
+                                            <h:inputTextarea id="TA1" value="#{projekat.selektovani.objectives}" readonly="true" style="width: 100%" onclick="autoGrow(this)" />
+                                            </ui:remove>
+                                            <textarea id="TA" jsf:value="#{projekat.selektovani.objectives}" class="w3-border-0" style="width: 100%; overflow: hidden"/>
+                                        </i>
+                                    </td>
                                 </tr>
                                 <tr>                                    
                                     <td ><b>Dokument za preuzimanje</b></td>
@@ -161,10 +170,11 @@
                         <li class="ami-li"/>
                         </ul>
                         </ui:remove>
-                            <hr/>
+                           <br/>
                         </h:form>
                     </div>
                 </div>
+                
             </ui:define>
             <ui:define name="footer">
              <ui:include src="/stranice/footer.xhtml"/>                

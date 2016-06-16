@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class utility {
     
-    private static String osnovni="c:/test/";
+    private static String osnovni="c:/projekti/";
     public static String putZaProjekte=osnovni+"pdf/";
     public static String putZaXML=osnovni+"xml/";
     public static String putZaSjednice=osnovni+"sjednice/";

@@ -6,10 +6,14 @@
 package rep;
 
 import Login.login;
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
@@ -83,20 +87,37 @@ public final class RepozitorijKontroler {
         setBrojSjednica(getPretraga().size());
     }
     //Ovu metodu ne koristiti samo extra pažljivo
-    public void obrisiRepzitorij (Repozitorij s){        
-        if(utility.brisiFile(s.getMapa_za_dokumente())){
-            repozitoriji.remove(s);
-           // pretragaRepozitorija();
-            boolean flag=Sxml.smjestiUXML();        
-            getSxml().smjesti(getRepozitoriji());
-            if(repozitoriji.isEmpty()){
-                if(utility.brisiFile(utility.putZaRep+"repozitoriji.xml"))
-                    utility.poruka("sjednice","Nema nijednog repozitorija!");
+    public void obrisiRepzitorij (Repozitorij s){ 
+        try {
+            int i = utility.getFilesCount(Paths.get(s.getMapa_za_dokumente()));
+            
+           
+            //Dozvoliti samo sa localhosta
+            //Prvo treba obrisati dokument korisnici.xml
+            //ulkoliko samo sadrži taj dokument
+            if(i<2){
+                boolean test = utility.brisiFile(s.getMapa_za_dokumente() + "/korisnici.xml");
+                //utility.infoPoruka("Broj fileova u folderu je: " + Integer.toString(i) + Boolean.toString(test), "");
+                if( utility.brisiFile(s.getMapa_za_dokumente())){
+                    repozitoriji.remove(s);
+                    // pretragaRepozitorija();
+                    boolean flag=Sxml.smjestiUXML();
+                    getSxml().smjesti(getRepozitoriji());
+                    if(repozitoriji.isEmpty()){
+                        if(utility.brisiFile(utility.putZaRep+"repozitoriji.xml"))
+                            utility.poruka("sjednice","Nema nijednog aktivnog repozitorija u bazi!!!");
+                    }
+                    utility.poruka("sjednice","Uspješno obrisan repozitorij");
+                }
+                else {
+                    utility.errPoruka("Desila se greška!!!", "");
+                }
             }
-            utility.poruka("sjednice","UspjeĹˇno obrisan repozitorij");        
-        }
-        else{
-            utility.poruka("sjednice", "Direktorij nije prazan");
+            else{
+                utility.poruka("sjednice", "Direktorij nije prazan");
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(RepozitorijKontroler.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -109,11 +130,11 @@ public final class RepozitorijKontroler {
     
     public String dodajRepozitorij(){        
         if(dodajRepozitorij(getNoviRepozitorij())) {           
-           utility.poruka("SjednicaNNV:Unos", "UspjeĹˇan unos repozitorija");
+           utility.poruka("SjednicaNNV:Unos", "Uspješan unos repozitorija");
            return null;
         }
         else{
-            utility.poruka("SjednicaNNV:Unos", "NeuspjeĹˇan unos repozitorija");
+            utility.poruka("SjednicaNNV:Unos", "Neuspješan unos repozitorija");
             return null;
         }
     }
