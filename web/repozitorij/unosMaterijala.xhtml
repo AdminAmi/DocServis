@@ -88,6 +88,7 @@
                             <h:dataTable id="prK" 
                                         class="w3-table  w3-bordered w3-striped w3-border  w3-tiny"
                                         headerClass="w3-blue-grey"
+                                        footerClass="w3-blue-grey"
                                         style="width: 100%"                                   
                                         value="#{dokumentKontrolerRep.dokumenti}" 
                                         rows="5"
@@ -119,11 +120,15 @@
                                                      action="#{dokumentKontrolerRep.ObrisiRepDoc(doc)}"/>
                                    
                                 </h:column>
-                                
+                                <f:facet name="footer">
+                                    <div class="w3-center w3-small ">
+                                    <moj:pager dataTableId="prK" showpages="20"  selectedStyleClass="ami-nista"  >
+                                       <!-- <f:ajax execute="@form" render="dat:prK" />-->
+                                    </moj:pager>
+                                    </div>
+                                </f:facet>
                                 
                                 </h:dataTable>
-                                
-                                <moj:pager dataTableId="prK" showpages="20"  selectedStyleClass="w3-btn-" class="w3-btn w3-dark-grey w3-hover-red"/>
                                 
                                 <h:messages style="display: none"/>
                            <p/>
