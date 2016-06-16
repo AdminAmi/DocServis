@@ -58,7 +58,7 @@
                                     
                                 </p>
                             </li>
-                            <h4>Učesnici/Korisnici na repozitoriju(projektu)</h4>
+                            <h5>Učesnici/Korisnici na repozitoriju(projektu)</h5>
                             <li class="ami-li">
                                     <p>
                                         <label class="ami-labela">Ime :</label>
@@ -79,13 +79,13 @@
                                 <li>                                  
                                     
                                     <h:dataTable id="prK" 
-                                     class="w3-table  w3-small " 
+                                     class="w3-table  w3-tiny " 
                                      style="width: 50%"                                      
                                      value="#{webKorisnik.lk.pretraga}" 
                                      var="Korisnik">
                                     <thead>
                                         <f:facet name="header" >                                           
-                                            <h6>Odaberite korisnike</h6>
+                                            <p class="w3-small"><b>Odaberite korisnike</b></p>
                                             
                                         </f:facet>
                                         <h:column class="w3-white" > 
@@ -108,13 +108,13 @@
                                     <div class="hline"/>
                                    
                                     <h:dataTable id="prO" 
-                                     class="w3-table  w3-small " 
+                                     class="w3-table  w3-tiny " 
                                      style="width: 50%"                                      
                                      value="#{repozitorijKontroler.korisnici}" 
                                      var="Kor">
                                     <thead>
                                         <f:facet name="header" >                                           
-                                            <h6>Odabrani korisnici:</h6>                                            
+                                            <p class="w3-small"><b>Odabrani korisnici</b></p>                                            
                                         </f:facet>
                                         <h:column class="w3-white" > 
                                             <f:facet name="header">ID</f:facet>#{Kor.id}
