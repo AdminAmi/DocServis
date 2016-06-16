@@ -7,7 +7,8 @@
       xmlns:comp="http://xmlns.jcp.org/jsf/composite/comp"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:jsf="http://xmlns.jcp.org/jsf"
-      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:moj="http://korisni/faces">
     <h:head>
         <head><title>IGNORED</title></head>
         <f:metadata>
@@ -89,6 +90,7 @@
                                         headerClass="w3-blue-grey"
                                         style="width: 100%"                                   
                                         value="#{dokumentKontrolerRep.dokumenti}" 
+                                        rows="5"
                                         var="doc">
                                     <h:column  > 
                                         <f:facet name="header">Naslov tačke</f:facet>#{doc.naziv}                                       
@@ -120,6 +122,9 @@
                                 
                                 
                                 </h:dataTable>
+                                
+                                <moj:pager dataTableId="prK" showpages="20"  selectedStyleClass="w3-btn-" class="w3-btn w3-dark-grey w3-hover-red"/>
+                                
                                 <h:messages style="display: none"/>
                            <p/>
                           
