@@ -26,8 +26,8 @@
             </ui:define>
             <ui:define name="sadrzaj">
                 
-                <div>
-                    <div class="w3-container w3-white" style="width: 20.5cm;">
+                <div class="w3-container w3-white">
+                    <div  style="width: 19.5cm;">
                         <h1>Detalji projekta</h1>
                         <h4><strong><i>"#{projekat.selektovani.projectTitle}"</i></strong></h4>
                         <h:form >
@@ -79,7 +79,8 @@
                                             <ui:remove>
                                             <h:inputTextarea id="TA1" value="#{projekat.selektovani.objectives}" readonly="true" style="width: 100%" onclick="autoGrow(this)" />
                                             </ui:remove>
-                                            <textarea id="TA" jsf:value="#{projekat.selektovani.objectives}" class="w3-border-0" style="width: 100%; overflow: hidden"/>
+                                            <textarea id="TA" jsf:value="#{projekat.selektovani.objectives}" class="w3-border-0"  readonly="true" 
+                                                      style="width: 100%; overflow: hidden; resize: none" />
                                         </i>
                                     </td>
                                 </tr>

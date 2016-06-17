@@ -404,7 +404,7 @@ input[type=checkbox].w3-check:disabled+.w3-validate,input[type=radio].w3-radio:d
 .hline { width:100%; height:1px; background: #eee }
 .topright { position: absolute; top: 40px; right: 0px;  }
 .bootomright {position: absolute; bottom: 0px; right: 0px;}
-.linkbtn {appearance: button;-moz-appearance: button; -webkit-appearance: button; text-decoration: none}
+.linkbtn {appearance: button;-moz-appearance: button; -webkit-appearance: button; text-decoration: none; padding: 1px 10px;}
 .centered {position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);}
 page {
   background: white;

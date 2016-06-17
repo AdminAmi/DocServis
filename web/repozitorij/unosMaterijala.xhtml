@@ -40,12 +40,12 @@
                         <h1>Repozitorij: #{repozitorijKontroler.selektovaniRepozitorij.naslov} </h1>                        
                         <h:form id="materijali" enctype="multipart/form-data" rendered="${LogIn.korisnik.rola!='guest'}">
                             <div class="w3-accordion">
-                                <a href="#" class="w3-btn w3-btn-block w3-blue-grey w3-round-medium " onclick="accordion('Unos')">
-                                    <h6 class="no-print" style="text-align: left">Kliknite za novi unos u repozitorij</h6>
+                                <a href="#" class="w3-btn w3-btn-block w3-blue-grey "   onclick="accordion('Unos')">
+                                    <p class="no-print w3-small" style="text-align: left;" >Kliknite za novi unos u repozitorij</p>
                                 </a>
-                                <div id="Unos" class="w3-accordion-content">
+                                <div id="Unos" class="w3-accordion-content w3-light-grey">
                                     
-                            <ul class="w3-leftbar w3-theme-border w3-small no-print" style="list-style-type:none">
+                            <ul class="w3-border-blue-grey w3-theme-border w3-small no-print" style="list-style-type:none">
                             <li class="ami-li"/>
                             <li class="ami-li"><p>                                
                                 <label class="ami-labela">Opis dokumenta i akcije </label>
@@ -83,7 +83,7 @@
                             </div>
                         </h:form>
                             <br/>
-                            <h4>Materijali za sjednicu</h4>
+                            <h4>Sadržaj repozitorija</h4>
                             <h:form id="dat">
                             <h:dataTable id="prK" 
                                         class="w3-table  w3-bordered w3-striped w3-border  w3-tiny"
