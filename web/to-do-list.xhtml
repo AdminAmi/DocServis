@@ -1,0 +1,164 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:comp="http://xmlns.jcp.org/jsf/composite/comp">
+    <h:head>
+        <head><title>IGNORED</title></head>
+    </h:head>
+    <h:body>
+       
+        <ui:composition template="/predlozak/master.xhtml">
+            <ui:define name="navigacija">
+                <ui:include src="/stranice/navigacija.xhtml"/>
+            </ui:define>
+            <ui:define name="zaglavlje">
+                <ui:include src="/stranice/zaglavlje.xhtml"/>
+            </ui:define>
+            <ui:define name="sadrzaj"> 
+                <div class="w3-card-2">
+                    <div class="w3-container w3-white">
+                        <h1>
+                            TO-DO LIST
+                        </h1>
+                        <h6>
+                            Stranica namjenjena za praćenje promjena projekta!                            
+                        </h6>
+                        <br/>
+                        <table class="w3-table w3-border w3-striped w3-small">
+                            <thead>
+                            <tr class="w3-blue-grey">
+                                <th>
+                                    Naziv akcije
+                                </th>
+                                <th>
+                                    Datum
+                                </th>
+                                <th>
+                                    Stanje
+                                </th>
+                            </tr>
+                            </thead>
+                            <tr>
+                                <td>
+                                    Ušminkati sve tabele dodati paginator
+                                </td>
+                                <td>
+                                    20.06.2016
+                                </td>
+                                <td>
+                                    u izradi (Repozitoriji završeno 20.06.2016)<br/>
+                                    <b>ZAVRŠENO</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Napraviti da se šalje eMail poruka članovima
+                                    NNV kada se unesu materijali za 
+                                    sjednicu NNV-a
+                                </td>
+                                <td>
+                                    20.06.2016
+                                </td>
+                                <td>
+                                    -
+                                </td>
+                            </tr>
+                             <tr>
+                                <td>
+                                    Napraviti da se šalje eMail poruka članovima
+                                    repozitorija kada se repozitorij kreira ili
+                                    kada neki član repozitorija postavi neki
+                                    dokument u repozitorij
+                                </td>
+                                <td>
+                                    20.06.2016
+                                </td>
+                                <td>
+                                    -
+                                </td>
+                            </tr>
+                             <tr>
+                                <td>
+                                    Napraviti da se korisničke akcije : 
+                                    brisanja  uključuju u log file
+                                    samo za opciju repozitorij
+                                    također vrijeme logiranja svakog korisnika (može i nemora)
+                                </td>
+                                <td>
+                                    20.06.2016
+                                </td>
+                                <td>
+                                    -
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Za sve tabele koje se rade zamjeniti List
+                                    sa import javax.faces.model.ListDataModel;
+
+                                </td>
+                                <td>
+                                    20.06.2016
+                                </td>
+                                <td>
+                                    Urađeno za meni svi projekti 20.06.2016<br/>
+                                    Urađeno za meni repozitorij - unosMaterijala -II-<br/>
+                                    Urađeno za meni - pregledrepozitorija -II-<br/>
+                                    <b>ZAVRŠENO</b>
+                                    
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Uključiti u projekat joda time
+
+                                </td>
+                                <td>
+                                    20.06.2016
+                                </td>
+                                <td>
+                                    -                                    
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Uključiti u repozitorije naslov
+
+                                </td>
+                                <td>
+                                    20.06.2016
+                                </td>
+                                <td>
+                                    -                                    
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Metodu pretragaSjednica() Klasa SjednicaKontroler neradi kada se pretražuje mjeseci
+
+                                </td>
+                                <td>
+                                    20.06.2016
+                                </td>
+                                <td>
+                                    -  <br/>Najvjerovatnije rješenje preko joda time                                  
+                                </td>
+                            </tr>
+                        </table>
+                        <br/>
+                        <br/>
+                    </div>
+                </div>
+            </ui:define>
+            <ui:define name="footer">
+               <ui:include src="/stranice/footer.xhtml"/>                 
+            </ui:define> 
+        </ui:composition>
+       
+         
+    </h:body>
+</html>
+

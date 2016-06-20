@@ -6,7 +6,8 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:comp="http://xmlns.jcp.org/jsf/composite/comp"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:jsf="http://xmlns.jcp.org/jsf">
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:moj="http://korisni/faces">
     <h:head>
         <head><title>IGNORED</title></head>
         <f:metadata>
@@ -68,11 +69,16 @@
                             <h4>Materijali za sjednicu</h4>
                             <h:form id="dat">
                             <h:dataTable id="prK" 
-                                        class="w3-table  w3-bordered w3-striped w3-border  w3-tiny"
+                                        class="w3-table  w3-bordered w3-striped w3-border  w3-tiny"                                        
+                                        style="width: 100%"     
                                         headerClass="w3-blue-grey"
-                                        style="width: 100%"                                   
-                                        value="#{dokumentKontroler.dokumenti}" 
+                                        footerClass="w3-blue-grey"                                        
+                                        rows="5"
+                                        value="#{dokumentKontroler.pr}" 
                                         var="doc">
+                                    <h:column  > 
+                                        <f:facet name="header">R/B</f:facet>#{dokumentKontroler.pr.rowIndex + 1}                                       
+                                    </h:column>
                                     <h:column  > 
                                         <f:facet name="header">Naslov tačke</f:facet>#{doc.naziv}                                       
                                     </h:column>
@@ -99,7 +105,11 @@
                                     <h:commandButton value="OBRIŠI" 
                                                      action="#{dokumentKontroler.obrisi(doc)}"/>
                                 </h:column>
-                                
+                                <f:facet name="footer">
+                                    <div class="w3-center w3-small ">
+                                    <moj:pager dataTableId="prK" showpages="20"  selectedStyleClass="ami-nista" />                                      
+                                    </div>
+                                </f:facet>
                                 
                                 </h:dataTable>
                             <p/>

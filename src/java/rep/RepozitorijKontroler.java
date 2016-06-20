@@ -17,6 +17,7 @@ import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
+import javax.faces.model.ListDataModel;
 import javax.xml.bind.JAXBException;
 import korisni.utility;
 
@@ -33,7 +34,7 @@ public final class RepozitorijKontroler {
     private ArrayList<Repozitorij> pretraga = new ArrayList<Repozitorij>();
     private Repozitorij repozitorij = new Repozitorij();
     private String naslov, mjesec, imeKorisnika;
-    private int brojSjednica;
+    private int brojSjednica, ukupniBroj;
     private Repozitorij noviRepozitorij = new Repozitorij();
     private Repozitorij selektovaniRepozitorij = new Repozitorij();
     private String selektovaniID;
@@ -41,6 +42,7 @@ public final class RepozitorijKontroler {
     private zaXMLUser XMLUser = new zaXMLUser();
     private Login.login korisnik = new login();
     private ArrayList<login> korisnici = new ArrayList<login>();
+    private ListDataModel<Repozitorij> Pr ;
     //private ArrayList<login> selektovani = new ArrayList<login>();
    
     
@@ -49,6 +51,8 @@ public final class RepozitorijKontroler {
             if (repozitoriji.isEmpty()) this.setRepozitoriji(Sxml.procitajIzXMLa());
             Collections.sort(repozitoriji, (Repozitorij o1, Repozitorij o2) 
                     -> o2.getDatum().compareTo(o1.getDatum()));
+            setUkupniBroj(repozitoriji.size());
+            Pr = new ListDataModel<>(repozitoriji);
         } catch (Exception e) {}
     }
     //Moram na isti naÄŤin uraditi kao sa sjednicama da se konstruktor oslobodi
@@ -227,6 +231,34 @@ public final class RepozitorijKontroler {
 
     public void setImeKorisnika(String imeKorisnika) {
         this.imeKorisnika = imeKorisnika;
+    }
+
+    /**
+     * @return the ukupniBroj
+     */
+    public int getUkupniBroj() {
+        return ukupniBroj;
+    }
+
+    /**
+     * @param ukupniBroj the ukupniBroj to set
+     */
+    public void setUkupniBroj(int ukupniBroj) {
+        this.ukupniBroj = ukupniBroj;
+    }
+
+    /**
+     * @return the Pr
+     */
+    public ListDataModel<Repozitorij> getPr() {
+        return Pr;
+    }
+
+    /**
+     * @param Pr the Pr to set
+     */
+    public void setPr(ListDataModel<Repozitorij> Pr) {
+        this.Pr = Pr;
     }
 }
 

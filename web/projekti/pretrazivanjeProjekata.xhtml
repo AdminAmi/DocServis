@@ -6,7 +6,8 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:comp="http://xmlns.jcp.org/jsf/composite/comp"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:jsf="http://xmlns.jcp.org/jsf">
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:moj="http://korisni/faces">
     <h:head>
         <head><title>IGNORED</title></head>
     </h:head>
@@ -40,20 +41,27 @@
                                              id="btnPretragaKorisnika"
                                              value="Pretraži"
                                              action="#{projekat.pretragaProjekta()}">
-                                            <f:ajax  execute="@form" render="pr:prK"/>
+                                            <f:ajax  execute="@form" render="pr:prK pr:broj"/>
                                         </h:commandButton> 
                                     </p>
                                 </li>
                             </ul>
-                            <h5> 
-                                <h:outputText value="Rezultati pretrage su: " />                    
-                            </h5>
+                            <h4>Rezultati pretrage:</h4>
+                            <h6> 
+                                <h:outputText value="Ukupno :#{projekat.PK.pr1.rowCount} " id="broj" />                    
+                            </h6>
                             <p class="w3-theme-light w3-small" style=" width: 97%">                    
                                 <h:dataTable  id="prK"
-                                    class="w3-table  w3-bordered w3-striped w3-border  w3-small" 
+                                    class="w3-table  w3-bordered w3-striped w3-border  w3-tiny" 
+                                     headerClass="w3-blue-grey"
+                                     footerClass="w3-blue-grey"                                        
+                                        rows="5"
                                      style="width: 100%"                                   
-                                     value="#{projekat.PK.pretraga}" 
+                                     value="#{projekat.PK.pr1}" 
                                      var="Pr">
+                                    <h:column  > 
+                                        <f:facet name="header">R/B</f:facet>#{projekat.PK.pr1.rowIndex + 1}                                       
+                                    </h:column>
                             <h:column  > 
                                 <f:facet name="header">ID</f:facet>#{Pr.id}
                             </h:column>                           
@@ -68,7 +76,12 @@
                             </h:column>
                             <h:column> 
                                 <f:facet name="header">Datoteka</f:facet>#{Pr.projectPath}
-                            </h:column>                        
+                            </h:column>  
+                                     <f:facet name="footer">
+                                    <div class="w3-center w3-small ">
+                                    <moj:pager dataTableId="prK" showpages="5"  selectedStyleClass="ami-nista" />                                      
+                                    </div>
+                                </f:facet>
                         </h:dataTable>      
                             
                         </p>

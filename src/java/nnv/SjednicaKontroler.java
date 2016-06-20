@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.model.ListDataModel;
 import korisni.utility;
 
 /**
@@ -21,13 +22,16 @@ public final class SjednicaKontroler {
     private Sjednica novaSjednica = new Sjednica();
     private Sjednica selektovanaSjednica = new Sjednica();
     private String selektovaniID;
-    private SjednicaXML Sxml = new SjednicaXML();    
+    private SjednicaXML Sxml = new SjednicaXML(); 
+    private ListDataModel<Sjednica> Pr ;
+    private ListDataModel<Sjednica> Pr1 ;
 
     public SjednicaKontroler() {
         try {
             if (sjednice.isEmpty()) this.setSjednice(Sxml.procitajIzXMLa());
             Collections.sort(sjednice, (Sjednica o1, Sjednica o2) 
                     -> o2.getDatum().compareTo(o1.getDatum()));
+            Pr= new ListDataModel<>(sjednice);
         } catch (Exception e) {}
     }
     
@@ -52,7 +56,7 @@ public final class SjednicaKontroler {
     public void ucitajSjednicu(){
         setSelektovanaSjednica(vratiSjednicuPoBroju(selektovaniID));
     }
-    
+    //Provjeriti za mjesec ne šlaga
     public void pretragaSjednica (){
         getPretraga().clear();
         if(getMjesec().length()==0 && getGodina().length()!=0){
@@ -60,23 +64,24 @@ public final class SjednicaKontroler {
                 if(utility.datum(a1.getDatum()).contains(godina)) getPretraga().add(a1);
             }
         } 
-        if(getGodina().length()==0 && getMjesec().length()!=0){
+        else if(getGodina().length()==0 && getMjesec().length()!=0){
             for (Sjednica a1:getSjednice()){
                 if(utility.datum(a1.getDatum()).contains(mjesec)) getPretraga().add(a1);
             }
         }
-        if(getMjesec().length()!=0 && getMjesec().length()!=0){
+        else if(getMjesec().length()!=0 && getMjesec().length()!=0){
             for (Sjednica a1:getSjednice()){
             if(utility.datum(a1.getDatum()).contains(mjesec)
                     && utility.datum(a1.getDatum()).contains(godina) ) getPretraga().add(a1);
             }            
         }
-        if(getMjesec().length()==0 && getMjesec().length()==0){
+        else if(getMjesec().length()==0 && getMjesec().length()==0){
 //            utility.poruka("sjednice","Niste unijeli parametre za pretraživanje");
              utility.warPoruka("Niste unijeli parametre za pretraživanje!", "");
             
         }
         setBrojSjednica(getPretraga().size());
+        setPr1(new ListDataModel<>(getPretraga()));
     }
     
     public void obrisiSjednicu (Sjednica s){        
@@ -170,6 +175,34 @@ public final class SjednicaKontroler {
     public void setBrojSjednica(int brojSjednica) {this.brojSjednica = brojSjednica; }
     public String getMjesec() { return mjesec;  }
     public void setMjesec(String mjesec) {    this.mjesec = mjesec;  }
+
+    /**
+     * @return the Pr
+     */
+    public ListDataModel<Sjednica> getPr() {
+        return Pr;
+    }
+
+    /**
+     * @param Pr the Pr to set
+     */
+    public void setPr(ListDataModel<Sjednica> Pr) {
+        this.Pr = Pr;
+    }
+
+    /**
+     * @return the Pr1
+     */
+    public ListDataModel<Sjednica> getPr1() {
+        return Pr1;
+    }
+
+    /**
+     * @param Pr1 the Pr1 to set
+     */
+    public void setPr1(ListDataModel<Sjednica> Pr1) {
+        this.Pr1 = Pr1;
+    }
     
     
     

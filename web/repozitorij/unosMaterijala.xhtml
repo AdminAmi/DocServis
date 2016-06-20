@@ -84,15 +84,19 @@
                         </h:form>
                             <br/>
                             <h4>Sadržaj repozitorija</h4>
+                            <h6>Ukupno dokumenata u repozitoriju: #{dokumentKontrolerRep.brojDoc}</h6>
                             <h:form id="dat">
                             <h:dataTable id="prK" 
                                         class="w3-table  w3-bordered w3-striped w3-border  w3-tiny"
                                         headerClass="w3-blue-grey"
-                                        footerClass="w3-blue-grey"
-                                        style="width: 100%"                                   
-                                        value="#{dokumentKontrolerRep.dokumenti}" 
+                                        footerClass="w3-blue-grey"                                        
                                         rows="5"
+                                        style="width: 100%"                                   
+                                        value="#{dokumentKontrolerRep.pr}"
                                         var="doc">
+                                    <h:column  > 
+                                        <f:facet name="header">R/B</f:facet>#{dokumentKontrolerRep.pr.rowIndex + 1}                                       
+                                    </h:column>
                                     <h:column  > 
                                         <f:facet name="header">Naslov tačke</f:facet>#{doc.naziv}                                       
                                     </h:column>
@@ -122,9 +126,7 @@
                                 </h:column>
                                 <f:facet name="footer">
                                     <div class="w3-center w3-small ">
-                                    <moj:pager dataTableId="prK" showpages="20"  selectedStyleClass="ami-nista"  >
-                                       <!-- <f:ajax execute="@form" render="dat:prK" />-->
-                                    </moj:pager>
+                                    <moj:pager dataTableId="prK" showpages="20"  selectedStyleClass="ami-nista" />                                      
                                     </div>
                                 </f:facet>
                                 

@@ -16,6 +16,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.model.ListDataModel;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
@@ -25,8 +26,8 @@ import korisni.utility;
  *
  * @author amel
  */
-@RequestScoped
-//@ViewScoped
+//RequestScoped
+@ViewScoped
 @ManagedBean (name="projekat")
 public class webBeanProjekat {
     
@@ -34,20 +35,14 @@ public class webBeanProjekat {
     private ProjekatBean projekatUnos= new ProjekatBean();
     private String naziv;
     private ProjekatBean selektovani;
-    private int selektovaniId;
+    private int selektovaniId, sviProjekti;
     
     private Part datoteka;
 
     public webBeanProjekat() {
+        setSviProjekti(PK.getProjekti().size());
     }
-    @PostConstruct
-    public void init() {       
-    //inicijalizacijski kod za objekat bolje nego konstruiktor
-    }
-    @PreDestroy
-    public void shutdown() {
-    // shutdown code
-    }
+   
 
     public void reset(){
         projekatUnos.setId(0);
@@ -98,6 +93,7 @@ public class webBeanProjekat {
     public void pretragaProjekta(){
         resetPretraga();
         PK.nadjiProjekat(getNaziv());
+        PK.setPr1(new ListDataModel<>(PK.getPretraga()));
         setNaziv("");
     }
     public void dajSve(){
@@ -233,6 +229,20 @@ public class webBeanProjekat {
      */
     public void setNaziv(String naziv) {
         this.naziv = naziv;
+    }
+
+    /**
+     * @return the sviProjekti
+     */
+    public int getSviProjekti() {
+        return sviProjekti;
+    }
+
+    /**
+     * @param sviProjekti the sviProjekti to set
+     */
+    public void setSviProjekti(int sviProjekti) {
+        this.sviProjekti = sviProjekti;
     }
     
 }

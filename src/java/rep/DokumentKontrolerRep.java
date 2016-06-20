@@ -7,6 +7,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
+import javax.faces.model.ListDataModel;
 import javax.xml.bind.JAXBException;
 import korisni.utility;
 import nnv.Dokument;
@@ -20,17 +21,24 @@ import nnv.Dokument;
 public class DokumentKontrolerRep extends nnv.DokumentKontroler {
     //Treba implementirati rad sa korisnicima
     private boolean imaPristup=false;
+    private int brojDoc;
     private Login.login korisnik = new login();
     private ArrayList<login> korisnici = new ArrayList<login>();
     private zaXMLUser xml = new zaXMLUser();
 
-    public DokumentKontrolerRep() {}
+    public DokumentKontrolerRep() {
+    super();}
     
     public void postaviZastavicu(){
         try {
             try{
             getDokumenti().clear();            
             this.setDokumenti(DXML.procitajIzXMLa(getPath()));
+            this.setPr(new ListDataModel<>(this.getDokumenti()));
+                setBrojDoc(getPr().getRowCount());
+//             Pr = new ListDataModel<>(dokumenti);
+//            utility.infoPoruka("Broj f" + Integer.toString(dokumenti.size()), "");
+//             utility.infoPoruka("Broj u listdM" +Integer.toString(getPr().getRowCount()), "");
             } catch (Exception e){}
             korisnici = xml.procitajIzXMLa(getPath());
            //utility.poruka("greska", "Duzina liste korisnici:" + String.valueOf(korisnici.size()));
@@ -119,6 +127,20 @@ public class DokumentKontrolerRep extends nnv.DokumentKontroler {
 
     public void setImaPristup(boolean imaPristup) {
         this.imaPristup = imaPristup;
+    }
+
+    /**
+     * @return the brojDoc
+     */
+    public int getBrojDoc() {
+        return brojDoc;
+    }
+
+    /**
+     * @param brojDoc the brojDoc to set
+     */
+    public void setBrojDoc(int brojDoc) {
+        this.brojDoc = brojDoc;
     }
     
     

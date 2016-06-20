@@ -17,6 +17,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.model.ListDataModel;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
@@ -39,6 +40,7 @@ public class DokumentKontroler {
     private String path,user, imeFajla;
     protected int id;
     protected DokumentXML DXML = new DokumentXML();
+    private ListDataModel<Dokument> Pr ;
             
     protected Part datoteka;    
 
@@ -46,8 +48,10 @@ public class DokumentKontroler {
     public void ucitajDokumente(){
         try {
             getDokumenti().clear();
-            this.setDokumenti(DXML.procitajIzXMLa(getPath()));           
-        } catch (JAXBException ex) {        
+            this.setDokumenti(DXML.procitajIzXMLa(getPath())); 
+            Pr = new ListDataModel<>(dokumenti);            
+        } catch (JAXBException ex) {
+             utility.errPoruka("Nije došlo do učitavanja iz baze!", "");
         }
     }
     public void ucitajDokumenteZaAkciju(){
@@ -220,6 +224,20 @@ public class DokumentKontroler {
     public void setDokumentiNewDel(ArrayList<Dokument> dokumentiNewDel) {   this.dokumentiNewDel = dokumentiNewDel; }
     public int getId() {   return id;  }
     public void setId(int id) {  this.id = id; }
+
+    /**
+     * @return the Pr
+     */
+    public ListDataModel<Dokument> getPr() {
+        return Pr;
+    }
+
+    /**
+     * @param Pr the Pr to set
+     */
+    public void setPr(ListDataModel<Dokument> Pr) {
+        this.Pr = Pr;
+    }
     
     
 }

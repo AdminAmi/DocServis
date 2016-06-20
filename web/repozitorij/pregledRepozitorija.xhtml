@@ -6,7 +6,8 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:comp="http://xmlns.jcp.org/jsf/composite/comp"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:jsf="http://xmlns.jcp.org/jsf">
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:moj="http://korisni/faces">
     <h:head>
         <head><title>IGNORED</title></head>
     </h:head>
@@ -23,12 +24,20 @@
                 <div >
                     <div class="w3-container w3-white">
                         <h:form id="sjednice">
-                            <h3>Spisak repozitorija</h3><hr/>
+                            <h3>Spisak repozitorija</h3>
+                            <h6>Ukupno repozitorija : #{repozitorijKontroler.ukupniBroj}</h6><hr/>
                             <p class="w3-theme-light w3-small" style=" width: 97%">
                                 <h:dataTable  class="w3-table  w3-bordered w3-striped w3-border  w3-tiny" 
-                                        style="width: 100%"                                   
-                                        value="#{repozitorijKontroler.repozitoriji}" 
+                                        style="width: 100%"   
+                                        headerClass="w3-blue-grey"
+                                        footerClass="w3-blue-grey"
+                                        value="#{repozitorijKontroler.pr}"
+                                        rows="5"
+                                        id="prK"
                                         var="Pr">
+                                    <h:column  > 
+                                        <f:facet name="header">R/B</f:facet>#{repozitorijKontroler.pr.rowIndex + 1}                                       
+                                    </h:column>
                                     <h:column  > 
                                         <f:facet name="header">Naziv repozitorija</f:facet>
                                         <a jsf:outcome="unosMaterijala" > #{Pr.naslov} 
@@ -63,6 +72,12 @@
                                         </a>
                                        
                                     </h:column> 
+                                    <f:facet name="footer">
+                                    <div class="w3-center w3-small ">
+                                    <moj:pager dataTableId="prK" showpages="20"  selectedStyleClass="ami-nista"  />
+                                       
+                                    </div>
+                                </f:facet>
                                 </h:dataTable>  
                             </p>
                             <h:messages  />

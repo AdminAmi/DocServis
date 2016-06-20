@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.bind.JAXBException;
+import javax.faces.model.DataModel;
+import javax.faces.model.ListDataModel;
 
 /**
  *
@@ -19,16 +21,16 @@ public class ProjekatKontroler {
     private ArrayList<ProjekatBean> projekti = new ArrayList<>();
     private ArrayList<ProjekatBean> pretraga = new ArrayList<>();
     private ProjekatBean projekatUnos = new ProjekatBean();
+    private ListDataModel<ProjekatBean> Pr ;
+    private ListDataModel<ProjekatBean> Pr1;//za pretragu
     
-
+    
+    
     public ProjekatKontroler() {
          try {
             if(projekti.isEmpty()) this.setProjekti(xml.procitajIzXMLa());
-            
-        } catch (JAXBException ex) {
-            Logger.getLogger(ProjekatKontroler.class.getName()).
-                    log(Level.SEVERE, null, ex);
-        }
+            Pr = new ListDataModel<>(projekti);            
+        } catch (JAXBException ex) { }
     }
     
     public int generateId(){
@@ -95,11 +97,7 @@ public class ProjekatKontroler {
         return null;
     }
     
-    /**
-     *
-     * @param k
-     * @return
-     */
+   
     public boolean obrisiProjekat(ProjekatBean k){
         int pogodak=-1;
         for (ProjekatBean a1 : projekti) {        
@@ -123,55 +121,31 @@ public class ProjekatKontroler {
     
     
     
+//getter  & setter
+    public ArrayList<ProjekatBean> getProjekti() {   return projekti; }
+    public void setProjekti(ArrayList<ProjekatBean> projekti) {   this.projekti = projekti; }
+    public ArrayList<ProjekatBean> getPretraga() {  return pretraga; }
+    public void setPretraga(ArrayList<ProjekatBean> pretraga) {   this.pretraga = pretraga;  }
+    public ProjekatBean getProjekatUnos() {    return projekatUnos;  }
+    public void setProjekatUnos(ProjekatBean projekatUnos) {   this.projekatUnos = projekatUnos; }
+    public ListDataModel<ProjekatBean> getPr() {   return Pr;  }
+    public void setPr(ListDataModel<ProjekatBean> Pr) { this.Pr = Pr; }
 
     /**
-     * @return the projekti
+     * @return the Pr1
      */
-    public ArrayList<ProjekatBean> getProjekti() {
-        return projekti;
+    public ListDataModel<ProjekatBean> getPr1() {
+        return Pr1;
     }
 
     /**
-     * @param projekti the projekti to set
+     * @param Pr1 the Pr1 to set
      */
-    public void setProjekti(ArrayList<ProjekatBean> projekti) {
-        this.projekti = projekti;
+    public void setPr1(ListDataModel<ProjekatBean> Pr1) {
+        this.Pr1 = Pr1;
     }
 
-    /**
-     * @return the pretraga
-     */
-    public ArrayList<ProjekatBean> getPretraga() {
-        return pretraga;
-    }
-
-    /**
-     * @param pretraga the pretraga to set
-     */
-    public void setPretraga(ArrayList<ProjekatBean> pretraga) {
-        this.pretraga = pretraga;
-    }
-
-    /**
-     * @return the projekatUnos
-     */
-    public ProjekatBean getProjekatUnos() {
-        return projekatUnos;
-    }
-
-    /**
-     * @param projekatUnos the projekatUnos to set
-     */
-    public void setProjekatUnos(ProjekatBean projekatUnos) {
-        this.projekatUnos = projekatUnos;
-    }
-
-    /**
-     * @return the noviProjekat
-     */
-  
-     
-     
+   
      
     
 }
