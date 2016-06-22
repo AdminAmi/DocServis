@@ -10,6 +10,7 @@ import javax.faces.event.ActionEvent;
 import javax.faces.model.ListDataModel;
 import javax.xml.bind.JAXBException;
 import korisni.utility;
+import korisni.mailNotifikacija;
 import nnv.Dokument;
 
 /**
@@ -25,6 +26,7 @@ public class DokumentKontrolerRep extends nnv.DokumentKontroler {
     private Login.login korisnik = new login();
     private ArrayList<login> korisnici = new ArrayList<login>();
     private zaXMLUser xml = new zaXMLUser();
+    mailNotifikacija mail = new mailNotifikacija();
 
     public DokumentKontrolerRep() {
     super();}
@@ -36,9 +38,6 @@ public class DokumentKontrolerRep extends nnv.DokumentKontroler {
             this.setDokumenti(DXML.procitajIzXMLa(getPath()));
             this.setPr(new ListDataModel<>(this.getDokumenti()));
                 setBrojDoc(getPr().getRowCount());
-//             Pr = new ListDataModel<>(dokumenti);
-//            utility.infoPoruka("Broj f" + Integer.toString(dokumenti.size()), "");
-//             utility.infoPoruka("Broj u listdM" +Integer.toString(getPr().getRowCount()), "");
             } catch (Exception e){}
             korisnici = xml.procitajIzXMLa(getPath());
            //utility.poruka("greska", "Duzina liste korisnici:" + String.valueOf(korisnici.size()));
@@ -77,6 +76,32 @@ public class DokumentKontrolerRep extends nnv.DokumentKontroler {
         int i= (int) event.getComponent().getAttributes().get("korisnickiID");
         setId(id);
         } catch (Exception e){} 
+     }
+     //ovdje za slanje maila
+     public void snimiStavku(){
+         String svimailovi="";
+         this.snimi();
+         ArrayList<String> lista = new ArrayList<>();
+         for (int i = 0; i<korisnici.size();i++) {
+             if(korisnici.get(i).getEmail()!=null){
+             lista.add(korisnici.get(i).getEmail());
+             svimailovi += " " + lista.get(i);
+             }
+         }
+         //lista.add("amel.dzanic@gmail.com");
+         utility.infoPoruka("Broj korisnika za slanje: " + lista.size() + "mailovi su :" + svimailovi, "");
+         
+         try{
+         mail.posaljiMail(lista, 
+                 utility.getPodatke().getU(),
+                 utility.getPodatke().getP(), 
+                 utility.getPodatke().getK(), 
+                 "Novi sadržaj u repozitoriju: " +getNazivRepozitorija() , 
+                 "Sadržaj u repozitoriju je postavio" + getUser()+"\nDatoteka : " + getUnos().getNazivDatoteke());
+         } catch (Exception e){
+             utility.errPoruka("Nije poslan mail", "");
+         }
+         
      }
      
      public void ObrisiRepDoc(Dokument d){

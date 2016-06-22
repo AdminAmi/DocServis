@@ -11,10 +11,16 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.Format;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.xml.bind.JAXBException;
+import zaMail.Podaci;
+import zaMail.zaXML;
 
 /**
  *
@@ -156,6 +162,15 @@ public static String getRequestURL()
 
 public static boolean provjeriLocal(){
         return getRequestURL().contains("localhost");
+}
+
+public static zaMail.Podaci getPodatke(){
+    ArrayList<zaMail.Podaci> p = new ArrayList<>();
+    zaMail.zaXML m = new zaXML();
+        try {
+            p = m.procitajIzXMLa();
+        } catch (JAXBException ex) {}
+        return p.get(0);
 }
 
 

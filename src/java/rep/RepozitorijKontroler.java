@@ -20,6 +20,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.model.ListDataModel;
 import javax.xml.bind.JAXBException;
 import korisni.utility;
+import korisni.mailNotifikacija;
 
 /**
  *
@@ -43,6 +44,7 @@ public final class RepozitorijKontroler {
     private Login.login korisnik = new login();
     private ArrayList<login> korisnici = new ArrayList<login>();
     private ListDataModel<Repozitorij> Pr ;
+    
     //private ArrayList<login> selektovani = new ArrayList<login>();
    
     
@@ -74,9 +76,10 @@ public final class RepozitorijKontroler {
     }
     public void ucitajRepozitorij(){
         setSelektovaniRepozitorij(vratiRepPoImenu(selektovaniID));
+        setNoviRepozitorij(getSelektovaniRepozitorij());
         ucitajKorisnike();
     }
-    //Ova metoda Ä‡e biti samo za pretragu imena repozitorija
+    //Ova metoda će biti samo za pretragu imena repozitorija
     public void pretragaRepozitorija (){
         getPretraga().clear();
         if( getNaslov().length()!=0){
@@ -171,13 +174,31 @@ public final class RepozitorijKontroler {
     public void obrisiKorisnik(login korisnik){
         boolean remove = korisnici.remove(korisnik);
     }
-            
+    //ovdje ubaciti za slanje emaila        
     public void spremiPodatke(){
         XMLUser.smjesti(korisnici);
+        mailNotifikacija mail = new mailNotifikacija();
         noviRepozitorij.setMapa_za_dokumente(utility.putZaRep+noviRepozitorij.getNaslov());
         if(dodajRepozitorij(noviRepozitorij) && 
                 XMLUser.smjestiUXML(noviRepozitorij.getMapa_za_dokumente()) ){
 //            utility.poruka("SjednicaNNV:Unos", "UspjeĹˇno kreiran repositorij");
+             ArrayList<String> lista = new ArrayList<>();
+                for (int i = 0; i<korisnici.size();i++) {
+                    if(korisnici.get(i).getEmail()!=null){
+                    lista.add(korisnici.get(i).getEmail());
+             
+                    }
+                }
+                 try{
+                    mail.posaljiMail(lista, 
+                            utility.getPodatke().getU(), 
+                            utility.getPodatke().getP(), 
+                            utility.getPodatke().getK(),
+                            "Dodani ste u repozitorij " +noviRepozitorij.getNaslov() ,
+                            "Sadržaj repozitorija je " + noviRepozitorij.getOrepozitoriju());
+                    } catch (Exception e){
+                utility.errPoruka("Nije poslan mail", "");
+                }
             utility.infoPoruka("Uspješno kreiran repozitorij!", "");
             korisnici.clear();
            // noviRepozitorij.setOrepozitoriju("");            
@@ -224,42 +245,12 @@ public final class RepozitorijKontroler {
     public void setKorisnik(Login.login korisnik) {this.korisnik = korisnik;}
     public ArrayList<login> getKorisnici() {return korisnici;}
     public void setKorisnici(ArrayList<login> korisnici) {this.korisnici = korisnici;}
-
-    public String getImeKorisnika() {
-        return imeKorisnika;
-    }
-
-    public void setImeKorisnika(String imeKorisnika) {
-        this.imeKorisnika = imeKorisnika;
-    }
-
-    /**
-     * @return the ukupniBroj
-     */
-    public int getUkupniBroj() {
-        return ukupniBroj;
-    }
-
-    /**
-     * @param ukupniBroj the ukupniBroj to set
-     */
-    public void setUkupniBroj(int ukupniBroj) {
-        this.ukupniBroj = ukupniBroj;
-    }
-
-    /**
-     * @return the Pr
-     */
-    public ListDataModel<Repozitorij> getPr() {
-        return Pr;
-    }
-
-    /**
-     * @param Pr the Pr to set
-     */
-    public void setPr(ListDataModel<Repozitorij> Pr) {
-        this.Pr = Pr;
-    }
+    public String getImeKorisnika() {return imeKorisnika;}
+    public void setImeKorisnika(String imeKorisnika) { this.imeKorisnika = imeKorisnika; }   
+    public int getUkupniBroj() { return ukupniBroj; }
+    public void setUkupniBroj(int ukupniBroj) { this.ukupniBroj = ukupniBroj; }
+    public ListDataModel<Repozitorij> getPr() { return Pr; }
+    public void setPr(ListDataModel<Repozitorij> Pr) { this.Pr = Pr; }
 }
 
 

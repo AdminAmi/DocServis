@@ -52,11 +52,7 @@
                                 <h:inputTextarea value="#{dokumentKontrolerRep.unos.naziv}" style="width: 90%" 
                                                  rows="5"
                                                  p:required="true"/>
-                                <ui:remove>
-                                <h:inputText value="#{dokumentKontrolerRep.unos.naziv}" style="width: 90%" 
-                                             class="w3-border-0 w3-border-blue-grey w3-border-bottom " 
-                                             p:required="true"/>
-                                </ui:remove>
+                               
                                          <!--style="width: 60%"-->
                                          
                             </p></li>
@@ -68,12 +64,13 @@
                             <li class="ami-li"><p>
                                 <h:commandButton class="w3-btn w3-blue-grey"                                      
                                              value="Snimi!"
-                                             action="#{dokumentKontrolerRep.snimi()}"
+                                             action="#{dokumentKontrolerRep.snimiStavku()}"
                                              actionListener="#{dokumentKontrolerRep.myListener}">                            
                                     <f:attribute name="path" value="#{repozitorijKontroler.selektovaniRepozitorij.mapa_za_dokumente}"/>
                                     <f:attribute name="user" value="#{LogIn.korisnik.ime}"/>                                    
                                     <f:attribute name="user2" value="#{LogIn.korisnik.prezime}"/>
                                     <f:attribute name="idK" value="#{LogIn.korisnik.id}"/>
+                                    <f:attribute name="rep" value="#{repozitorijKontroler.selektovaniRepozitorij.naslov}"/>
                                     
                                 </h:commandButton>
                                 

@@ -37,7 +37,7 @@ public class DokumentKontroler {
     private Dokument unos = new Dokument();
     private Dokument selektovani;
     private int selektovaniID, IDKor;
-    private String path,user, imeFajla;
+    private String path,user, imeFajla, nazivRepozitorija;
     protected int id;
     protected DokumentXML DXML = new DokumentXML();
     private ListDataModel<Dokument> Pr ;
@@ -77,7 +77,7 @@ public class DokumentKontroler {
         Calendar c = Calendar.getInstance();
         Date date = c.getTime();
         int i= getDokumenti().size();
-        Dokument doc = new Dokument(d.getNaziv(), d.getNazivDatoteke(),user , date, IDKor);
+        Dokument doc = new Dokument(d.getNaziv(), d.getNazivDatoteke(), getUser(), date, IDKor);
         doc.setId(generateId());
         //getDokumenti().clear();
         //this.getDokumenti().add(doc);
@@ -102,16 +102,17 @@ public class DokumentKontroler {
     
     public void myListener (ActionEvent event){
         setPath((String)event.getComponent().getAttributes().get("path"));       
-        user = (String)event.getComponent().getAttributes().get("user");
-        user += " " + (String)event.getComponent().getAttributes().get("user2");
+        setUser((String)event.getComponent().getAttributes().get("user"));
+        setUser(getUser() + " " + (String)event.getComponent().getAttributes().get("user2"));
         IDKor = (int)event.getComponent().getAttributes().get("idK");
+        setNazivRepozitorija((String)event.getComponent().getAttributes().get("rep"));
        // IDKor = Integer.valueOf(temp);
         
     }    
     public void pathListener (ActionEvent event){       
         imeFajla = (String)event.getComponent().getAttributes().get("pathDoc");       
     }    
-   
+   //Ovdje dodati za slanje maila
     public void snimi(){        
         if(unos == null) {
             utility.poruka("UnosDokumenta:btnSnimiDokument", "Nije došlo do inicijalizacije objekta");
@@ -237,6 +238,34 @@ public class DokumentKontroler {
      */
     public void setPr(ListDataModel<Dokument> Pr) {
         this.Pr = Pr;
+    }
+
+    /**
+     * @return the user
+     */
+    public String getUser() {
+        return user;
+    }
+
+    /**
+     * @param user the user to set
+     */
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    /**
+     * @return the nazivRepozitorija
+     */
+    public String getNazivRepozitorija() {
+        return nazivRepozitorija;
+    }
+
+    /**
+     * @param nazivRepozitorija the nazivRepozitorija to set
+     */
+    public void setNazivRepozitorija(String nazivRepozitorija) {
+        this.nazivRepozitorija = nazivRepozitorija;
     }
     
     
