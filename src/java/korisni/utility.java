@@ -17,10 +17,13 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.Format;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
@@ -175,33 +178,58 @@ public static zaMail.Podaci getPodatke(){
         return p.get(0);
 }
 
+/**
+Make an int Month from a date
+* Make sure your date is allready made by the format : dd/MM/YYYY
+*/
+public static int getMonthInt(Date date) {
+    SimpleDateFormat dateFormat = new SimpleDateFormat("MM");
+    return Integer.parseInt(dateFormat.format(date));
+}
+
+/**
+Make an int Year from a date
+* Make sure your date is allready made by the format : dd/MM/YYYY
+*/
+public static int getYearInt(Date date) {
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
+    return Integer.parseInt(dateFormat.format(date));
+}
+
 public static String getDatumiVrijeme(){
     DateFormat df = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");    
     Date curr = Calendar.getInstance().getTime();
     return df.format(curr);
 }  
-  /**
-  * Change the contents of text file in its entirety, overwriting any
-  * existing text.
-  *
-  * This style of implementation throws all exceptions to the caller.
-  *
-  * @param aFile is an existing file which can be written to.
-     * @param aContents sadržaj
-  * @throws IllegalArgumentException if param does not comply.
-  * @throws FileNotFoundException if the file does not exist.
-  * @throws IOException if problem encountered during write.
-  */
-  static public void setLog( String aContents) throws  IOException
-                                  {
-        File aFile = new File(putZaLog);      
-       
 
-        //use buffering
-        PrintWriter output = new PrintWriter(new FileWriter(aFile,true));
+    /**
+     *
+     * @param date string datum
+     * @param opcija govori o formatu 0 - datum+vrijeme 1 samo datum
+     * @return odgovarajuci objekat datuma
+     */
+    public static Date getVrijemeFromString(String date, int opcija){
+    DateFormat df;
+    if(opcija == 0){
+        df = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+    } else {
+        df = new SimpleDateFormat("dd/MM/YYYY");
+    }
+    
+    Date startDate = new Date();    
         try {
-        //FileWriter always assumes default encoding is OK!
-        //output.write( aContents );
+            startDate = df.parse(date);
+        } catch (ParseException ex) {
+           
+        }
+        return startDate;   
+   
+}
+ 
+ static public void setLog( String aContents) throws  IOException  {
+        File aFile = new File(putZaLog); 
+        PrintWriter output = new PrintWriter(new FileWriter(aFile,true));
+        try {       
             output.printf("%s\r\n", aContents);
         }
         finally {

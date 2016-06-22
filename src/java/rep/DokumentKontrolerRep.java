@@ -80,9 +80,7 @@ public class DokumentKontrolerRep extends nnv.DokumentKontroler {
      //ovdje za slanje maila
      public void snimiStavku() throws IOException{
          String svimailovi="";
-         this.snimi();
-         
-         
+         this.snimi();         
          utility.setLog(utility.getDatumiVrijeme() + "  "  + 
                  "REPOZITORIJ : " + getPath() + " " +
                  "KORISNIK : " + getUser() + " " +

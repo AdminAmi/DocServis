@@ -76,12 +76,7 @@ public class DokumentKontroler {
     }
      
     public boolean dodajDokument(Dokument d){
-        
-       // DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");       
-        //Date date = utility.getDatumiVrijeme();
-        
-        String s = utility.getDatumiVrijeme();
-        
+        String s = utility.getDatumiVrijeme();        
         int i= getDokumenti().size();
         Dokument doc = new Dokument(d.getNaziv(), d.getNazivDatoteke(), getUser(), s, IDKor);
         doc.setId(generateId());
@@ -111,9 +106,7 @@ public class DokumentKontroler {
         setUser((String)event.getComponent().getAttributes().get("user"));
         setUser(getUser() + " " + (String)event.getComponent().getAttributes().get("user2"));
         IDKor = (int)event.getComponent().getAttributes().get("idK");
-        setNazivRepozitorija((String)event.getComponent().getAttributes().get("rep"));
-       // IDKor = Integer.valueOf(temp);
-        
+        setNazivRepozitorija((String)event.getComponent().getAttributes().get("rep"));       
     } 
     public void logListener (ActionEvent event){
         setUser((String)event.getComponent().getAttributes().get("user"));

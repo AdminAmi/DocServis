@@ -61,18 +61,25 @@ public final class SjednicaKontroler {
         getPretraga().clear();
         if(getMjesec().length()==0 && getGodina().length()!=0){
             for (Sjednica a1:getSjednice()){
-                if(utility.datum(a1.getDatum()).contains(godina)) getPretraga().add(a1);
+//                if(utility.datum(a1.getDatum()).contains(godina)) getPretraga().add(a1);
+                  if(utility.getYearInt(a1.getDatum())== Integer.valueOf(godina)) 
+                      getPretraga().add(a1);
             }
         } 
         else if(getGodina().length()==0 && getMjesec().length()!=0){
             for (Sjednica a1:getSjednice()){
-                if(utility.datum(a1.getDatum()).contains(mjesec)) getPretraga().add(a1);
+//                if(utility.datum(a1.getDatum()).contains(mjesec)) getPretraga().add(a1);
+                  if(utility.getMonthInt(a1.getDatum())== Integer.valueOf(mjesec)) 
+                      getPretraga().add(a1);
             }
         }
         else if(getMjesec().length()!=0 && getMjesec().length()!=0){
             for (Sjednica a1:getSjednice()){
-            if(utility.datum(a1.getDatum()).contains(mjesec)
-                    && utility.datum(a1.getDatum()).contains(godina) ) getPretraga().add(a1);
+//            if(utility.datum(a1.getDatum()).contains(mjesec)
+//                    && utility.datum(a1.getDatum()).contains(godina) ) getPretraga().add(a1);
+              if(utility.getYearInt(a1.getDatum())== Integer.valueOf(godina)
+                      && utility.getMonthInt(a1.getDatum())== Integer.valueOf(mjesec) ) 
+                  getPretraga().add(a1);
             }            
         }
         else if(getMjesec().length()==0 && getMjesec().length()==0){
@@ -94,11 +101,9 @@ public final class SjednicaKontroler {
                 if(utility.brisiFile(utility.putZaSjednice+"sjednice.xml"))
                     utility.infoPoruka("Nema nijedne sjednice NNV-a!","");
             }
-//            utility.poruka("sjednice","Uspješno obrisana sjednica");
                  utility.infoPoruka("Uspješno obrisana sjednica!","");
         }
         else{
-//            utility.poruka("sjednice", "Direktorij nije prazan");
                 utility.warPoruka("Direktorij nije prazan!", "");
         }
     }
@@ -112,14 +117,11 @@ public final class SjednicaKontroler {
     
     public String dodajSjednicu(){
         
-        if(dodajSjednicu(getNovaSjednica())) {
-           // return "/nnv/pregledSjednica";
-//           utility.poruka("SjednicaNNV", "Uspješan unos sjednice");
+        if(dodajSjednicu(getNovaSjednica())) {           
             utility.infoPoruka("Uspješan unos sjednice!", "");
            return null;
         }
-        else{
-//            utility.poruka("SjednicaNNV", "Neuspješan unos sjednice");
+        else{            
             utility.errPoruka("Neuspješan unos sjednice!", "");
             return null;
         }
@@ -175,34 +177,10 @@ public final class SjednicaKontroler {
     public void setBrojSjednica(int brojSjednica) {this.brojSjednica = brojSjednica; }
     public String getMjesec() { return mjesec;  }
     public void setMjesec(String mjesec) {    this.mjesec = mjesec;  }
-
-    /**
-     * @return the Pr
-     */
-    public ListDataModel<Sjednica> getPr() {
-        return Pr;
-    }
-
-    /**
-     * @param Pr the Pr to set
-     */
-    public void setPr(ListDataModel<Sjednica> Pr) {
-        this.Pr = Pr;
-    }
-
-    /**
-     * @return the Pr1
-     */
-    public ListDataModel<Sjednica> getPr1() {
-        return Pr1;
-    }
-
-    /**
-     * @param Pr1 the Pr1 to set
-     */
-    public void setPr1(ListDataModel<Sjednica> Pr1) {
-        this.Pr1 = Pr1;
-    }
+    public ListDataModel<Sjednica> getPr() {     return Pr;   }
+    public void setPr(ListDataModel<Sjednica> Pr) {   this.Pr = Pr;   }
+    public ListDataModel<Sjednica> getPr1() {    return Pr1;  }
+    public void setPr1(ListDataModel<Sjednica> Pr1) {    this.Pr1 = Pr1;  }
     
     
     
