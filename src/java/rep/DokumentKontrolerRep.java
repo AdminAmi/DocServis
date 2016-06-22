@@ -2,8 +2,8 @@ package rep;
 
 
 import Login.login;
+import java.io.IOException;
 import java.util.ArrayList;
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
@@ -78,9 +78,19 @@ public class DokumentKontrolerRep extends nnv.DokumentKontroler {
         } catch (Exception e){} 
      }
      //ovdje za slanje maila
-     public void snimiStavku(){
+     public void snimiStavku() throws IOException{
          String svimailovi="";
          this.snimi();
+         
+         
+         utility.setLog(utility.getDatumiVrijeme() + "  "  + 
+                 "REPOZITORIJ : " + getPath() + " " +
+                 "KORISNIK : " + getUser() + " " +
+                 "AKCIJA : UNOS DOKUMENTA : " + 
+                 getUnos().getNazivDatoteke()+
+                 " OPIS : "+ getDokumenti().get(getDokumenti().size()-1).getNaziv() );
+         /* Netreba mi dok testiram slanje maila
+         
          ArrayList<String> lista = new ArrayList<>();
          for (int i = 0; i<korisnici.size();i++) {
              if(korisnici.get(i).getEmail()!=null){
@@ -101,14 +111,16 @@ public class DokumentKontrolerRep extends nnv.DokumentKontroler {
          } catch (Exception e){
              utility.errPoruka("Nije poslan mail", "");
          }
-         
+         */
      }
      
-     public void ObrisiRepDoc(Dokument d){
+     public void ObrisiRepDoc(Dokument d) throws IOException{
         boolean a = false;
         int br=0,index=-1;
         getDokumenti().clear(); 
-        ucitajDokumenteZaAkciju();        
+        ucitajDokumenteZaAkciju();
+        String doc = d.getNazivDatoteke();
+        String opis = d.getNaziv();
         String pathFile=getPath()+"/"+d.getNazivDatoteke();
         String pathXML =getPath()+"/";
         
@@ -136,6 +148,11 @@ public class DokumentKontrolerRep extends nnv.DokumentKontroler {
                 }
             }
             getDokumentiNewDel().clear();
+             utility.setLog(utility.getDatumiVrijeme() + "  "  + 
+                 "REPOZITORIJ : " + getPath() + " " +
+                 "KORISNIK : " + getUser() + " " +
+                 "AKCIJA : BRISANJE DOKUMENTA : " + 
+                 doc + " OPIS : " + opis);
             ucitajDokumente();
             
        
@@ -166,11 +183,7 @@ public class DokumentKontrolerRep extends nnv.DokumentKontroler {
      */
     public void setBrojDoc(int brojDoc) {
         this.brojDoc = brojDoc;
-    }
-    
-    
-    
-    
+    }  
     
 }
 

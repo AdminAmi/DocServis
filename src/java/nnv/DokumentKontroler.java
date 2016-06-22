@@ -10,9 +10,13 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -34,7 +38,7 @@ import korisni.utility;
 public class DokumentKontroler {
     protected  ArrayList<Dokument> dokumenti = new ArrayList();
     protected  ArrayList<Dokument> dokumentiNewDel = new ArrayList();
-    private Dokument unos = new Dokument();
+    protected Dokument unos = new Dokument();
     private Dokument selektovani;
     private int selektovaniID, IDKor;
     private String path,user, imeFajla, nazivRepozitorija;
@@ -74,10 +78,12 @@ public class DokumentKontroler {
     public boolean dodajDokument(Dokument d){
         
        // DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");       
-        Calendar c = Calendar.getInstance();
-        Date date = c.getTime();
+        //Date date = utility.getDatumiVrijeme();
+        
+        String s = utility.getDatumiVrijeme();
+        
         int i= getDokumenti().size();
-        Dokument doc = new Dokument(d.getNaziv(), d.getNazivDatoteke(), getUser(), date, IDKor);
+        Dokument doc = new Dokument(d.getNaziv(), d.getNazivDatoteke(), getUser(), s, IDKor);
         doc.setId(generateId());
         //getDokumenti().clear();
         //this.getDokumenti().add(doc);
@@ -108,7 +114,11 @@ public class DokumentKontroler {
         setNazivRepozitorija((String)event.getComponent().getAttributes().get("rep"));
        // IDKor = Integer.valueOf(temp);
         
-    }    
+    } 
+    public void logListener (ActionEvent event){
+        setUser((String)event.getComponent().getAttributes().get("user"));
+        setUser(getUser() + " " + (String)event.getComponent().getAttributes().get("user2"));
+    }
     public void pathListener (ActionEvent event){       
         imeFajla = (String)event.getComponent().getAttributes().get("pathDoc");       
     }    
@@ -183,12 +193,14 @@ public class DokumentKontroler {
         
     }*/
 
-    public void obrisi(Dokument d){
+    public void obrisi(Dokument d) throws IOException{
         int index=-1;
         getDokumenti().clear(); 
-        ucitajDokumenteZaAkciju();        
+        ucitajDokumenteZaAkciju();
+        String datoteka  =  d.getNazivDatoteke();      
         String pathFile=getPath()+"/"+d.getNazivDatoteke();
         String pathXML =getPath()+"/";
+        
         if (utility.brisiFile(pathFile)){
             for (int j=0;j<getDokumentiNewDel().size();j++){
                 if(getDokumentiNewDel().get(j).getId()==d.getId()) index=j; 
@@ -198,12 +210,18 @@ public class DokumentKontroler {
             boolean b= DXML.smjestiUXML(pathXML);           
 //            utility.poruka("doc", "Uspješno obrisana datoteka");
             utility.infoPoruka("Uspješno obrisana datoteka!", "");
+            
             if (getDokumentiNewDel().isEmpty()) {
                 if(utility.brisiFile(pathXML+"dokumenti.xml")) {}                
 //                utility.poruka("doc", "Sjednica više nema radnih dokumenata!");
                     utility.infoPoruka("Sjednica više nema radnih dokumenata!", "");
             }
             getDokumentiNewDel().clear();
+//            utility.setLog(utility.getDatumiVrijeme() + "  "  + 
+//                 "Repozitorij: " + getPath() + " " +
+//                 "Korisnik : " + getUser() + 
+//                 " Akcija : BRISANJE DOKUMENTA :" + 
+//                 datoteka);
             ucitajDokumente();
             
         }

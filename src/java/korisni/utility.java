@@ -1,25 +1,30 @@
 package korisni;
 
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.io.Writer;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.NotDirectoryException;
 import java.nio.file.Path;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.DateFormat;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.bind.JAXBException;
-import zaMail.Podaci;
 import zaMail.zaXML;
 
 /**
@@ -33,13 +38,9 @@ public class utility {
     public static String putZaXML=osnovni+"xml/";
     public static String putZaSjednice=osnovni+"sjednice/";
     public static String putZaRep=osnovni+"repozitorij/";
+    public static String putZaLog = osnovni+"log.txt";
     
-    /**
-     *
-     * @param input
-     * @return
-     * @throws NoSuchAlgorithmException
-     */
+   
     public static String sha1(String input) throws NoSuchAlgorithmException {
         MessageDigest mDigest = MessageDigest.getInstance("SHA1");
         byte[] result = mDigest.digest(input.getBytes());
@@ -111,6 +112,7 @@ public class utility {
         kreirajDirektorij(putZaXML);
         kreirajDirektorij(putZaSjednice);
         kreirajDirektorij(putZaRep);
+        kreirajLog();
                 
     }
     
@@ -173,8 +175,47 @@ public static zaMail.Podaci getPodatke(){
         return p.get(0);
 }
 
+public static String getDatumiVrijeme(){
+    DateFormat df = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");    
+    Date curr = Calendar.getInstance().getTime();
+    return df.format(curr);
+}  
+  /**
+  * Change the contents of text file in its entirety, overwriting any
+  * existing text.
+  *
+  * This style of implementation throws all exceptions to the caller.
+  *
+  * @param aFile is an existing file which can be written to.
+     * @param aContents sadržaj
+  * @throws IllegalArgumentException if param does not comply.
+  * @throws FileNotFoundException if the file does not exist.
+  * @throws IOException if problem encountered during write.
+  */
+  static public void setLog( String aContents) throws  IOException
+                                  {
+        File aFile = new File(putZaLog);      
+       
 
-        
+        //use buffering
+        PrintWriter output = new PrintWriter(new FileWriter(aFile,true));
+        try {
+        //FileWriter always assumes default encoding is OK!
+        //output.write( aContents );
+            output.printf("%s\r\n", aContents);
+        }
+        finally {
+          output.close();
+        }
+  }
+  public static void kreirajLog() {
+      try{
+      PrintWriter writer = new PrintWriter(putZaLog, "UTF-8");
+      }
+      catch (Exception e){
+              System.out.println(e.getMessage());
+              }
+  }
     
     
     

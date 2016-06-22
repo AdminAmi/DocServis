@@ -118,8 +118,12 @@
                                 <h:column class="no-print" >
                                     <f:facet name="header">Akcija</f:facet>
                                     <h:commandButton value="OBRIŠI" rendered="${LogIn.korisnik.id==doc.idKorisnik }"
-                                                     action="#{dokumentKontrolerRep.ObrisiRepDoc(doc)}"/>
+                                                     action="#{dokumentKontrolerRep.ObrisiRepDoc(doc)}"
+                                                     actionListener="#{dokumentKontrolerRep.logListener}">
+                                        <f:attribute name="user" value="#{LogIn.korisnik.ime}"/>                                    
+                                        <f:attribute name="user2" value="#{LogIn.korisnik.prezime}"/>
                                    
+                                    </h:commandButton>
                                 </h:column>
                                 <f:facet name="footer">
                                     <div class="w3-center w3-small ">

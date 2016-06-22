@@ -3,20 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package korisni;
+package korisni.test;
+
+import java.io.IOException;
+import korisni.utility;
 
 /**
  *
  * @author ami
  */
-public class init {
+public class testBrisanja {
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        // TODO code application logic here
-        utility.init();
+    public static void main(String[] args) throws IOException {
+        utility.setLog("Radim ");
     }
     
 }

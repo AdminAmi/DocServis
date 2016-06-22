@@ -1,5 +1,5 @@
 
-package korisni;
+package korisni.test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +15,7 @@ import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+
  
 public class SendEmailToGroupDemo {
  
@@ -165,7 +166,7 @@ public class SendEmailToGroupDemo {
  
 // Creating a class for Username and Password authentication
 // provided by the user.
-/*
+
 class LoginAuthenticator extends Authenticator {
  PasswordAuthentication authentication = null;
  
@@ -178,4 +179,4 @@ class LoginAuthenticator extends Authenticator {
   return authentication;
  }
 }
-*/
+

@@ -10,12 +10,12 @@ import java.util.Date;
 public class Dokument {
     private int id, idKorisnik;
     private String Naziv, nazivDatoteke, korisnikUpload;
-    private Date datumKreiranja;
+    private String datumKreiranja;
 
     public Dokument() {
     }
 
-    public Dokument(String Naziv, String nazivDatoteke, String korisnikUpload, Date datumKreiranja, int idKorisnik) {
+    public Dokument(String Naziv, String nazivDatoteke, String korisnikUpload, String datumKreiranja, int idKorisnik) {
         this.Naziv = Naziv;
         this.nazivDatoteke = nazivDatoteke;
         this.korisnikUpload = korisnikUpload;
@@ -29,8 +29,8 @@ public class Dokument {
     public void setNazivDatoteke(String nazivDatoteke) {this.nazivDatoteke = nazivDatoteke;}
     public String getKorisnikUpload() {return korisnikUpload;}
     public void setKorisnikUpload(String korisnikUpload) { this.korisnikUpload = korisnikUpload;}
-    public Date getDatumKreiranja() {return datumKreiranja;}
-    public void setDatumKreiranja(Date datumKreiranja) { this.datumKreiranja = datumKreiranja;}
+    public String getDatumKreiranja() {return datumKreiranja;}
+    public void setDatumKreiranja(String datumKreiranja) { this.datumKreiranja = datumKreiranja;}
     public int getId() { return id;}
     public void setId(int id) {this.id = id;}
     public int getIdKorisnik() { return idKorisnik; }
