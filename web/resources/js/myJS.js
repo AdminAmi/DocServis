@@ -8,16 +8,25 @@ function autoGrow(textarea) {
         textarea.style.height = textarea.scrollHeight + "px";
     }
 }
-//function autoGrow(id) {
-//    var textarea = document.getElementById(id);
-//    if (textarea.clientHeight < textarea.scrollHeight) {
-//        textarea.style.height = textarea.scrollHeight + "px";
-//    }
-//}
-//function auto_grow(element) {
-//    element.style.height = "5px";
-//    element.style.height = (element.scrollHeight+20)+"px";
-//}
+function sakrijSve(){
+   accordion('Unos');document.body.style.display = 'none'; document.body.style.cursor='wait';document.write('UPLOAD');
+    
+}
+function testAcc(naziv) {
+    var x, text;
+
+    // Get the value of the input field with id="numb"
+    x = document.getElementById("test").value;
+
+    // If x is Not a Number or less than one or greater than 10
+    if (isNaN(x) ) {
+        text = "Niste ispunili polje!";
+    } else {
+        accordion(naziv)
+    }
+    document.getElementById("demo").innerHTML = text;
+}
+
 
 function w3_open() {
             document.getElementsByClassName("w3-sidenav")[0].style.display = "block";

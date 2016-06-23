@@ -19,35 +19,29 @@ import nnv.Dokument;
  */
 @ManagedBean
 @ViewScoped
-public class DokumentKontrolerRep extends nnv.DokumentKontroler {
-    //Treba implementirati rad sa korisnicima
+public class DokumentKontrolerRep extends nnv.DokumentKontroler {    
     private boolean imaPristup=false;
-    private int brojDoc;
-    private Login.login korisnik = new login();
+
+    private  Login.login korisnik = new login();
     private ArrayList<login> korisnici = new ArrayList<login>();
-    private zaXMLUser xml = new zaXMLUser();
+    private  zaXMLUser xml = new zaXMLUser();
     mailNotifikacija mail = new mailNotifikacija();
 
     public DokumentKontrolerRep() {
     super();}
+    
     
     public void postaviZastavicu(){
         try {
             try{
             getDokumenti().clear();            
             this.setDokumenti(DXML.procitajIzXMLa(getPath()));
-            this.setPr(new ListDataModel<>(this.getDokumenti()));
-                setBrojDoc(getPr().getRowCount());
+            this.setPr(new ListDataModel<>(this.getDokumenti()));                
             } catch (Exception e){}
-            korisnici = xml.procitajIzXMLa(getPath());
-           //utility.poruka("greska", "Duzina liste korisnici:" + String.valueOf(korisnici.size()));
-            for (login a:korisnici){
-//                utility.errPoruka("greska","Velicina za provjeru" + String.valueOf(getId()));
-//                utility.poruka("greska", "Velicina za provjeru" + String.valueOf(getId()));
-//                utility.poruka("greska", "Vrijednost iz liste" + String.valueOf(a.getId()));
+            korisnici = xml.procitajIzXMLa(getPath());           
+            for (login a:korisnici){              
                 if (getId()==a.getId()){
                     setImaPristup(true);
-//                    utility.infoPoruka("Unutar desio se pogodak","");
                 }
                 }  
         } catch (JAXBException ex) {        
@@ -77,10 +71,10 @@ public class DokumentKontrolerRep extends nnv.DokumentKontroler {
         setId(id);
         } catch (Exception e){} 
      }
-     //ovdje za slanje maila
+     //ovdje za slanje maila radi sve 
      public void snimiStavku() throws IOException{
          String svimailovi="";
-         this.snimi();         
+         this.snimi();          
          utility.setLog(utility.getDatumiVrijeme() + "  "  + 
                  "REPOZITORIJ : " + getPath() + " " +
                  "KORISNIK : " + getUser() + " " +
@@ -151,37 +145,14 @@ public class DokumentKontrolerRep extends nnv.DokumentKontroler {
                  "KORISNIK : " + getUser() + " " +
                  "AKCIJA : BRISANJE DOKUMENTA : " + 
                  doc + " OPIS : " + opis);
-            ucitajDokumente();
-            
-       
+            ucitajDokumente();      
          
-     }
-        
-    
-    
+     }    
     
 
-    public boolean isImaPristup() {
-        return imaPristup;
-    }
+    public boolean isImaPristup() {   return imaPristup;   }
+    public void setImaPristup(boolean imaPristup) { this.imaPristup = imaPristup; }  
 
-    public void setImaPristup(boolean imaPristup) {
-        this.imaPristup = imaPristup;
-    }
-
-    /**
-     * @return the brojDoc
-     */
-    public int getBrojDoc() {
-        return brojDoc;
-    }
-
-    /**
-     * @param brojDoc the brojDoc to set
-     */
-    public void setBrojDoc(int brojDoc) {
-        this.brojDoc = brojDoc;
-    }  
-    
+   
 }
 

@@ -37,8 +37,9 @@
                                         
                                 
                                 
-                        <h1>Repozitorij: #{repozitorijKontroler.selektovaniRepozitorij.naslov} </h1>                        
-                        <h:form id="materijali" enctype="multipart/form-data" rendered="${LogIn.korisnik.rola!='guest'}">
+                        <h1>Repozitorij: #{repozitorijKontroler.selektovaniRepozitorij.naslov} </h1>     
+                        <!-- http://stackoverflow.com/questions/23441864/how-to-call-css-from-javascript -->
+                        <h:form id="materijali" onsubmit="sakrijSve()" enctype="multipart/form-data" rendered="${LogIn.korisnik.rola!='guest'}">
                             <div class="w3-accordion">
                                 <a href="#" class="w3-btn w3-btn-block w3-blue-grey "   onclick="accordion('Unos')">
                                     <p class="no-print w3-small" style="text-align: left;" >Kliknite za novi unos u repozitorij</p>
@@ -51,6 +52,7 @@
                                 <label class="ami-labela">Opis dokumenta i akcije </label>
                                 <h:inputTextarea value="#{dokumentKontrolerRep.unos.naziv}" style="width: 90%" 
                                                  rows="5"
+                                                 id="test"
                                                  p:required="true"/>
                                
                                          <!--style="width: 60%"-->
@@ -62,7 +64,8 @@
                             
                             </p></li>
                             <li class="ami-li"><p>
-                                <h:commandButton class="w3-btn w3-blue-grey"                                      
+                                <h:commandButton class="w3-btn w3-blue-grey" 
+                                                 onclick="testAcc('Unos')"
                                              value="Snimi!"
                                              action="#{dokumentKontrolerRep.snimiStavku()}"
                                              actionListener="#{dokumentKontrolerRep.myListener}">                            
@@ -81,8 +84,11 @@
                         </h:form>
                             <br/>
                             <h4>Sadržaj repozitorija</h4>
-                            <h6>Ukupno dokumenata u repozitoriju: #{dokumentKontrolerRep.brojDoc}</h6>
+                           
                             <h:form id="dat">
+                                <h6>
+                                    <h:outputText value="Ukupno dokumenata u repozitoriju: #{dokumentKontrolerRep.brojac}" id="vrijednost" />
+                                </h6>
                             <h:dataTable id="prK" 
                                         class="w3-table  w3-bordered w3-striped w3-border  w3-tiny"
                                         headerClass="w3-blue-grey"
@@ -122,12 +128,13 @@
                                                      actionListener="#{dokumentKontrolerRep.logListener}">
                                         <f:attribute name="user" value="#{LogIn.korisnik.ime}"/>                                    
                                         <f:attribute name="user2" value="#{LogIn.korisnik.prezime}"/>
+                                       
                                    
                                     </h:commandButton>
                                 </h:column>
                                 <f:facet name="footer">
                                     <div class="w3-center w3-small ">
-                                    <moj:pager dataTableId="prK" showpages="20"  selectedStyleClass="ami-nista" />                                      
+                                    <moj:pager dataTableId="prK" showpages="10"  selectedStyleClass="ami-nista" />                                      
                                     </div>
                                 </f:facet>
                                 

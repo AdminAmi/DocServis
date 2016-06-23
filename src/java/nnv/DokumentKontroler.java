@@ -42,7 +42,7 @@ public class DokumentKontroler {
     private Dokument selektovani;
     private int selektovaniID, IDKor;
     private String path,user, imeFajla, nazivRepozitorija;
-    protected int id;
+    protected int id;    
     protected DokumentXML DXML = new DokumentXML();
     private ListDataModel<Dokument> Pr ;
             
@@ -53,10 +53,13 @@ public class DokumentKontroler {
         try {
             getDokumenti().clear();
             this.setDokumenti(DXML.procitajIzXMLa(getPath())); 
-            Pr = new ListDataModel<>(dokumenti);            
+            Pr = new ListDataModel<>(dokumenti);             
         } catch (JAXBException ex) {
              utility.errPoruka("Nije došlo do učitavanja iz baze!", "");
         }
+    }
+    public int getBrojac (){
+        return getDokumenti().size();
     }
     public void ucitajDokumenteZaAkciju(){
         try {
@@ -133,6 +136,7 @@ public class DokumentKontroler {
             
             
             }
+               
             }
             catch (IOException e) {
 //                utility.poruka("UnosDokumenta:btnSnimiDokument", "Problem pri prenosu datoteke");
@@ -278,6 +282,7 @@ public class DokumentKontroler {
     public void setNazivRepozitorija(String nazivRepozitorija) {
         this.nazivRepozitorija = nazivRepozitorija;
     }
+  
     
     
 }
