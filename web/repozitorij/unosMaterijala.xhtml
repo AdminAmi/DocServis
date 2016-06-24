@@ -20,7 +20,7 @@
             <f:viewAction action="#{dokumentKontrolerRep.postaviZastavicu()}"/>
         </f:metadata>
     </h:head>
-    <h:body>
+    <h:body >
        
         <ui:composition template="/predlozak/masterRepozitorij.xhtml">
             <ui:define name="navigacija">
@@ -115,7 +115,7 @@
                                     <h:column>
                                     <f:facet name="header">Korisnik</f:facet>#{doc.korisnikUpload}
                                     </h:column>
-                                    <h:column> 
+                                    <h:column > 
                                         <f:facet name="header">Datum up-loada dokumenta</f:facet>
                                         <h:outputText value="#{doc.datumKreiranja}">
                                             <f:convertDateTime pattern="dd-MM-yyyy HH:mm:ss"/>
@@ -147,7 +147,7 @@
                             </c:when>
                             <c:otherwise>
                                 <br/>
-                                <h4 class="w3-red w3-center">
+                                <h4 class="w3-red w3-center" >
                                     Nemate pristup ovome repozitoriju!
                                 </h4>
                                 <br/>

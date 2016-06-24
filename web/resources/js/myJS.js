@@ -1,15 +1,32 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+window.onbeforeunload = confirmExit;
+            function confirmExit()
+            { 
+//                if(window.event.clientY < 0){    //&lt je <
+//               var jsfCommandLink = document.getElementById("f:l");
+//               jsfCommandLink.click();
+//                }
+                return "TEXT";
+            }
 function autoGrow(textarea) {
     if (textarea.clientHeight < textarea.scrollHeight) {
         textarea.style.height = textarea.scrollHeight + "px";
     }
 }
+function invokeCommandLink() {
+    
+//   if ((window.event.clientY < 0)){
+//     var jsfCommandLink = document.getElementById("f:l");
+//     jsfCommandLink.click();
+     
+//    }
+  }
+
 function sakrijSve(){
-   accordion('Unos');document.body.style.display = 'none'; document.body.style.cursor='wait';document.write('UPLOAD');
+   //document.body.style.display = 'none'; 
+   document.write('<style type="text/css">\n\
+.centered {padding: 10px 40px 10px 40px;position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);background: white;display: block;margin: 0cm auto;margin-bottom: 0.5cm;  box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);} \n\
+h5 {font-family: "RobotoDraft","Roboto",sans-serif; } body{background-color:rgb(208,208,208)}</style>\n\
+<div class="centered" style="text-align: center"><h5> Dokument se postavlja na server<br/> Molimo Vas da sačekate...</h5></div>');
     
 }
 function testAcc(naziv) {

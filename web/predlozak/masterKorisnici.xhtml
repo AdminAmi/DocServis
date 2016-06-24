@@ -27,10 +27,12 @@
             
            /* .w3-sidenav a {padding:16px;font-weight:bold}*/
         </style>
+        
          <meta http-equiv="X-UA-Compatible" content="IE=edge"/> 
         <title>TFB Projekti</title>
     </h:head>
-    <h:body onload="accordion('Korisnici')">
+    <h:body onload="accordion('Korisnici')" onunload="invokeCommandLink()">
+       
         
         <c:if test="${LogIn.testRegistracije == true }" > 
              <ui:include src="../stranice/infos.xhtml"/>   
