@@ -12,14 +12,14 @@
         <h:outputStylesheet name="css/w3.css" library="resources"/>
         <h:outputStylesheet name="css/w3-theme-blue-gray.css" library="resources"/>
         <h:outputScript name="js/myJS.js" library="resources"/>
-         <h:outputStylesheet library="resources" name="font-awesome-4.6.3/css/font-awesome.min.css" />
         <!--<h:outputStylesheet name="css/Forme.css" library="resources"/>-->
         <link href='https://fonts.googleapis.com/css?family=RobotoDraft' rel='stylesheet' type='text/css'/>
+         <h:outputStylesheet library="resources" name="font-awesome-4.6.3/css/font-awesome.min.css" />
        
         <style>
          html,body,h1,h2,h3,h4,h5 {font-family: "RobotoDraft","Roboto",sans-serif; }
          h1{ text-shadow: 3px 3px 5px rgba(150, 150, 150, 1);}
-          /*  ::-webkit-scrollbar { 
+           /* ::-webkit-scrollbar { 
                 display: none; }*/
             body{
                 background-color:#eee
@@ -27,19 +27,17 @@
             
            /* .w3-sidenav a {padding:16px;font-weight:bold}*/
         </style>
-        
+       
          <meta http-equiv="X-UA-Compatible" content="IE=edge"/> 
         <title>TFB Projekti</title>
     </h:head>
-    <h:body onload="accordion('Korisnici')" >
-       
-        
+    <h:body onload="accordion('Repozitorij');" >
+         
         <c:if test="${LogIn.testRegistracije == true }" > 
-             <ui:include src="../stranice/infos.xhtml"/>   
-            <h:messages style="display: none"/>
+            
         
       <!-- Navigacija-->  
-      <nav class="w3-sidenav w3-collapse w3-theme-light w3-animate-left w3-card-16 ami-meni " style="display:none; background-color: #eee">
+      <nav class="w3-sidenav w3-collapse w3-theme-light w3-animate-left w3-card-16  ami-meni " style="display:none; background-color: #eee">
          <ui:insert name="navigacija">
              <ui:include src="/stranice/navigacija.xhtml"/>
          </ui:insert>
@@ -54,13 +52,13 @@
       </div>    
       <!-- Sadržaj -->
       <div class="w3-container w3-padding-medium ">
-           <ui:include src="../stranice/infos.xhtml"/>   
+          <ui:include src="../stranice/infos.xhtml"/>   
             <h:messages style="display: none"/>
          <ui:insert name="sadrzaj"/>
       </div>
        
        <!-- Footer -->
-      <div id="footer" class=" w3-display-container w3-padding-4 w3-theme-l1  w3-bottom " style="opacity: 0.9">
+      <div id="footer" class=" w3-display-container w3-padding-4 w3-theme-l1  w3-bottom " style="opacity: 0.9; display: none;">
          <ui:insert name="footer"/>
       </div>
        </div>

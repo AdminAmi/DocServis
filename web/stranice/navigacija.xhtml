@@ -115,6 +115,10 @@
                     &npsb;&npsb;
                     <strong>Repozitoriji</strong></a>
                         <div id="Repozitorij" class="w3-accordion-content">
+                            <h:link id="mojiRepozitorij" 
+                           value="Moji repozitoriji"  
+                           class="ami-font ami-link-tab" outcome="/repozitorij/mojiRepozitoriji" 
+                           rendered="${LogIn.korisnik.rola!='guest'}" /> 
                     
                         <h:link id="noviRepozitorij" 
                            value="Novi repozitorij"  

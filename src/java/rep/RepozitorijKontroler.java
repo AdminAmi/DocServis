@@ -6,6 +6,7 @@
 package rep;
 
 import Login.login;
+import Login.loginKontroler;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
+import javax.faces.event.ActionEvent;
 import javax.faces.model.ListDataModel;
 import javax.xml.bind.JAXBException;
 import korisni.utility;
@@ -33,9 +35,10 @@ public final class RepozitorijKontroler {
     
     private ArrayList<Repozitorij> repozitoriji = new ArrayList<Repozitorij>();
     private ArrayList<Repozitorij> pretraga = new ArrayList<Repozitorij>();
+    private ArrayList<Repozitorij> mojiRep = new ArrayList<Repozitorij>();
     private Repozitorij repozitorij = new Repozitorij();
     private String naslov, mjesec, imeKorisnika;
-    private int brojSjednica, ukupniBroj;
+    private int brojSjednica, ukupniBroj, idK;
     private Repozitorij noviRepozitorij = new Repozitorij();
     private Repozitorij selektovaniRepozitorij = new Repozitorij();
     private String selektovaniID;
@@ -44,6 +47,7 @@ public final class RepozitorijKontroler {
     private Login.login korisnik = new login();
     private ArrayList<login> korisnici = new ArrayList<login>();
     private ListDataModel<Repozitorij> Pr ;
+     private ListDataModel<Repozitorij> Pr1 ;
     
     //private ArrayList<login> selektovani = new ArrayList<login>();
    
@@ -97,8 +101,6 @@ public final class RepozitorijKontroler {
     public void obrisiRepzitorij (Repozitorij s){ 
         try {
             int i = utility.getFilesCount(Paths.get(s.getMapa_za_dokumente()));
-            
-           
             //Dozvoliti samo sa localhosta
             //Prvo treba obrisati dokument korisnici.xml
             //ulkoliko samo sadrži taj dokument
@@ -133,7 +135,8 @@ public final class RepozitorijKontroler {
          getPretraga().remove(s);
          setBrojSjednica(getPretraga().size());
                                
-    }
+    }    
+    
     
     public String dodajRepozitorij(){        
         if(dodajRepozitorij(getNoviRepozitorij())) {           
@@ -180,13 +183,12 @@ public final class RepozitorijKontroler {
         mailNotifikacija mail = new mailNotifikacija();
         noviRepozitorij.setMapa_za_dokumente(utility.putZaRep+noviRepozitorij.getNaslov());
         if(dodajRepozitorij(noviRepozitorij) && 
-                XMLUser.smjestiUXML(noviRepozitorij.getMapa_za_dokumente()) ){
-//            utility.poruka("SjednicaNNV:Unos", "UspjeĹˇno kreiran repositorij");
-             ArrayList<String> lista = new ArrayList<>();
+            XMLUser.smjestiUXML(noviRepozitorij.getMapa_za_dokumente()) ){
+//          utility.poruka("SjednicaNNV:Unos", "UspjeĹˇno kreiran repositorij");
+            ArrayList<String> lista = new ArrayList<>();
                 for (int i = 0; i<korisnici.size();i++) {
                     if(korisnici.get(i).getEmail()!=null){
-                    lista.add(korisnici.get(i).getEmail());
-             
+                    lista.add(korisnici.get(i).getEmail());             
                     }
                 }
                  try{
@@ -211,6 +213,13 @@ public final class RepozitorijKontroler {
        
         
     }
+    
+     public void myListenerRep (ActionEvent event){ 
+        try{
+            int i= (int) event.getComponent().getAttributes().get("idKorisnik");            
+            setIdK(i);
+        } catch (Exception e){} 
+     }
     public void ucitajKorisnike(){
         try {
             setKorisnici(XMLUser.procitajIzXMLa(getSelektovaniRepozitorij().getMapa_za_dokumente()));
@@ -218,6 +227,19 @@ public final class RepozitorijKontroler {
            
         }
     } 
+    
+    public void mojiRepozitoriji() throws JAXBException{        
+        Pr1 = null;
+        getMojiRep().clear();
+         for (Repozitorij r : getRepozitoriji()){
+             setKorisnici(XMLUser.procitajIzXMLa(r.getMapa_za_dokumente() ));
+             for(login l: getKorisnici()){
+                 
+                 if(l.getId()==getIdK()) getMojiRep().add(r);
+             }
+         }         
+         Pr1 = new ListDataModel<>(getMojiRep());         
+    }
     
     
     //get and set
@@ -251,6 +273,36 @@ public final class RepozitorijKontroler {
     public void setUkupniBroj(int ukupniBroj) { this.ukupniBroj = ukupniBroj; }
     public ListDataModel<Repozitorij> getPr() { return Pr; }
     public void setPr(ListDataModel<Repozitorij> Pr) { this.Pr = Pr; }
+    public ArrayList<Repozitorij> getMojiRep() { return mojiRep;}
+    public void setMojiRep(ArrayList<Repozitorij> mojiRep) { this.mojiRep = mojiRep; }
+
+    /**
+     * @return the idK
+     */
+    public int getIdK() {
+        return idK;
+    }
+
+    /**
+     * @param idK the idK to set
+     */
+    public void setIdK(int idK) {
+        this.idK = idK;
+    }
+
+    /**
+     * @return the Pr1
+     */
+    public ListDataModel<Repozitorij> getPr1() {
+        return Pr1;
+    }
+
+    /**
+     * @param Pr1 the Pr1 to set
+     */
+    public void setPr1(ListDataModel<Repozitorij> Pr1) {
+        this.Pr1 = Pr1;
+    }
 }
 
 

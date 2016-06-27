@@ -67,6 +67,7 @@ public class DokumentKontrolerRep extends nnv.DokumentKontroler {
     }
      public void myListenerRep (ActionEvent event){
      try{
+         String ime ; 
         int i= (int) event.getComponent().getAttributes().get("korisnickiID");
         setId(id);
         } catch (Exception e){} 

@@ -1,17 +1,22 @@
 window.onbeforeunload = confirmExit;
             function confirmExit()
             { 
-//                if(window.event.clientY < 0){    //&lt je <
-//               var jsfCommandLink = document.getElementById("f:l");
-//               jsfCommandLink.click();
-//                }
-                return "TEXT";
+                if(window.event.clientY < 0){    //&lt je <
+               var jsfCommandLink = document.getElementById("f:l");
+               jsfCommandLink.click();
+                }
+               
             }
 function autoGrow(textarea) {
     if (textarea.clientHeight < textarea.scrollHeight) {
         textarea.style.height = textarea.scrollHeight + "px";
     }
 }
+
+function nestani(button){
+    button.style.display = 'none';
+}
+
 function invokeCommandLink() {
     
 //   if ((window.event.clientY < 0)){
@@ -209,4 +214,5 @@ function accordion(id) {
         x.className = x.className.replace(" w3-show", "");
     }
 }
+
 
