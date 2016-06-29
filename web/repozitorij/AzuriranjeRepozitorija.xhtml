@@ -38,9 +38,10 @@
                             <li class="ami-li ">
                                 <p>
                                     <label class="ami-labela">Naziv repozitorija (projekta):</label>
-                                    <h:inputText class="w3-border-0 w3-border-black w3-border-bottom"
+                                    <h:inputText class="w3-border-0 " style="font-weight: bold; width: 90%"
+                                                 disabled="true"
                                                  value="#{repozitorijKontroler.selektovaniRepozitorij.naslov}"  
-                                                  style="width: 90%"
+                                                 
                                                     >                                        
                                     </h:inputText>
                                 </p>
@@ -147,8 +148,11 @@
                                  <p>
                                 <h:commandButton class="w3-btn w3-blue-grey " 
                                                  id="Unos"
-                                                 action="#{repozitorijKontroler.spremiPodatke()}"
-                                                 value="Spremi podatke!"/>
+                                                 action="#{repozitorijKontroler.azurirajRepozitorij()}"
+                                                 actionListener="#{repozitorijKontroler.myListenerRep}"
+                                                 value="Ažuriraj podatke!">
+                                     <f:attribute name="idKorisnik" value="#{LogIn.korisnik.id}"/>
+                                </h:commandButton>
                                  </p>
                             </li>
                             </ul> 

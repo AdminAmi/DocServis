@@ -68,7 +68,7 @@
                                 </li>
                                 <li class="ami-li">
                                     <p>
-                                        <h:commandButton class="w3-btn w3-blue-grey " 
+                                        <h:commandButton class="w3-btn w3-blue-grey  " 
                                              id="btnPretragaKorisnika"
                                              value="Pretraži!"
                                              action="#{webKorisnik.pretraga()}">
@@ -76,10 +76,11 @@
                                         </h:commandButton> 
                                     </p>
                                 </li>                                               
-                                <li>                                  
-                                    
+                                <li>                              
+                                      
                                     <h:dataTable id="prK" 
                                      class="w3-table  w3-tiny " 
+                                     columnClasses="rb"
                                      style="width: 50%"                                      
                                      value="#{webKorisnik.lk.pretraga}" 
                                      var="Korisnik">
@@ -108,7 +109,8 @@
                                     <div class="hline"/>
                                    
                                     <h:dataTable id="prO" 
-                                     class="w3-table  w3-tiny " 
+                                     class="w3-table  w3-tiny  " 
+                                     columnClasses="rb"
                                      style="width: 50%"                                      
                                      value="#{repozitorijKontroler.korisnici}" 
                                      var="Kor">
@@ -134,13 +136,17 @@
                                     </h:dataTable>
                                     
                                 </li>
+                      
                              <li class="ami-li"/>
                              <li class="ami-li">
                                  <p>
                                 <h:commandButton class="w3-btn w3-blue-grey " 
                                                  id="Unos"
                                                  action="#{repozitorijKontroler.spremiPodatke()}"
-                                                 value="Spremi podatke!"/>
+                                                 actionListener="#{repozitorijKontroler.myListenerRep}"
+                                                 value="Spremi podatke!">
+                                    <f:attribute name="idKorisnik" value="#{LogIn.korisnik.id}"/>
+                                </h:commandButton>
                                  </p>
                             </li>
                             </ul> 

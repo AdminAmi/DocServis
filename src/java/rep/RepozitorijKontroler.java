@@ -1,10 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package rep;
 
+import Login.KontrolerKorisnik;
 import Login.login;
 import Login.loginKontroler;
 import java.io.IOException;
@@ -45,12 +42,10 @@ public final class RepozitorijKontroler {
     private RepozitorijXML Sxml = new RepozitorijXML();
     private zaXMLUser XMLUser = new zaXMLUser();
     private Login.login korisnik = new login();
+    private Login.login korisnik1 = new login();
     private ArrayList<login> korisnici = new ArrayList<login>();
     private ListDataModel<Repozitorij> Pr ;
-     private ListDataModel<Repozitorij> Pr1 ;
-    
-    //private ArrayList<login> selektovani = new ArrayList<login>();
-   
+    private ListDataModel<Repozitorij> Pr1 ;
     
     public RepozitorijKontroler() {
         try {
@@ -83,6 +78,30 @@ public final class RepozitorijKontroler {
         setNoviRepozitorij(getSelektovaniRepozitorij());
         ucitajKorisnike();
     }
+    public void azurirajRepozitorij () throws IOException{
+        int index=-1;
+        Login.loginKontroler lk = new loginKontroler();
+        XMLUser.smjesti(korisnici);
+        for (int i =0 ; i <getRepozitoriji().size(); i++){
+            if(getRepozitoriji().get(i).getId()==selektovaniRepozitorij.getId()) index = i;
+        }
+        
+        if(index!=-1){
+        getRepozitoriji().get(index).setOrepozitoriju(selektovaniRepozitorij.getOrepozitoriju());
+        getRepozitoriji().get(index).setNaslov(selektovaniRepozitorij.getNaslov());
+        getSxml().smjesti(getRepozitoriji());
+        boolean flag=getSxml().smjestiUXML() &&
+                XMLUser.smjestiUXML(selektovaniRepozitorij.getMapa_za_dokumente());
+        utility.setLog(utility.getDatumiVrijeme() + "  "  + 
+                 "AŽURIRAN REPOZITORIJ : " + selektovaniRepozitorij.getNaslov() + " " +
+                 "OD KORISNIKA : " + korisnik1.getIme()+" " + korisnik1.getPrezime()  + " " +                 
+                 " OPIS : "+ selektovaniRepozitorij.getOrepozitoriju()+ " " +
+                "KORISNICI : " + korisniciZaLog());
+        
+        if (!flag) utility.errPoruka("Nije uspjelo ažuriranje!!!", "");
+        else utility.infoPoruka("Uspješno izvršeno ažuriranje", mjesec);
+        }
+    }
     //Ova metoda će biti samo za pretragu imena repozitorija
     public void pretragaRepozitorija (){
         getPretraga().clear();
@@ -100,6 +119,9 @@ public final class RepozitorijKontroler {
     //Ovu metodu ne koristiti samo extra pažljivo
     public void obrisiRepzitorij (Repozitorij s){ 
         try {
+            
+            String naziv = s.getNaslov();
+            String oRep = s.getOrepozitoriju();
             int i = utility.getFilesCount(Paths.get(s.getMapa_za_dokumente()));
             //Dozvoliti samo sa localhosta
             //Prvo treba obrisati dokument korisnici.xml
@@ -112,10 +134,16 @@ public final class RepozitorijKontroler {
                     // pretragaRepozitorija();
                     boolean flag=Sxml.smjestiUXML();
                     getSxml().smjesti(getRepozitoriji());
+                    boolean zastavica = getSxml().smjestiUXML();
                     if(repozitoriji.isEmpty()){
                         if(utility.brisiFile(utility.putZaRep+"repozitoriji.xml"))
                             utility.poruka("sjednice","Nema nijednog aktivnog repozitorija u bazi!!!");
                     }
+                    utility.setLog(utility.getDatumiVrijeme() + "  "  + 
+                 "OBRISAN REPOZITORIJ : " + naziv + " " +
+                 "OD KORISNIKA : " + korisnik1.getIme() +" "+ korisnik1.getPrezime()  + " " +                 
+                 " OPIS : "+oRep + " " + 
+                            "KORISNICI : " + korisniciZaLog());
                     utility.poruka("sjednice","Uspješno obrisan repozitorij");
                 }
                 else {
@@ -170,6 +198,11 @@ public final class RepozitorijKontroler {
         }
         return zastavica;
     }
+    private String korisniciZaLog(){
+        String rez ="[ ", kor="",kraj =" ]" ;
+        for(Login.login l: korisnici) kor +=l.getIme() + "  " + l.getPrezime() + " ; ";
+        return rez + kor + kraj;
+    }
     
     public void dodajKorisnika (login korisnik){
         korisnici.add(korisnik);
@@ -177,30 +210,56 @@ public final class RepozitorijKontroler {
     public void obrisiKorisnik(login korisnik){
         boolean remove = korisnici.remove(korisnik);
     }
-    //ovdje ubaciti za slanje emaila        
-    public void spremiPodatke(){
+    private void sendEmail(Repozitorij r){
+        mailNotifikacija mail = new mailNotifikacija(); 
+        ArrayList<String> lista = new ArrayList<>();
+        for (int i = 0; i<korisnici.size();i++) {
+            if(korisnici.get(i).getEmail()!=null){
+                lista.add(korisnici.get(i).getEmail());             
+            }
+        }
+        try{
+            mail.posaljiMail(lista, 
+                    utility.getPodatke().getU(), 
+                    utility.getPodatke().getP(), 
+                    utility.getPodatke().getK(),
+                    "Dodani ste u repozitorij " +r.getNaslov() ,
+                    "Sadržaj repozitorija je " + r.getOrepozitoriju());
+            } catch (Exception e){
+        utility.errPoruka("Nije poslan mail", "");
+        }        
+    }
+       
+    public void spremiPodatke() throws IOException{
         XMLUser.smjesti(korisnici);
-        mailNotifikacija mail = new mailNotifikacija();
+//        mailNotifikacija mail = new mailNotifikacija();        
         noviRepozitorij.setMapa_za_dokumente(utility.putZaRep+noviRepozitorij.getNaslov());
         if(dodajRepozitorij(noviRepozitorij) && 
             XMLUser.smjestiUXML(noviRepozitorij.getMapa_za_dokumente()) ){
 //          utility.poruka("SjednicaNNV:Unos", "UspjeĹˇno kreiran repositorij");
-            ArrayList<String> lista = new ArrayList<>();
-                for (int i = 0; i<korisnici.size();i++) {
-                    if(korisnici.get(i).getEmail()!=null){
-                    lista.add(korisnici.get(i).getEmail());             
-                    }
-                }
-                 try{
-                    mail.posaljiMail(lista, 
-                            utility.getPodatke().getU(), 
-                            utility.getPodatke().getP(), 
-                            utility.getPodatke().getK(),
-                            "Dodani ste u repozitorij " +noviRepozitorij.getNaslov() ,
-                            "Sadržaj repozitorija je " + noviRepozitorij.getOrepozitoriju());
-                    } catch (Exception e){
-                utility.errPoruka("Nije poslan mail", "");
-                }
+//            ArrayList<String> lista = new ArrayList<>();
+//                for (int i = 0; i<korisnici.size();i++) {
+//                    if(korisnici.get(i).getEmail()!=null){
+//                    lista.add(korisnici.get(i).getEmail());             
+//                    }
+//                }
+//                 try{
+//                    mail.posaljiMail(lista, 
+//                            utility.getPodatke().getU(), 
+//                            utility.getPodatke().getP(), 
+//                            utility.getPodatke().getK(),
+//                            "Dodani ste u repozitorij " +noviRepozitorij.getNaslov() ,
+//                            "Sadržaj repozitorija je " + noviRepozitorij.getOrepozitoriju());
+//                    } catch (Exception e){
+//                utility.errPoruka("Nije poslan mail", "");
+//                }
+            
+            
+            utility.setLog(utility.getDatumiVrijeme() + "  "  + 
+                 "KREIRAN REPOZITORIJ : " + noviRepozitorij.getNaslov() + " " +
+                 "OD KORISNIKA : " + korisnik1.getIme() +" "+korisnik1.getPrezime()  + " " +                 
+                 " OPIS : "+ noviRepozitorij.getOrepozitoriju() + " " +
+                    "KORISNICI : " + korisniciZaLog());
             utility.infoPoruka("Uspješno kreiran repozitorij!", "");
             korisnici.clear();
            // noviRepozitorij.setOrepozitoriju("");            
@@ -215,10 +274,20 @@ public final class RepozitorijKontroler {
     }
     
      public void myListenerRep (ActionEvent event){ 
+         
         try{
             int i= (int) event.getComponent().getAttributes().get("idKorisnik");            
             setIdK(i);
+            utility.infoPoruka("testiram u PM + " + String.valueOf(idK), "");
+            postaviKorisnika();
         } catch (Exception e){} 
+     }
+     private void postaviKorisnika(){
+         Login.loginKontroler lk = new loginKontroler();
+         utility.infoPoruka("testiram u PM + " + String.valueOf(idK), "");
+         korisnik1 = lk.getUserFromID(getIdK());
+         //dodajKorisnika(korisnik1);
+            if (korisnik1 == null) utility.errPoruka("Korisnik == null greška", "");
      }
     public void ucitajKorisnike(){
         try {
@@ -275,34 +344,10 @@ public final class RepozitorijKontroler {
     public void setPr(ListDataModel<Repozitorij> Pr) { this.Pr = Pr; }
     public ArrayList<Repozitorij> getMojiRep() { return mojiRep;}
     public void setMojiRep(ArrayList<Repozitorij> mojiRep) { this.mojiRep = mojiRep; }
-
-    /**
-     * @return the idK
-     */
-    public int getIdK() {
-        return idK;
-    }
-
-    /**
-     * @param idK the idK to set
-     */
-    public void setIdK(int idK) {
-        this.idK = idK;
-    }
-
-    /**
-     * @return the Pr1
-     */
-    public ListDataModel<Repozitorij> getPr1() {
-        return Pr1;
-    }
-
-    /**
-     * @param Pr1 the Pr1 to set
-     */
-    public void setPr1(ListDataModel<Repozitorij> Pr1) {
-        this.Pr1 = Pr1;
-    }
+    public int getIdK() {return idK; }
+    public void setIdK(int idK) { this.idK = idK; }
+    public ListDataModel<Repozitorij> getPr1() {return Pr1; }
+    public void setPr1(ListDataModel<Repozitorij> Pr1) {this.Pr1 = Pr1;}
 }
 
 

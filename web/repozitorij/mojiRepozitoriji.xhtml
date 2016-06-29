@@ -8,11 +8,8 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:jsf="http://xmlns.jcp.org/jsf"
       xmlns:moj="http://korisni/faces">
-    <h:head>
-        <head><title>IGNORED</title></head>
-    </h:head>
-    <h:body>
-       
+    <h:head> <head><title>IGNORED</title></head> </h:head>
+    <h:body>       
         <ui:composition template="/predlozak/masterRepozitorij.xhtml">
             <ui:define name="navigacija">
                 <ui:include src="/stranice/navigacija.xhtml"/>
@@ -41,7 +38,7 @@
                             <p class=" w3-small" style=" width: 100%">
                             <h:panelGroup id="test">
                             <c:if test="#{not empty repozitorijKontroler.mojiRep}">
-                                <h:dataTable  class="w3-table  w3-bordered w3-striped w3-border  w3-tiny w3-responsive" 
+                                <h:dataTable  class="w3-table  w3-bordered w3-striped w3-border  w3-tiny w3-responsive w3-card-8" 
                                             style="width: 100%"   
                                             headerClass="w3-blue-grey"
                                             columnClasses="rb"
@@ -85,7 +82,7 @@
                                     </h:panelGroup>
                                 </p>
 
-                                <h:messages  />                                
+                            <h:messages style="display: none" />                                
                         </h:form>  
                     </div>
                 </div>

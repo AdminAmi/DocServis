@@ -24,8 +24,7 @@ public class podaci {
         pod.add(p);
         xml.smjesti(pod);
         if (xml.smjestiUXML()){
-            System.out.println("Uspješan unos!");
-        }
+            System.out.println("Uspješan unos!");        }
         System.out.println(utility.getPodatke().toString());
         
         

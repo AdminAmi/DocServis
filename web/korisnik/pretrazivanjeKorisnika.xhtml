@@ -45,21 +45,25 @@
                                              id="btnPretragaKorisnika"
                                              value="Pretraži!"
                                              action="#{webKorisnik.pretraga()}">
-                                            <f:ajax  execute="@form" render="pr:prK"/>
+                                            <f:ajax  execute="@form" render="@form"/>
                                         </h:commandButton> 
                                     </p>
                                 </li>
-                            </ul>
-                            <h5>Rezultati pretrage su: </h5> 
-                            <ul class="w3-leftbar w3-theme-border w3-theme-light w3-small" style="list-style-type:none; width: 97%">                    
-                                <li><p>                                                   
+                            </ul> 
+                            <h:outputText value="Pronađeno korisnika za date podatke : #{webKorisnik.lk.pretraga.size()} " />
+                                          
+                               
+                               <p>                                                   
                                     <h:dataTable id="prK" 
-                                     class="w3-table  w3-small " 
-                                     style="width: 100%"                                      
+                                     class="w3-table  w3-bordered w3-striped w3-border  w3-tiny w3-card-8 " 
+                                     style="width: 100%"             
+                                     headerClass="w3-blue-grey"
+                                     footerClass="w3-blue-grey"  
+                                     rendered="#{not empty webKorisnik.lk.pretraga}"
                                      value="#{webKorisnik.lk.pretraga}" 
                                      var="Korisnik">
                                     <thead>
-                                        <h:column class="w3-white" > 
+                                        <h:column  > 
                                             <f:facet name="header">ID</f:facet>#{Korisnik.id}
                                         </h:column>                           
                                         <h:column> 
@@ -75,9 +79,12 @@
                                             <f:facet name="header">Uloga</f:facet>#{Korisnik.rola}
                                         </h:column> 
                                     </thead>
-                                    </h:dataTable>                                               
-                                </p></li>                    
-                            </ul>                          
+                                    </h:dataTable>                                                                    
+                                </p>
+                            
+                                                            
+                                            
+                                                     
                         </h:form>
                     </div>
                 </div>

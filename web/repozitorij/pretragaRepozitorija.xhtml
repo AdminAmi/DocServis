@@ -46,19 +46,23 @@
                                              id="btnPretragaKorisnika"
                                              value="Pretraži"
                                              action="#{repozitorijKontroler.pretragaRepozitorija()}">
-                                            <f:ajax  execute="@form" render="sjednice:tabela sjednice:broj"/>
+                                            <f:ajax  execute="@form" render="@form"/>
                                         </h:commandButton> 
                                     </p>
                                 </li>
                             </ul>                            
-                            <p class="w3-theme-light w3-small" style=" width: 97%">
-                                <h:dataTable  class="w3-table  w3-bordered w3-striped w3-border  w3-tiny"
+                             <h:outputText 
+                                    value="Rezultati pretrage : (ukupno #{repozitorijKontroler.brojSjednica})" 
+                                    id="broj" class="w3-small w3-white"/>
+                             <hr/>
+                                <h:dataTable  class="w3-table  w3-bordered w3-striped w3-border  w3-tiny w3-card-8"
                                         headerClass="w3-blue-grey"
                                         footerClass="w3-blue-grey"
                                         rows="5"
                                               id="tabela"
                                         style="width: 100%"                                   
                                         value="#{repozitorijKontroler.pretraga}" 
+                                        rendered="#{not empty repozitorijKontroler.pretraga}"
                                         var="Pr">
                                     <h:column  > 
                                         <f:facet name="header">Naziv repozitorija</f:facet>
@@ -82,8 +86,10 @@
                                     <h:column> 
                                         <f:facet name="header" rendered="${LogIn.korisnik.rola=='admin'}">-</f:facet>
                                         <h:commandButton value="OBRIŠI" 
+                                                         actionListener="#{repozitorijKontroler.myListenerRep}"
                                                          action="#{repozitorijKontroler.obrisiRepozitorijPretraga(Pr)}">
                                              <!--<f:ajax  execute="@form" render="sjednice:tabela"/>-->
+                                              <f:attribute name="idKorisnik" value="#{LogIn.korisnik.id}"/>
                                         </h:commandButton>
                                         <a  jsf:outcome="AzuriranjeRepozitorija">
                                             <button type="button">Edit</button>
@@ -99,15 +105,9 @@
                                                 <moj:pager dataTableId="tabela" showpages="20"  selectedStyleClass="ami-nista" />                                      
                                             </div>
                                         </f:facet>                                   
-                                </h:dataTable>      
-                                <br/>
-                                <span class="w3-small">
-                                    <h:outputText value="Rezultati pretrage : (ukupno #{repozitorijKontroler.brojSjednica})" id="broj"/>
-                                                 
-                                </span>
-                            </p>
+                                </h:dataTable> 
                            
-                            <h:messages  />
+                             <h:messages style="display: none" />
                         </h:form>  
                    </div>
                 </div>

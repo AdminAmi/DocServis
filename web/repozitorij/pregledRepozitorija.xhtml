@@ -29,8 +29,8 @@
                             <h6>Ukupno repozitorija : #{repozitorijKontroler.ukupniBroj}</h6><hr/>
                            
                            
-                            <p class="w3-theme-light w3-small" style=" width: 97%">
-                                <h:dataTable  class="w3-table  w3-bordered w3-striped w3-border  w3-tiny" 
+                            <p class="w3-theme-light w3-small" style=" width: 100%">
+                                <h:dataTable  class="w3-table  w3-bordered w3-striped w3-border  w3-tiny w3-card-8" 
                                         style="width: 100%"   
                                         headerClass="w3-blue-grey"
                                         footerClass="w3-blue-grey"
@@ -67,9 +67,11 @@
                                     </h:column> 
                                     <h:column rendered="#{LogIn.korisnik.rola=='admin'  and LogIn.localHost}"> 
                                         <f:facet name="header" >Akcija</f:facet>
-                                        <h:commandButton value="OBRIŠI" 
-                                                         action="#{repozitorijKontroler.obrisiRepozitorijPretraga(Pr)}"/>
-                                        &npsb;
+                                        <h:commandButton value="OBRIŠI" actionListener="#{repozitorijKontroler.myListenerRep}"
+                                                         action="#{repozitorijKontroler.obrisiRepozitorijPretraga(Pr)}">
+                                             <f:attribute name="idKorisnik" value="#{LogIn.korisnik.id}"/>
+                                        </h:commandButton>
+                                        
                                          <a  jsf:outcome="AzuriranjeRepozitorija">
                                              <button type="button">Edit</button>
                                             <f:param name="IDSjednice" value="#{Pr.naslov}"/> 
