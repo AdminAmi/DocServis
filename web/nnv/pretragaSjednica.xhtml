@@ -7,7 +7,8 @@
       xmlns:comp="http://xmlns.jcp.org/jsf/composite/comp"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:jsf="http://xmlns.jcp.org/jsf"
-      xmlns:moj="http://korisni/faces">
+      xmlns:moj="http://korisni/faces"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
     <h:head>
         <head><title>IGNORED</title></head>
     </h:head>
@@ -27,13 +28,13 @@
                             <h3>Pretraga sjednica NNV Tehničkog fakulteta u Bihaću</h3><hr/>
                             <h4>Unesite tražene podatke</h4>
                             
-                             <ul class="w3-leftbar w3-theme-border w3-small" style="list-style-type:none">
+                             <ul class="w3-leftbar w3-theme-border w3-small " style="list-style-type:none">
                                 <li class="ami-li"/>
                                 <li class="ami-li">
                                     <p>                            
                                     <label class="ami-labela">Unesite godinu za pretraživanje:</label>
                                     <h:inputText class="w3-border-0 w3-border-black w3-border-bottom"                                         
-                                                 value="#{sjednicaKontroler.godina}"                                                
+                                                 value="#{sjednicaKontroler.godina}"  p:autofocus="true"                                               
                                                  />                        
                                     </p>
                                 </li>
@@ -52,7 +53,8 @@
                                              id="btnPretragaKorisnika"
                                              value="Pretraži"
                                              action="#{sjednicaKontroler.pretragaSjednica()}">
-                                            <f:ajax  execute="@form" render="sjednice:tabela sjednice:brojSj"/>
+                                            <!--<f:ajax  execute="@form" render="sjednice:tabela sjednice:brojSj"/>-->
+                                            <f:ajax  execute="@form" render="@form"/>
                                         </h:commandButton> 
                                     </p>
                                 </li>
@@ -62,15 +64,16 @@
                                 <h:outputText value="Rezultati pretrage : (ukupno #{sjednicaKontroler.brojSjednica})"
                                               id="brojSj" />
                             </h4>
-                            <p class="w3-theme-light w3-small" style=" width: 97%"> 
+                            <p class="w3-theme-light w3-small" > 
                                 
                             
-                                <h:dataTable  class="w3-table  w3-bordered w3-striped w3-border  w3-tiny"
+                                <h:dataTable  class="w3-table  w3-bordered w3-striped w3-border w3-card-8 w3-tiny"
                                               id="tabela"
                                         style="width: 100%"  
                                          headerClass="w3-blue-grey"
                                         footerClass="w3-blue-grey"                                        
                                         rows="5"
+                                        rendered="#{not empty sjednicaKontroler.pretraga}"
                                         value="#{sjednicaKontroler.pr1}" 
                                         var="Pr">
                                      <h:column  > 

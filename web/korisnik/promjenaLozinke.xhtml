@@ -5,7 +5,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:comp="http://xmlns.jcp.org/jsf/composite/comp"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
     <h:head>
         <head><title>IGNORED</title></head>
     </h:head>
@@ -29,7 +30,7 @@
                     <li class="ami-li">
                         <p>
                             <label class="ami-labela">Ime :</label>
-                            <b><h:outputText class="w3-border-0 w3-border-blackl w3-border-bottom"
+                            <b><h:outputText class="w3-border-0 w3-border-black w3-border-bottom"
                                           value="#{LogIn.korisnik.ime}"/></b>
                         </p>
                         <p>
@@ -59,7 +60,7 @@
                     <li class="ami-li">
                         <p>
                             <label class="ami-labela">Stara zaporka:</label>
-                            <h:inputSecret value="#{LogIn.pass}"                                         
+                            <h:inputSecret value="#{LogIn.pass}"  p:autofocus="true"                                         
                                            class="w3-border-0 w3-border-black w3-border-bottom " />
                         </p>
                     </li>

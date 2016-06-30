@@ -30,10 +30,9 @@
                             <li class="ami-li ">
                                 <p>
                                     <label class="ami-labela">Naziv repozitorija (projekta):</label>
-                                    <h:inputText class="w3-border-0 w3-border-black w3-border-bottom"
+                                    <h:inputText class="w3-border-0 w3-border-grey w3-border-bottom"
                                                  value="#{repozitorijKontroler.noviRepozitorij.naslov}"  
-                                                  style="width: 90%"
-                                                    p:required="true" >                                        
+                                                 style="width: 90%" p:required="true" p:autofocus="true" >                                        
                                     </h:inputText>
                                 </p>
                             </li>
@@ -53,7 +52,7 @@
                                 <p>
                                     <label class="ami-labela">O repozitoriju/projektu</label>
                                     <h:inputTextarea value="#{repozitorijKontroler.noviRepozitorij.orepozitoriju}"
-                                                     cols="6" rows="6"
+                                                     cols="6" rows="3"
                                                      style="width: 90%"/>
                                     
                                 </p>

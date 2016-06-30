@@ -55,7 +55,7 @@ public class DokumentKontroler {
             this.setDokumenti(DXML.procitajIzXMLa(getPath())); 
             Pr = new ListDataModel<>(dokumenti);             
         } catch (JAXBException ex) {
-             utility.errPoruka("Nije došlo do učitavanja iz baze!", "");
+             //utility.errPoruka("Nije došlo do učitavanja iz baze!", "");
         }
     }
     public int getBrojac (){

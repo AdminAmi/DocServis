@@ -7,7 +7,8 @@
       xmlns:comp="http://xmlns.jcp.org/jsf/composite/comp"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:jsf="http://xmlns.jcp.org/jsf"
-      xmlns:moj="http://korisni/faces">
+      xmlns:moj="http://korisni/faces"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
     <h:head>
         <head><title>IGNORED</title></head>
     </h:head>
@@ -36,7 +37,8 @@
                                 </li> 
                                  <li class="ami-li"><p>
                                     <h:inputText class="w3-border-0 w3-border-black w3-border-bottom"                                         
-                                                 value="#{repozitorijKontroler.naslov}"                                                
+                                                 value="#{repozitorijKontroler.naslov}"   
+                                                 p:required="true" p:autofocus="true"
                                                  style="width: 90%"/>                        
                                     </p>
                                 </li>                               
@@ -106,7 +108,7 @@
                                             </div>
                                         </f:facet>                                   
                                 </h:dataTable> 
-                           
+                             <br/>
                              <h:messages style="display: none" />
                         </h:form>  
                    </div>

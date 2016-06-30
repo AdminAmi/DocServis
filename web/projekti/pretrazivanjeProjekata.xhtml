@@ -7,7 +7,8 @@
       xmlns:comp="http://xmlns.jcp.org/jsf/composite/comp"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:jsf="http://xmlns.jcp.org/jsf"
-      xmlns:moj="http://korisni/faces">
+      xmlns:moj="http://korisni/faces"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
     <h:head>
         <head><title>IGNORED</title></head>
     </h:head>
@@ -31,7 +32,8 @@
                                 <li class="ami-li">
                                     <p>                            
                                     <label class="ami-labela">Skraćeni naziv projekta:</label>
-                                    <h:inputText class="w3-border-0 w3-border-black w3-border-bottom"                                         
+                                    <h:inputText class="w3-border-0 w3-border-black w3-border-bottom" 
+                                                  p:autofocus="true"
                                          value="#{projekat.naziv}"/>                        
                                     </p>
                                 </li>
@@ -41,7 +43,8 @@
                                              id="btnPretragaKorisnika"
                                              value="Pretraži"
                                              action="#{projekat.pretragaProjekta()}">
-                                            <f:ajax  execute="@form" render="pr:prK pr:broj"/>
+                                            <!--<f:ajax  execute="@form" render="pr:prK pr:broj"/>-->
+                                            <f:ajax  execute="@form" render="@form"/>
                                         </h:commandButton> 
                                     </p>
                                 </li>
@@ -52,10 +55,11 @@
                             </h6>
                             <p class="w3-theme-light w3-small" style=" width: 97%">                    
                                 <h:dataTable  id="prK"
-                                    class="w3-table  w3-bordered w3-striped w3-border  w3-tiny" 
+                                    class="w3-table  w3-bordered w3-striped w3-border  w3-tiny w3-card-8" 
                                      headerClass="w3-blue-grey"
                                      footerClass="w3-blue-grey"                                        
                                         rows="5"
+                                        rendered ="#{not empty projekat.PK.pretraga}"
                                      style="width: 100%"                                   
                                      value="#{projekat.PK.pr1}" 
                                      var="Pr">

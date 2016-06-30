@@ -5,7 +5,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:comp="http://xmlns.jcp.org/jsf/composite/comp"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
     <h:head>
         <head><title>IGNORED</title></head>
     </h:head>
@@ -30,6 +31,7 @@
                         <p>
                             <label class="ami-labela">Naslov projekta:</label> 
                             <h:inputText value="#{projekat.projekatUnos.projectTitle}"
+                                          p:autofocus="true"
                                          style="width: 60%"
                                      class="w3-border-0 w3-border-black w3-border-bottom " />
                         </p>
