@@ -10,6 +10,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <head><title>IGNORED</title></head>
+       
     </h:head>
     <h:body>
        
@@ -74,7 +75,8 @@
                                             <f:ajax  execute="@form" render="prK"/>
                                         </h:commandButton> 
                                     </p>
-                                </li>                                               
+                                </li>   
+                            
                                 <li>                              
                                       
                                     <h:dataTable id="prK" 
@@ -99,12 +101,13 @@
                                         <h:column> 
                                             <f:facet name="header">Akcija</f:facet>
                                             <h:commandButton value="Dodaj" action="#{repozitorijKontroler.dodajKorisnika(Korisnik)}">
-                                                <f:ajax execute="@form" render="SjednicaNNV:prO"/>
+                                                <!--<f:ajax execute="@form" render="SjednicaNNV:prO"/>-->
+                                                <f:ajax execute="@form" render="@form"/>
                                             </h:commandButton>
                                         </h:column>                                        
                                     </thead>
                                     </h:dataTable>
-                                   
+                                    <h:message for="SjednicaNNV:prK" class="w3-text-red"/>
                                     <div class="hline"/>
                                    
                                     <h:dataTable id="prO" 
@@ -128,7 +131,8 @@
                                         <h:column> 
                                             <f:facet name="header">Akcija</f:facet>
                                             <h:commandButton value="Obriši" action="#{repozitorijKontroler.obrisiKorisnik(Kor)}">
-                                                <f:ajax execute="@form" render="SjednicaNNV:prO"/>
+                                                <!--<f:ajax execute="@form" render="SjednicaNNV:prO"/>-->
+                                                <f:ajax execute="@form" render="@form"/>
                                             </h:commandButton>
                                         </h:column>                                        
                                     </thead>
@@ -142,15 +146,18 @@
                                 <h:commandButton class="w3-btn w3-blue-grey " 
                                                  id="Unos"
                                                  action="#{repozitorijKontroler.spremiPodatke()}"
-                                                 actionListener="#{repozitorijKontroler.myListenerRep}"
+                                                 actionListener="#{repozitorijKontroler.myListenerRep}"                                                                                                
                                                  value="Spremi podatke!">
-                                    <f:attribute name="idKorisnik" value="#{LogIn.korisnik.id}"/>
+                                    <f:attribute name="idKorisnik" value="#{LogIn.korisnik.id}"/>                                   
                                 </h:commandButton>
+                                     <BR/><BR/>
+                                   NAPOMENA : PRILIKOM KREIRANJA REPOZITORIJA KORISNIK KOJI JE KREIRAO REPOZITORIJ JE AUTOMATSKI I ČLAN REPOZITORIJA<br/>
+                                   #{repozitorijKontroler.id}
                                  </p>
                             </li>
                             </ul> 
                            
-                        
+                       
                         </h:form> 
                     </div>
                 </div>

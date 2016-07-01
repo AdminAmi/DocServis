@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
@@ -29,7 +30,8 @@ import korisni.mailNotifikacija;
 //@RequestScoped
 @ViewScoped
 public final class RepozitorijKontroler {
-    
+    @ManagedProperty (value = "#{LogIn.korisnik.id}")
+    private int id;
     private ArrayList<Repozitorij> repozitoriji = new ArrayList<Repozitorij>();
     private ArrayList<Repozitorij> pretraga = new ArrayList<Repozitorij>();
     private ArrayList<Repozitorij> mojiRep = new ArrayList<Repozitorij>();
@@ -48,7 +50,9 @@ public final class RepozitorijKontroler {
     private ListDataModel<Repozitorij> Pr1 ;
     
     public RepozitorijKontroler() {
-        try {
+        try {            
+//            Login.loginKontroler lk = new loginKontroler();
+//            korisnici.add(lk.getUserFromID(getId()));
             if (repozitoriji.isEmpty()) this.setRepozitoriji(Sxml.procitajIzXMLa());
             Collections.sort(repozitoriji, (Repozitorij o1, Repozitorij o2) 
                     -> o2.getDatum().compareTo(o1.getDatum()));
@@ -205,7 +209,18 @@ public final class RepozitorijKontroler {
     }
     
     public void dodajKorisnika (login korisnik){
-        korisnici.add(korisnik);
+        boolean postoji = false;
+        for(login l : korisnici) {
+           if( l.getId()==korisnik.getId()) postoji=true;
+        }
+        if(korisnik.getId()==getId()){
+            utility.infoPoruka("Vi ste član repozitorija!", "SjednicaNNV:prK");
+        }
+        else if(!postoji)  korisnici.add(korisnik);
+         
+        else {
+            utility.warPoruka("Odabrani korisnik je vec odabran u repozitoriju!", "SjednicaNNV:prK");
+        }
     }
     public void obrisiKorisnik(login korisnik){
         boolean remove = korisnici.remove(korisnik);
@@ -264,29 +279,27 @@ public final class RepozitorijKontroler {
             korisnici.clear();
            // noviRepozitorij.setOrepozitoriju("");            
             noviRepozitorij = new Repozitorij();
-            return;
+            return ;
         } else {
 //             utility.poruka("SjednicaNNV:Unos", "Desila se greska");
                 utility.errPoruka("Desila se greška prilikom kreiranja novog repozitorija!", "");
+                return ;
         }      
        
         
     }
-    
-     public void myListenerRep (ActionEvent event){ 
-         
+    public void myListenerRep (ActionEvent event){         
         try{
             int i= (int) event.getComponent().getAttributes().get("idKorisnik");            
-            setIdK(i);
-            utility.infoPoruka("testiram u PM + " + String.valueOf(idK), "");
-            postaviKorisnika();
+            setIdK(i);            
+            postaviKorisnika(getIdK());
         } catch (Exception e){} 
      }
-     private void postaviKorisnika(){
+     public void postaviKorisnika(int i){
          Login.loginKontroler lk = new loginKontroler();
-         utility.infoPoruka("testiram u PM + " + String.valueOf(idK), "");
-         korisnik1 = lk.getUserFromID(getIdK());
-         //dodajKorisnika(korisnik1);
+//         utility.infoPoruka("testiram u PM + " + String.valueOf(i), "");
+         korisnik1 = lk.getUserFromID(i);
+         dodajKorisnika(korisnik1);
             if (korisnik1 == null) utility.errPoruka("Korisnik == null greška", "");
      }
     public void ucitajKorisnike(){
@@ -348,6 +361,8 @@ public final class RepozitorijKontroler {
     public void setIdK(int idK) { this.idK = idK; }
     public ListDataModel<Repozitorij> getPr1() {return Pr1; }
     public void setPr1(ListDataModel<Repozitorij> Pr1) {this.Pr1 = Pr1;}
+    public int getId() {     return id;   }
+    public void setId(int id) {    this.id = id; }
 }
 
 

@@ -38,7 +38,8 @@ public class DokumentKontrolerRep extends nnv.DokumentKontroler {
             this.setDokumenti(DXML.procitajIzXMLa(getPath()));
             this.setPr(new ListDataModel<>(this.getDokumenti()));                
             } catch (Exception e){}
-            korisnici = xml.procitajIzXMLa(getPath());           
+            korisnici = xml.procitajIzXMLa(getPath()); 
+           // utility.infoPoruka("ID korisnika " + String.valueOf(getId()), "");
             for (login a:korisnici){              
                 if (getId()==a.getId()){
                     setImaPristup(true);

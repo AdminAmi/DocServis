@@ -4,15 +4,15 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
-      xmlns:jsf="http://xmlns.jcp.org/jsf">
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>IGNORED</title>
        
     </h:head>
     <h:body>
         <ui:composition>
-            <h:form>
-                
+            <h:form>                
                 <div class="w3-center">   
             <h:graphicImage value="/resources/img/tfbgrb.png" alt="Grb" style="width: 61.5%" class="w3-circle  w3-margin-top  w3-margin-bottom "> </h:graphicImage>               
                 </div>            
@@ -24,7 +24,7 @@
                     <a  jsf:outcome="/test">
                    <span class="w3-large w3-text-deep-purple fa fa-user"  aria-hidden="true"/> 
                    &npsb;&npsb;
-                   <strong class="w3-text-deep-purple">#{LogIn.korisnik.ime} &npsb; #{LogIn.korisnik.prezime}</strong> </a>
+                   <strong class="w3-text-deep-purple">#{LogIn.korisnik.ime} &npsb; #{LogIn.korisnik.prezime} &npsb; #{LogIn.korisnik.id}</strong> </a>
                 </ul>
                 <div class="hline" />
                 <ul class="w3-leftbar w3-border-cyan w3-left-align" style="text-decoration: none; padding-left: 0">
@@ -116,9 +116,10 @@
                     <strong>Repozitoriji</strong></a>
                         <div id="Repozitorij" class="w3-accordion-content">
                             <h:link id="mojiRepozitorij" 
-                           value="Moji repozitoriji"  
+                                           value="Moji repozitoriji"  
                            class="ami-font ami-link-tab" outcome="/repozitorij/mojiRepozitoriji" 
-                           rendered="${LogIn.korisnik.rola!='guest'}" /> 
+                           rendered="${LogIn.korisnik.rola!='guest'}" />                             
+                          
                     
                         <h:link id="noviRepozitorij" 
                            value="Novi repozitorij"  

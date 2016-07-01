@@ -27,16 +27,17 @@ function invokeCommandLink() {
   }
 
 function sakrijSve(){
-   //document.body.style.display = 'none'; 
-   document.write('<style type="text/css">\n\
-.centered {padding: 10px 40px 10px 40px;position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);background: white;display: block;margin: 0cm auto;margin-bottom: 0.5cm;  box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);} \n\
-h5 {font-family: "RobotoDraft","Roboto",sans-serif; } body{background-color:rgb(208,208,208)}</style>\n\
-<div class="centered" style="text-align: center"><h5> Dokument se postavlja na server<br/> Molimo Vas da sačekate...</h5></div>');
-    
+   //document.body.style.display = 'none';   
+    var css1 = '.facebook div{height:50px;width:20px;display:inline-block;background-color: #56bbdb;border:1px solid #217c99;-webkit-animation:facebook_loader 1.3s linear infinite;-moz-animation:facebook_loader 1.3s linear infinite;animation:facebook_loader 1.3s linear infinite; -webkit-transform:scale(0.91); -moz-transform:scale(0.91); transform:scale(0.91);}'
+    var css2 = '.facebook div:nth-child(1){ -webkit-animation-delay:0.39s; -moz-animation-delay:0.39s; animation-delay:0.39s;}.facebook div:nth-child(2){ -webkit-animation-delay:0.52s; -moz-animation-delay:0.52s;  animation-delay:0.52s;}.facebook div:nth-child(3){ -webkit-animation-delay:0.65s; -moz-animation-delay:0.65s; animation-delay:0.65s;}'
+    var css3 ='@-webkit-keyframes facebook_loader{ 0%{ -webkit-transform:scale(1.2); opacity:1 } 100%{ -webkit-transform:scale(0.7); opacity:0.1 }}@-moz-keyframes facebook_loader{ 0%{ -moz-transform:scale(1.2); opacity:1 } 100%{-moz-transform:scale(0.7); opacity:0.1 }}@keyframes facebook_loader{ 0%{ transform:scale(1.2); opacity:1} 100%{ transform:scale(0.7); opacity:0.1 }}'
+    var css0 = '.centered {padding: 10px 40px 10px 40px;position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);background: white;display: block;margin: 0cm auto;margin-bottom: 0.5cm;  box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);}h5 {font-family: "RobotoDraft","Roboto",sans-serif; } body{background-color:rgb(208,208,208)}'
+     document.write('<style type="text/css">'+css0+css1+css2+css3+'</style>\n\
+<div class="centered" style="text-align: center"><h5> Dokument se postavlja na server<br/> Molimo Vas da sačekate...</h5><br/>\n\
+<div class="facebook"><div></div><div></div><div></div></div></div>');
 }
 function testAcc(naziv) {
     var x, text;
-
     // Get the value of the input field with id="numb"
     x = document.getElementById("test").value;
 
