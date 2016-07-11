@@ -5,6 +5,7 @@
  */
 package Login;
 
+import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
@@ -114,11 +115,13 @@ public class KontrolerKorisnik {
         return null;
     }
     
-    public String registracija(){  
+    public String registracija() throws IOException{  
        
         if(LogIN(user, pass)) {
             setTestRegistracije(true);
             reset();
+            utility.setLog(utility.getDatumiVrijeme() + "  "  + 
+                 "PRIJAVA KORISNIKA : " + korisnik.getIme() + " " + korisnik.getPrezime());
             return "test?faces-redirect=true";
         }
         else {
@@ -129,11 +132,13 @@ public class KontrolerKorisnik {
         return null;
     }
     
-    public String logOff(){
-        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();        
-              
+    public String logOff() throws IOException{
+       
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();             
         reset();
-        setTestRegistracije(false);       
+        setTestRegistracije(false);     
+        utility.setLog(utility.getDatumiVrijeme() + "  "  + 
+                 "ODJAVA KORISNIKA : " + korisnik.getIme() + " " + korisnik.getPrezime());
         return "/prijava?faces-redirect=true";        
     }
     //get & set

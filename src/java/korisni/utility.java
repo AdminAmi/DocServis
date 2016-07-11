@@ -36,14 +36,19 @@ import zaMail.zaXML;
  */
 public class utility {
     
-    private static String osnovni="c:/projekti/";
+    private static String osnovni="c:/test/";
     public static String putZaProjekte=osnovni+"pdf/";
     public static String putZaXML=osnovni+"xml/";
     public static String putZaSjednice=osnovni+"sjednice/";
     public static String putZaRep=osnovni+"repozitorij/";
     public static String putZaLog = osnovni+"log.txt";
     
-   
+    /**
+     * Metoda koja vraća sha1 kriptovani unos
+     * @param input 
+     * @return
+     * @throws NoSuchAlgorithmException
+     */
     public static String sha1(String input) throws NoSuchAlgorithmException {
         MessageDigest mDigest = MessageDigest.getInstance("SHA1");
         byte[] result = mDigest.digest(input.getBytes());

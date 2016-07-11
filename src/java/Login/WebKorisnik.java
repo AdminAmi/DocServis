@@ -1,5 +1,6 @@
 package Login;
 
+import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,7 @@ import korisni.utility;
 //@SessionScoped
 @ViewScoped
 @ManagedBean 
-public class WebKorisnik {
+public class WebKorisnik implements Serializable{
     private Login.loginKontroler lk = new loginKontroler();
     private login selektovaniKorisnik = new login();
     private int selektovaniID, serverResponse;

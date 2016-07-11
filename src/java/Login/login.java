@@ -1,11 +1,13 @@
 package Login;
 
+import java.io.Serializable;
+
 
 /**
  *
  * @author amel
  */
-public class login {
+public class login implements Serializable{
     private String user,pass, ime, prezime, rola, clanNNV, email;
     private int id;
 

@@ -5,6 +5,7 @@ import Login.KontrolerKorisnik;
 import Login.login;
 import Login.loginKontroler;
 import java.io.IOException;
+import java.io.Serializable;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -29,7 +30,7 @@ import korisni.mailNotifikacija;
 @ManagedBean
 //@RequestScoped
 @ViewScoped
-public final class RepozitorijKontroler {
+public final class RepozitorijKontroler implements Serializable{
     @ManagedProperty (value = "#{LogIn.korisnik.id}")
     private int id;
     private ArrayList<Repozitorij> repozitoriji = new ArrayList<Repozitorij>();
@@ -245,12 +246,18 @@ public final class RepozitorijKontroler {
         }        
     }
        
-    public void spremiPodatke() throws IOException{
+    public String spremiPodatke() throws IOException{
+        Login.loginKontroler lk = new loginKontroler(); 
+        Login.login k = new login();
+        k=lk.getUserFromID(id);
+        korisnici.add(lk.getUserFromID(id));
         XMLUser.smjesti(korisnici);
+//        utility.infoPoruka(String.valueOf(korisnici.size()), "");
 //        mailNotifikacija mail = new mailNotifikacija();        
         noviRepozitorij.setMapa_za_dokumente(utility.putZaRep+noviRepozitorij.getNaslov());
         if(dodajRepozitorij(noviRepozitorij) && 
             XMLUser.smjestiUXML(noviRepozitorij.getMapa_za_dokumente()) ){
+//            sendEmail(noviRepozitorij);
 //          utility.poruka("SjednicaNNV:Unos", "UspjeĹˇno kreiran repositorij");
 //            ArrayList<String> lista = new ArrayList<>();
 //                for (int i = 0; i<korisnici.size();i++) {
@@ -272,18 +279,18 @@ public final class RepozitorijKontroler {
             
             utility.setLog(utility.getDatumiVrijeme() + "  "  + 
                  "KREIRAN REPOZITORIJ : " + noviRepozitorij.getNaslov() + " " +
-                 "OD KORISNIKA : " + korisnik1.getIme() +" "+korisnik1.getPrezime()  + " " +                 
+                 "OD KORISNIKA : " + k.getIme() +" "+k.getPrezime()  + " " +                 
                  " OPIS : "+ noviRepozitorij.getOrepozitoriju() + " " +
                     "KORISNICI : " + korisniciZaLog());
             utility.infoPoruka("Uspješno kreiran repozitorij!", "");
             korisnici.clear();
            // noviRepozitorij.setOrepozitoriju("");            
             noviRepozitorij = new Repozitorij();
-            return ;
+            return "/repozitorij/mojiRepozitoriji";
         } else {
 //             utility.poruka("SjednicaNNV:Unos", "Desila se greska");
                 utility.errPoruka("Desila se greška prilikom kreiranja novog repozitorija!", "");
-                return ;
+                return null;
         }      
        
         
@@ -292,7 +299,7 @@ public final class RepozitorijKontroler {
         try{
             int i= (int) event.getComponent().getAttributes().get("idKorisnik");            
             setIdK(i);            
-            postaviKorisnika(getIdK());
+           // postaviKorisnika(getIdK());
         } catch (Exception e){} 
      }
      public void postaviKorisnika(int i){
@@ -315,8 +322,7 @@ public final class RepozitorijKontroler {
         getMojiRep().clear();
          for (Repozitorij r : getRepozitoriji()){
              setKorisnici(XMLUser.procitajIzXMLa(r.getMapa_za_dokumente() ));
-             for(login l: getKorisnici()){
-                 
+             for(login l: getKorisnici()){                 
                  if(l.getId()==getIdK()) getMojiRep().add(r);
              }
          }         

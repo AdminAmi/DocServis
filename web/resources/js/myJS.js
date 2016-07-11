@@ -1,12 +1,30 @@
 window.onbeforeunload = confirmExit;
             function confirmExit()
             { 
-                if(window.event.clientY < 0){    //&lt je <
-               var jsfCommandLink = document.getElementById("f:l");
-               jsfCommandLink.click();
-                }
+                 var jsfCommandLink = document.getElementById("f:l");
+                 jsfCommandLink.click();
+                if(confirm('Testiram'))//{
+                    //if(window.event.clientY < 0){    //&lt je <
+                    {
+                       
+                         return true;
+                    }
+                     //   }
+           
+          else 
+           return false; 
+};
+
+//var inFormOrLink;
+//$('a').live('click', function() { inFormOrLink = true; });
+//$('form').bind('submit', function() { inFormOrLink = true; });
+//
+//$(window).bind("beforeunload", function() { 
+//    return inFormOrLink ? "Do you really want to close?" : null; 
+//})
+                
                
-            }
+           
 function autoGrow(textarea) {
     if (textarea.clientHeight < textarea.scrollHeight) {
         textarea.style.height = textarea.scrollHeight + "px";

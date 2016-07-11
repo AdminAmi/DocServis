@@ -3,6 +3,7 @@ package rep;
 
 import Login.login;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -19,7 +20,7 @@ import nnv.Dokument;
  */
 @ManagedBean
 @ViewScoped
-public class DokumentKontrolerRep extends nnv.DokumentKontroler {    
+public class DokumentKontrolerRep extends nnv.DokumentKontroler implements Serializable{    
     private boolean imaPristup=false;
 
     private  Login.login korisnik = new login();
