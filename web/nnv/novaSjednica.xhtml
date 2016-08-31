@@ -60,7 +60,19 @@
                                         <h:commandButton id="btnNovaSjednica"
                                                          class="w3-btn w3-blue-grey"
                                                          value="UNESI PODATKE!"
-                                                         action="#{sjednicaKontroler.dodajSjednicu()}"/>                                         
+                                                         rendered="#{!sjednicaKontroler.navigacija}"
+                                                         action="#{sjednicaKontroler.dodajSjednicu()}">                                         
+                                                         
+                                           
+                                        </h:commandButton>
+                                        <c:if test="#{sjednicaKontroler.navigacija}" >
+                                            <h:form id="HL" >
+                                                <a id="AL" jsf:outcome="unosMaterijala" class="w3-btn w3-blue-grey"  > Unos materijala >
+                                                    <f:param name="IDSjednice" value="#{sjednicaKontroler.novaSjednica.broj}"/> 
+                                                    <f:param name="putDoc" value="#{sjednicaKontroler.path}"/>
+                                                </a>
+                                            </h:form>
+                                        </c:if>
                                     </p>
                                 </li>
                                 <li class="ami-li "></li>

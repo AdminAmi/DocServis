@@ -26,47 +26,26 @@
                -->              
                 <div >
                     <div class="w3-container w3-white">
-                        <h1>Pretraživanje korisnika!</h1>
-                        <h5>Unesite tražene podatke</h5>
+                        <h1>Svi korisnici sistema!</h1>
+                        
                         <h:form id="pr">
                         <c:if test="${LogIn.korisnik.rola!= 'admin' }">
                             <comp:errorURL/>
                         </c:if>
-                            <ul class="w3-leftbar w3-theme-border w3-small" style="list-style-type:none">
-                                <li class="ami-li"/>
-                                <li class="ami-li">
-                                    <p>
-                                        <label class="ami-labela">Ime :</label>
-                                        <h:inputText class="w3-border-0 w3-border-black w3-border-bottom"
-                                                      p:autofocus="true"
-                                                        value="#{webKorisnik.imePretraga}"/>                                        
-                                    </p>
-                                </li>
-                                <li class="ami-li">
-                                    <p>
-                                        <h:commandButton class="w3-btn w3-blue-grey " 
-                                             id="btnPretragaKorisnika"
-                                             value="Pretraži!"
-                                             action="#{webKorisnik.pretraga()}">
-                                            <f:ajax  execute="@form" render="@form"/>
-                                        </h:commandButton> 
-                                    </p>
-                                </li>
-                            </ul> 
-                            <h:outputText value="Ukupan broj korisnika sistema : #{webKorisnik.lk.korisnici.size()}"/><br/>
-                            <h:outputText value="Pronađeno korisnika za date podatke : #{webKorisnik.lk.pretraga.size()} " />
+                            
+                            <h:outputText value="Ukupan broj korisnika sistema : #{webKorisnik.lk.korisnici.size()}"/><br/>                         
                                           
                                
                                <p>                                                   
-                                    <h:dataTable id="prK" 
-                                     class="w3-table  w3-bordered w3-striped w3-border  w3-tiny w3-card-8 " 
+                                   <h:dataTable id="sviKorisnici" 
+                                     class="w3-table  w3-bordered w3-striped w3-border  w3-tiny w3-card-8 "
+                                     rows="10"
                                      style="width: 100%"             
-                                     headerClass="w3-blue-grey"
-                                     footerClass="w3-blue-grey"  
-                                     rendered="#{not empty webKorisnik.lk.pretraga}"
-                                     value="#{webKorisnik.lk.pretraga}" 
+                                     headerClass="w3-grey"
+                                     footerClass="w3-grey"                                      
+                                     value="#{webKorisnik.lk.korisnici}" 
                                      var="Korisnik">
-                                    <thead>
+                                    
                                         <h:column  > 
                                             <f:facet name="header">ID</f:facet>#{Korisnik.id}
                                         </h:column>                           
@@ -82,8 +61,13 @@
                                         <h:column> 
                                             <f:facet name="header">Uloga</f:facet>#{Korisnik.rola}
                                         </h:column> 
-                                    </thead>
-                                    </h:dataTable>                                                                    
+                                        <f:facet name="footer">
+                                            <div class="w3-center w3-small ">
+                                                <moj:pager dataTableId="sviKorisnici" showpages="10"  selectedStyleClass="ami-nista" />                                      
+                                            </div>
+                                        </f:facet>
+                                    
+                                    </h:dataTable>                                                                   
                                 </p>                           
                                
                                    

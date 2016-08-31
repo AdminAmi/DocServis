@@ -36,6 +36,8 @@ function nestani(button){
 }
 
 function invokeCommandLink() {
+    var navigacija = document.getElementById("HL:AL")
+    navigacija.click();
     
 //   if ((window.event.clientY < 0)){
 //     var jsfCommandLink = document.getElementById("f:l");

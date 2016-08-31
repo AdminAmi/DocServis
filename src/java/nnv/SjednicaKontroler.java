@@ -19,9 +19,11 @@ public final class SjednicaKontroler {
     private Sjednica sjednica = new Sjednica();
     private String godina, mjesec;
     private int brojSjednica;
+    private boolean navigacija=false;
     private Sjednica novaSjednica = new Sjednica();
     private Sjednica selektovanaSjednica = new Sjednica();
     private String selektovaniID;
+    private String path;
     private SjednicaXML Sxml = new SjednicaXML(); 
     private ListDataModel<Sjednica> Pr ;
     private ListDataModel<Sjednica> Pr1 ;
@@ -95,6 +97,7 @@ public final class SjednicaKontroler {
         if(utility.brisiFile(utility.datumZaDirektorij(s.getDatum()))){
             sjednice.remove(s);
             //pretragaSjednica();
+            Sxml.smjesti(sjednice);
             boolean flag=Sxml.smjestiUXML();        
             getSxml().smjesti(getSjednice());
             if(sjednice.isEmpty()){
@@ -116,13 +119,18 @@ public final class SjednicaKontroler {
     }
     
     public String dodajSjednicu(){
+        setNavigacija(dodajSjednicu(getNovaSjednica()));
         
-        if(dodajSjednicu(getNovaSjednica())) {           
+        if(isNavigacija()) {           
             utility.infoPoruka("Uspješan unos sjednice!", "");
-           return null;
+            //setSelektovanaSjednica(getNovaSjednica());
+           
+            return null;
+           //return "/nnv/unosMaterijala";
         }
         else{            
             utility.errPoruka("Neuspješan unos sjednice!", "");
+            
             return null;
         }
     }
@@ -131,11 +139,10 @@ public final class SjednicaKontroler {
      public boolean dodajSjednicu(Sjednica o) {
         if(provjeraSjednice(o)==false) return false;
         int i;
-        utility.kreirajDirektorij(utility.datumZaDirektorij(o.getDatum())); 
+        utility.kreirajDirektorij(utility.datumZaDirektorij(o.getDatum()));
+        setPath(utility.datumZaDirektorij(o.getDatum()));
         if (getSjednice()==null) i = 0 ;
-        else{
-        i = getSjednice().size();
-        }
+        else{ i = getSjednice().size();  }
         Sjednica kor = new Sjednica(o.getBroj(),o.getDatum(), utility.datumZaDirektorij(o.getDatum()));
         kor.setId(generateId());
         kor.setVrijemePocetka(o.getVrijemePocetka());
@@ -181,6 +188,36 @@ public final class SjednicaKontroler {
     public void setPr(ListDataModel<Sjednica> Pr) {   this.Pr = Pr;   }
     public ListDataModel<Sjednica> getPr1() {    return Pr1;  }
     public void setPr1(ListDataModel<Sjednica> Pr1) {    this.Pr1 = Pr1;  }
+
+    /**
+     * @return the path
+     */
+    public String getPath() {
+        return path;
+    }
+
+    /**
+     * @param path the path to set
+     */
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    /**
+     * @return the navigacija
+     */
+    public boolean isNavigacija() {
+        return navigacija;
+    }
+
+    /**
+     * @param navigacija the navigacija to set
+     */
+    public void setNavigacija(boolean navigacija) {
+        this.navigacija = navigacija;
+    }
+
+   
     
     
     
