@@ -31,8 +31,7 @@ public final class SjednicaKontroler {
     public SjednicaKontroler() {
         try {
             if (sjednice.isEmpty()) this.setSjednice(Sxml.procitajIzXMLa());
-            Collections.sort(sjednice, (Sjednica o1, Sjednica o2) 
-                    -> o2.getDatum().compareTo(o1.getDatum()));
+            Collections.sort(sjednice, (Sjednica o1, Sjednica o2) -> o2.getDatum().compareTo(o1.getDatum()));
             Pr= new ListDataModel<>(sjednice);
         } catch (Exception e) {}
     }
@@ -114,8 +113,25 @@ public final class SjednicaKontroler {
      public void obrisiSjednicuPretraga (Sjednica s){ 
          obrisiSjednicu(s); 
          getPretraga().remove(s);
-         setBrojSjednica(getPretraga().size());
+         setBrojSjednica(getPretraga().size());      
                                
+    }
+     private int getID(){        
+        int id=0;
+        for (int i =0; i<sjednice.size();i++){            
+            if (sjednice.get(i).getId() == selektovanaSjednica.getId()) id=i;
+        }
+        return id;
+     }
+     
+    public String azurirajSjednicu(){
+       int i = getID();
+        sjednice.get(i).setOpis(selektovanaSjednica.getOpis());       
+        Sxml.smjesti(sjednice);
+            boolean flag=Sxml.smjestiUXML();
+            if(flag) return "pregledSjednica?faces-redirect=true";            
+            utility.infoPoruka("Nešto nevalja","");
+            return null;
     }
     
     public String dodajSjednicu(){
@@ -146,6 +162,9 @@ public final class SjednicaKontroler {
         Sjednica kor = new Sjednica(o.getBroj(),o.getDatum(), utility.datumZaDirektorij(o.getDatum()));
         kor.setId(generateId());
         kor.setVrijemePocetka(o.getVrijemePocetka());
+        //pridodano 05-09-2016
+        kor.setOpis(o.getOpis());
+        //
         this.getSjednice().add(kor);
         getSxml().smjesti(getSjednice());     
         return (i!=getSjednice().size() && getSxml().smjestiUXML());
@@ -188,37 +207,8 @@ public final class SjednicaKontroler {
     public void setPr(ListDataModel<Sjednica> Pr) {   this.Pr = Pr;   }
     public ListDataModel<Sjednica> getPr1() {    return Pr1;  }
     public void setPr1(ListDataModel<Sjednica> Pr1) {    this.Pr1 = Pr1;  }
-
-    /**
-     * @return the path
-     */
-    public String getPath() {
-        return path;
-    }
-
-    /**
-     * @param path the path to set
-     */
-    public void setPath(String path) {
-        this.path = path;
-    }
-
-    /**
-     * @return the navigacija
-     */
-    public boolean isNavigacija() {
-        return navigacija;
-    }
-
-    /**
-     * @param navigacija the navigacija to set
-     */
-    public void setNavigacija(boolean navigacija) {
-        this.navigacija = navigacija;
-    }
-
-   
-    
-    
-    
+    public String getPath() {    return path;  }
+    public void setPath(String path) {   this.path = path;    }
+    public boolean isNavigacija() {  return navigacija;  }
+    public void setNavigacija(boolean navigacija) {   this.navigacija = navigacija;  }
 }

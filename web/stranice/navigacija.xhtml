@@ -12,7 +12,7 @@
     </h:head>
     <h:body>
         <ui:composition>
-            <h:form>                
+            <h:form id="korisnik">                
                 <div class="w3-center">   
             <h:graphicImage value="/resources/img/tfbgrb.png" alt="Grb" style="width: 61.5%" class="w3-circle  w3-margin-top  w3-margin-bottom "> </h:graphicImage>               
                 </div>            
@@ -21,31 +21,38 @@
             <div class="hline" />
             <div  class="w3-container w3-left-align w3-small w3-accordion ">
                 <ul class="w3-leftbar w3-border-deep-purple w3-left-align" style="text-decoration: none; padding-left: 0">  
-                    <a  jsf:outcome="/test">
+                    
+                    <a  jsf:outcome="/korisnik/promjenaLozinke">
+                   
                    <span class="w3-large w3-text-deep-purple fa fa-user"  aria-hidden="true"/> 
                    &npsb;&npsb;
-                   <strong class="w3-text-deep-purple">#{LogIn.korisnik.ime} &npsb; #{LogIn.korisnik.prezime} &npsb; #{LogIn.korisnik.id}</strong> </a>
+                   <strong class="w3-text-deep-purple">Korisnik : #{LogIn.korisnik.ime} &npsb; #{LogIn.korisnik.prezime} </strong>
+                    
+                </a>
+                
                 </ul>
                 <div class="hline" />
+            </div>
+            </h:form>
+            <h:form id="projekti">
+                <div  class="w3-container w3-left-align w3-small w3-accordion ">
                 <ul class="w3-leftbar w3-border-cyan w3-left-align" style="text-decoration: none; padding-left: 0">
                <a href="#" onclick="accordion('Projekti')">
                    <span class="w3-large w3-text-cyan fa fa-clone"  aria-hidden="true"/> 
                    &npsb;&npsb;
-                   <strong>Projekti</strong> </a>
+                   <strong class="w3-text-cyan">Projekti </strong> </a>
                     <div id="Projekti" class="w3-accordion-content" >
-                        
                             <h:link id="pretrazivanjeProjekata" 
                                 outcome="/projekti/pretrazivanjeProjekata"
                                 class=" ami-font ami-link-tab "                                 
-                                value="Pretraživanje projekata" />            
-                        
+                                value="Pretraživanje projekata" />  
                             <h:link id="sviProjekti" 
                                 value="Spisak svih projekata" 
-                                 class="ami-font ami-link-tab" 
+                                 class="ami-font ami-link-tab " 
                                 outcome="/projekti/sviProjekti" />
                             <h:link id="noviProjekat" 
                                value="Unos novog projekta" 
-                               class="ami-font ami-link-tab" 
+                               class="ami-font ami-link-tab " 
                                outcome="/projekti/noviProjekat" 
                                rendered="${LogIn.korisnik.rola=='admin'}" />
                         
@@ -53,10 +60,38 @@
                     </ul>
             </div>
             <div class="hline" />
-            
+            </h:form>
+            <h:form id="ugovori">
+                <div  class="w3-container w3-left-align w3-small w3-accordion ">
+                <ul class="w3-leftbar w3-border-deep-orange w3-left-align" style="text-decoration: none; padding-left: 0">
+               <a href="#" onclick="accordion('Ugovori')">
+                   <span class="w3-large w3-text-deep-orange fa fa-clone"  aria-hidden="true"/> 
+                   &npsb;&npsb;
+                   <strong class="w3-text-deep-orange">Ugovori o saradnji </strong> </a>
+                    <div id="Ugovori" class="w3-accordion-content" >
+                            <h:link id="pretrazivanjeProjekata" 
+                                outcome="/projekti/pretrazivanjeProjekata"
+                                class=" ami-font ami-link-tab "                                 
+                                value="Pretraživanje ugovora" />  
+                            <h:link id="sviProjekti" 
+                                value="Spisak svih ugovora" 
+                                 class="ami-font ami-link-tab " 
+                                outcome="/projekti/sviProjekti" />
+                            <h:link id="noviProjekat" 
+                               value="Unos novog ugovora" 
+                               class="ami-font ami-link-tab " 
+                               outcome="/projekti/noviProjekat" 
+                               rendered="${LogIn.korisnik.rola=='admin'}" />
+                        
+                    </div>
+                    </ul>
+            </div>
+            <div class="hline" />
+            </h:form>
+            <h:form id="korisnici">
             <div class="w3-container w3-left-align w3-small  w3-accordion">
                 <ul class="w3-leftbar w3-border-orange" style="text-decoration: none; padding-left: 0">
-                <a href="#" onclick="accordion('Korisnici')">
+                    <a href="#" onclick="accordion('Korisnici')" >
                     <span class="w3-large w3-text-orange fa fa-users"  aria-hidden="true"/> 
                     &npsb;&npsb;
                     <strong>Korisnički meni</strong> </a>
@@ -79,15 +114,19 @@
                            value="Spisak svih korisnika"  
                            class="ami-font ami-link-tab" outcome="/korisnik/sviKorisnici" 
                            rendered="${LogIn.korisnik.rola=='admin'}" /> 
+                    <h:link value="LOG FILE" outcome="/log" 
+                            class="ami-font ami-link-tab" 
+                            rendered="${LogIn.korisnik.rola=='admin'}"/>
                     
                 </div>
                     </ul>
             </div>
             <div class="hline" />
-            
-            <div class="w3-container w3-left-align w3-small">
+            </h:form>
+            <h:form id="nnv" rendered="${LogIn.korisnik.clanNNV=='DA' or LogIn.korisnik.rola=='admin'}">
+            <div class="w3-container w3-left-align w3-small" >
                 <ul class="w3-leftbar w3-border-blue" style="text-decoration: none; padding-left: 0">
-                <a href="#" onclick="accordion('NNV')">
+                    <a href="#" onclick="accordion('NNV')" >
                     <span class="w3-large w3-text-blue fa fa-pencil-square-o"  aria-hidden="true"/>
                     &npsb;&npsb;
                     <strong>Sjednice NNV-a</strong></a>
@@ -101,7 +140,7 @@
                         <h:link id="pregledSjednicaNNV" 
                            value="Pregled sjednica NNV-a"  
                            class="ami-font ami-link-tab" outcome="/nnv/pregledSjednica" 
-                           rendered="${LogIn.korisnik.rola!='guest'  and LogIn.localHost}" /> 
+                           rendered="${LogIn.korisnik.rola!='guest'  }" /> 
                         
                         <h:link id="pretragaSjednicaNNV" 
                            value="Pretraga sjednica NNV-a"  
@@ -112,6 +151,8 @@
                     </ul>
             </div>
             <div class="hline" />
+            </h:form>
+            <h:form id="repozitoriji">
             <div class="w3-container w3-left-align w3-small">
                 <ul class="w3-leftbar w3-border-indigo" style="text-decoration: none; padding-left: 0">
                 <a href="#" onclick="accordion('Repozitorij')">
@@ -122,18 +163,15 @@
                             <h:link id="mojiRepozitorij" 
                                            value="Moji repozitoriji"  
                            class="ami-font ami-link-tab" outcome="/repozitorij/mojiRepozitoriji" 
-                           rendered="${LogIn.korisnik.rola!='guest'}" />                             
-                          
-                    
+                           rendered="${LogIn.korisnik.rola!='guest'}" />  
                         <h:link id="noviRepozitorij" 
                            value="Novi repozitorij"  
                            class="ami-font ami-link-tab" outcome="/repozitorij/noviRepozitorij" 
-                           rendered="${LogIn.korisnik.rola!='guest'}" /> 
-                
+                           rendered="${LogIn.korisnik.rola=='admin'}" />                 
                         <h:link id="pregledRepozitorija" 
                            value="Pregled repozitorija"  
                            class="ami-font ami-link-tab" outcome="/repozitorij/pregledRepozitorija" 
-                           rendered="${LogIn.korisnik.rola!='guest'  and LogIn.localHost}" /> 
+                           rendered="${LogIn.korisnik.rola=='admin'  }" /> 
                         
                         <h:link id="pretragaRepozitorija" 
                            value="Pretraga repozitorija"  
@@ -142,8 +180,12 @@
                     
                         </div>
                     </ul>
+                </div>
+            </h:form>
+            <h:form id="kraj">
                 <h:link value="TO-DO" outcome="/to-do-list" rendered="${LogIn.localHost}"/>
-            </div>
+                
+            
             <div class="hline" />
             </h:form>
         </ui:composition>

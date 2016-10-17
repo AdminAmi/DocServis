@@ -34,7 +34,7 @@
                                         style="width: 100%"
                                          headerClass="w3-blue-grey"
                                         footerClass="w3-blue-grey"                                        
-                                        rows="5"
+                                        rows="10"
                                         value="#{sjednicaKontroler.pr}"
                                         id="prK"
                                         var="Pr">
@@ -58,14 +58,21 @@
                                         <f:facet name="header">Vrijeme sjednice</f:facet>
                                         <h:outputText value="#{Pr.vrijemePocetka}"/>             
                                        
-                                    </h:column> 
-                                    <h:column rendered="#{LogIn.korisnik.rola=='admin' and LogIn.localHost}"> 
+                                    </h:column>
+                                    <h:column> 
+                                        <f:facet name="header">O sjednici</f:facet>
+                                        <h:outputText value="#{Pr.opis}"/>  
+                                    </h:column>
+                                    <h:column rendered="#{LogIn.korisnik.rola=='admin' }"> 
                                         <f:facet name="header" >Akcija</f:facet>
-                                        <h:commandLink id="btnsearch" class="linkbtn"
+                                        <h:commandLink id="btnsearch" class="linkbtn" value="OBRIŠI"
                                             action="#{sjednicaKontroler.obrisiSjednicu(Pr)}"
-                                            >
-                                            <span class="w3-large fa fa-trash-o" aria-hidden="true"></span> 
-                                             </h:commandLink> 
+                                            />                                    
+                                             
+                                        &nbsp;
+                                        <a jsf:outcome="azuriranjeSjednice" class="linkbtn"> EDITUJ 
+                                            <f:param name="IDSjednice" value="#{Pr.broj}"/>                                             
+                                        </a>
                                     </h:column>             
                                     <f:facet name="footer">
                                             <div class="w3-center w3-small ">

@@ -246,6 +246,13 @@ public final class RepozitorijKontroler implements Serializable{
         }        
     }
        
+    /**
+     * Metoda <code>spremiPodatke</code> je zadužena da sve podatke o novom 
+     * repozhitoriju pohrani te da onda uključenima u repozitorij javi 
+     * da su članovi tog repozitorija     * 
+     * @return
+     * @throws IOException
+     */
     public String spremiPodatke() throws IOException{
         Login.loginKontroler lk = new loginKontroler(); 
         Login.login k = new login();

@@ -22,8 +22,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
@@ -36,12 +34,14 @@ import zaMail.zaXML;
  */
 public class utility {
     
-    private static String osnovni="c:/test/";
+//    public static String osnovni="c:/projekti/";
+    public static String osnovni="c:/test/";
     public static String putZaProjekte=osnovni+"pdf/";
     public static String putZaXML=osnovni+"xml/";
     public static String putZaSjednice=osnovni+"sjednice/";
     public static String putZaRep=osnovni+"repozitorij/";
     public static String putZaLog = osnovni+"log.txt";
+    
     
     /**
      * Metoda koja vraća sha1 kriptovani unos
@@ -186,6 +186,8 @@ public static zaMail.Podaci getPodatke(){
 /**
 Make an int Month from a date
 * Make sure your date is allready made by the format : dd/MM/YYYY
+     * @param date
+     * @return 
 */
 public static int getMonthInt(Date date) {
     SimpleDateFormat dateFormat = new SimpleDateFormat("MM");
@@ -195,6 +197,8 @@ public static int getMonthInt(Date date) {
 /**
 Make an int Year from a date
 * Make sure your date is allready made by the format : dd/MM/YYYY
+     * @param date
+     * @return 
 */
 public static int getYearInt(Date date) {
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");

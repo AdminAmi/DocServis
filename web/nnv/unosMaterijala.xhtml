@@ -30,27 +30,30 @@
                 <div >
                     <div class="w3-container w3-white">
                         <h1>NNV broj: #{sjednicaKontroler.selektovanaSjednica.broj} od 
-                            <h:outputText value="#{sjednicaKontroler.selektovanaSjednica.datum}">
+                            <h:outputText value="#{sjednicaKontroler.selektovanaSjednica.datum}" >
                                 <f:convertDateTime pattern="dd-MM-yyyy"/>
                             </h:outputText>
+                            <span/>
+                            <h:outputLabel value="sa početkom u : #{sjednicaKontroler.selektovanaSjednica.vrijemePocetka} h." />
                             </h1>                        
                         <h:form id="materijali" enctype="multipart/form-data" rendered="${LogIn.korisnik.rola=='admin'}">
-                            <h4 class="no-print">Unesite potrebne podatke</h4>
+                            <h4 class="no-print">UNESITE POTREBNE PODATKE</h4>
                             <ul class="w3-leftbar w3-theme-border w3-small no-print" style="list-style-type:none">
                             <li class="ami-li"/>
                             <li class="ami-li"><p>                                
-                                <label class="ami-labela">Naslov tačke sjednice</label> 
+                                <label class="ami-labela">Opis dokumenta:</label> 
                                 <h:inputText value="#{dokumentKontroler.unos.naziv}" style="width: 90%" 
                                              class="w3-border-0 w3-border-blue-grey w3-border-bottom " />
                                          <!--style="width: 60%"-->
                                          
                             </p></li>
                             <li class="ami-li"><p>
-                                    <label class="ami-labela">Materijal za upload</label>
+                                    <label class="ami-labela">Dokument za upload</label>
                                     <h:inputFile value="#{dokumentKontroler.datoteka}"   />
                             
                             </p></li>
                             <li class="ami-li"><p>
+                                    <ui:remove>
                                 <h:commandButton class="w3-btn w3-blue-grey"                                      
                                              value="Snimi tačku!"
                                              action="#{dokumentKontroler.snimi()}"
@@ -61,19 +64,51 @@
                                     <f:attribute name="idK" value="#{LogIn.korisnik.id}"/>
                                     
                                 </h:commandButton>
-                                
+                                    </ui:remove>
+                                    
+                                    <h:commandButton class="w3-btn w3-blue-grey"                                      
+                                             value="Snimi tačku!"
+                                             action="#{dokumentKontroler.snimiTacku()}"
+                                             actionListener="#{dokumentKontroler.nnvListener}" 
+                                             >                            
+                                    <f:attribute name="path" value="#{sjednicaKontroler.selektovanaSjednica.mapa_za_dokumente}"/>
+                                    <f:attribute name="user" value="#{LogIn.korisnik.ime}"/>
+                                    <f:attribute name="user2" value="#{LogIn.korisnik.prezime}"/>
+                                    <f:attribute name="idK" value="#{LogIn.korisnik.id}"/>
+                                    <f:attribute name="brojSjednice" value="#{sjednicaKontroler.selektovanaSjednica.broj}"/>
+                                    <f:attribute name="datumSjednice" value="#{sjednicaKontroler.selektovanaSjednica.datum}"/>
+                                    <f:attribute name="vrijemeSjednice" value="#{sjednicaKontroler.selektovanaSjednica.vrijemePocetka}"/>
+                                    
+                                </h:commandButton>
+                                    
+                                    
+                                    <span/>   
+                                    <h:commandButton class="w3-btn w3-blue-grey " 
+                                                     value="Pošalji mail članovima NNV-a" 
+                                                     actionListener="#{dokumentKontroler.sjednicaListener}"
+                                                     action="#{dokumentKontroler.posaljiMail()}"
+                                                     >
+                                        <f:attribute name="brojSjednice" value="#{sjednicaKontroler.selektovanaSjednica.broj}"/>
+                                        <f:attribute name="datumSjednice" value="#{sjednicaKontroler.selektovanaSjednica.datum}"/>
+                                        <f:attribute name="vrijemeSjednice" value="#{sjednicaKontroler.selektovanaSjednica.vrijemePocetka}"/>
+                                    </h:commandButton>
+                                    
                             </p></li>
+                            
+                                
+                           
                             </ul>
                         </h:form>
                             <br/>
-                            <h4>Materijali za sjednicu</h4>
+                            <h4>MATERIJALI I ODLUKE</h4>
                             <h:form id="dat">
+                            <div class="w3-responsive">
                             <h:dataTable id="prK" 
                                         class="w3-table  w3-bordered w3-striped w3-border  w3-tiny w3-card-8"                                        
                                         style="width: 100%"     
                                         headerClass="w3-blue-grey"
                                         footerClass="w3-blue-grey"                                        
-                                        rows="10"
+                                        
                                         value="#{dokumentKontroler.pr}" 
                                         var="doc">
                                     <h:column  > 
@@ -103,17 +138,28 @@
                                 <h:column class="no-print" rendered="${LogIn.korisnik.rola=='admin'}">
                                     <f:facet name="header">-</f:facet>
                                     <h:commandButton value="OBRIŠI" 
-                                                     action="#{dokumentKontroler.obrisi(doc)}"/>
+                                                     action="#{dokumentKontroler.obrisi(doc)}"
+                                                     actionListener="#{dokumentKontroler.nnvListener}">
+                                    <f:attribute name="path" value="#{sjednicaKontroler.selektovanaSjednica.mapa_za_dokumente}"/>
+                                    <f:attribute name="user" value="#{LogIn.korisnik.ime}"/>
+                                    <f:attribute name="user2" value="#{LogIn.korisnik.prezime}"/>
+                                    <f:attribute name="idK" value="#{LogIn.korisnik.id}"/>
+                                    <f:attribute name="brojSjednice" value="#{sjednicaKontroler.selektovanaSjednica.broj}"/>
+                                    <f:attribute name="datumSjednice" value="#{sjednicaKontroler.selektovanaSjednica.datum}"/>
+                                    <f:attribute name="vrijemeSjednice" value="#{sjednicaKontroler.selektovanaSjednica.vrijemePocetka}"/>
+                                    </h:commandButton>
                                 </h:column>
                                 <f:facet name="footer">
+                                    <ui:remove>
                                     <div class="w3-center w3-small ">
                                     <moj:pager dataTableId="prK" showpages="10"  selectedStyleClass="ami-nista" />                                      
                                     </div>
+                                    </ui:remove>
                                 </f:facet>
                                 
                                 </h:dataTable>
                             <p/>
-                           
+                            </div>   
                         </h:form>                         
                         
                     </div>

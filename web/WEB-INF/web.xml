@@ -5,12 +5,12 @@
 		<exception-type>java.lang.Exception</exception-type>
 		<location>/prijava.xhtml</location>
     </error-page>
-   
+   -->
     <error-page>
     <exception-type>javax.faces.application.ViewExpiredException</exception-type>
-    <location>/test.xhtml</location>
+    <location>/prijava.xhtml</location>
     </error-page>
-     -->
+     
     <filter>
     <filter-name>NoCacheFilter</filter-name>
     <filter-class>korisni.NoCacheFilter</filter-class>

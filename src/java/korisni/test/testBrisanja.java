@@ -22,8 +22,11 @@ public class testBrisanja {
         Date d = new Date();
         String dat = utility.getDatumiVrijeme();
         d = utility.getVrijemeFromString(dat, 0);
+        Date d1 = new Date();
+        d1 = utility.getVrijemeFromString(dat, 0);
         System.out.println(utility.getMonthInt(d));
         System.out.println(d.toString());
+        System.out.println(d1);
     }
     
 }

@@ -10,6 +10,10 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <head><title>IGNORED</title></head>
+        <f:metadata>
+            <f:viewParam name="IDSjednice" value="#{sjednicaKontroler.selektovaniID}"/>
+            <f:viewAction action="#{sjednicaKontroler.ucitajSjednicu()}"/>            
+        </f:metadata>
     </h:head>
     <h:body>
        
@@ -31,16 +35,18 @@
                                 <p>
                                     <label class="ami-labela">Broj sjednice:</label>
                                     <h:inputText class="w3-border-0 w3-border-black w3-border-bottom"
-                                                 value="#{sjednicaKontroler.novaSjednica.broj}"                                                
+                                                 value="#{sjednicaKontroler.selektovanaSjednica.broj}"                                                
                                                    p:autofocus="true"  p:required="true" >
-                                        <f:param name="IDSjednice" value="#{sjednicaKontroler.novaSjednica.broj}"/>
+                                        <ui:remove>
+                                        <f:param name="IDSjednice" value="#{sjednicaKontroler.selektovanaSjednica.broj}"/>
+                                        </ui:remove>
                                     </h:inputText>
                                 </p>
                             </li>
                             <li class="ami-li ">
                                 <p>
                                     <label class="ami-labela">Datum sjednice:</label>
-                                    <input type="date" jsf:value="#{sjednicaKontroler.novaSjednica.datum}" 
+                                    <input type="date" jsf:value="#{sjednicaKontroler.selektovanaSjednica.datum}" disabled="true" 
                                            class="w3-border-0 w3-border-black w3-border-bottom"
                                            p:required="true"> 
                                         <f:convertDateTime pattern="yyyy-MM-dd"/>
@@ -50,15 +56,15 @@
                              <li class="ami-li ">
                                 <p>
                                     <label class="ami-labela">Vrijeme održavanja sjednice:</label>
-                                    <input type="time" jsf:value="#{sjednicaKontroler.novaSjednica.vrijemePocetka}"
-                                           class="w3-border-0 w3-border-black w3-border-bottom vrijeme"
+                                    <input type="time" jsf:value="#{sjednicaKontroler.selektovanaSjednica.vrijemePocetka}"
+                                           class="w3-border-0 w3-border-black w3-border-bottom vrijeme" disabled="true"
                                            p:required="true"/>
                                 </p>
                             </li>
                             <li class="ami-li ">
                                 <p>
                                     <label class="ami-labela">O sjednici</label>
-                                    <input type="text" jsf:value="#{sjednicaKontroler.novaSjednica.opis}"
+                                    <input type="text" jsf:value="#{sjednicaKontroler.selektovanaSjednica.opis}"
                                            style="width: 80%"
                                            class="w3-border-0 w3-border-black w3-border-bottom vrijeme"
                                            p:required="true"/>
@@ -68,20 +74,13 @@
                                     <p>
                                         <h:commandButton id="btnNovaSjednica"
                                                          class="w3-btn w3-blue-grey"
-                                                         value="UNESI PODATKE!"
+                                                         value="AŽURIRAJ PODATKE!"
                                                          rendered="#{!sjednicaKontroler.navigacija}"
-                                                         action="#{sjednicaKontroler.dodajSjednicu()}">                                         
+                                                         action="#{sjednicaKontroler.azurirajSjednicu()}">                                         
                                                          
                                            
                                         </h:commandButton>
-                                        <c:if test="#{sjednicaKontroler.navigacija}" >
-                                            <h:form id="HL" >
-                                                <a id="AL" jsf:outcome="unosMaterijala" class="w3-btn w3-blue-grey"  > Unos materijala >
-                                                    <f:param name="IDSjednice" value="#{sjednicaKontroler.novaSjednica.broj}"/> 
-                                                    <f:param name="putDoc" value="#{sjednicaKontroler.path}"/>
-                                                </a>
-                                            </h:form>
-                                        </c:if>
+                                         
                                     </p>
                                 </li>
                                 <li class="ami-li "></li>

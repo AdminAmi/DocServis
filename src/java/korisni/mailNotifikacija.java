@@ -85,8 +85,8 @@ public class mailNotifikacija {
            message.setSubject(subject);
 
            // setting the text message which user wants to send to recipients
-           message.setText(textMessage);
-
+          // message.setText(textMessage);
+           message.setContent(textMessage, "text/html; charset=utf-8");
            // Using the Transport class send() method to send message
            Transport.send(message);
 

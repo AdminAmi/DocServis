@@ -38,7 +38,7 @@
                                
                                <p>                                                   
                                    <h:dataTable id="sviKorisnici" 
-                                     class="w3-table  w3-bordered w3-striped w3-border  w3-tiny w3-card-8 "
+                                     class="w3-table  w3-bordered w3-striped w3-border  w3-tiny w3-card-8 w3-hoverable"
                                      rows="10"
                                      style="width: 100%"             
                                      headerClass="w3-grey"
@@ -46,14 +46,17 @@
                                      value="#{webKorisnik.lk.korisnici}" 
                                      var="Korisnik">
                                     
-                                        <h:column  > 
-                                            <f:facet name="header">ID</f:facet>#{Korisnik.id}
+                                       <h:column  > 
+                                           <f:facet name="header" >ID</f:facet>#{Korisnik.id}
                                         </h:column>                           
                                         <h:column> 
                                         <f:facet name="header">Ime i prezime</f:facet>
                                             <a jsf:outcome="manipulacijaKorisnik" > #{Korisnik.ime} #{Korisnik.prezime}
                                                 <f:param name="ID" value="#{Korisnik.id}"/>                                
                                             </a>
+                                        </h:column>
+                                        <h:column> 
+                                            <f:facet name="header">E Mail</f:facet>#{Korisnik.email}
                                         </h:column>
                                         <h:column> 
                                             <f:facet name="header">Korisničko ime</f:facet>#{Korisnik.user}

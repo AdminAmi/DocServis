@@ -37,12 +37,15 @@
                                         
                                 
                                 
-                        <h1>Repozitorij: #{repozitorijKontroler.selektovaniRepozitorij.naslov} </h1>     
+                        <h1>Repozitorij: #{repozitorijKontroler.selektovaniRepozitorij.naslov} </h1>  
+                        
                         <!-- http://stackoverflow.com/questions/23441864/how-to-call-css-from-javascript -->
                         <h:form id="materijali" onsubmit="sakrijSve()" enctype="multipart/form-data" rendered="${LogIn.korisnik.rola!='guest'}">
                             <div class="w3-accordion">
-                                <a href="#" class="w3-btn w3-btn-block w3-blue-grey "   onclick="accordion('Unos')">
-                                    <p class="no-print w3-small" style="text-align: left;" >Kliknite za novi unos u repozitorij</p>
+                                <a href="#" class="w3-btn  w3-green w3-round-medium "   onclick="accordion('Unos')">                                    
+                                <i class="w3-large  fa fa-plus-circle" aria-hidden="true"></i>
+                                <span class="no-print w3-medium" style="text-align: left;" >
+                                        Kliknite za novi unos u repozitorij!</span>
                                 </a>
                                 <div id="Unos" class="w3-accordion-content w3-light-grey">
                                     

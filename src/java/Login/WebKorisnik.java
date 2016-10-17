@@ -76,10 +76,5 @@ public class WebKorisnik implements Serializable{
     public int getServerResponse() {return serverResponse;}
     public void setServerResponse(int serverResponse) {this.serverResponse = serverResponse;}
     public String getSelektovaniTip() {return selektovaniTip;}
-    public void setSelektovaniTip(String selektovaniTip) { this.selektovaniTip = selektovaniTip;}
-    
-    
-
-    
-
+    public void setSelektovaniTip(String selektovaniTip) { this.selektovaniTip = selektovaniTip;} 
 }

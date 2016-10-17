@@ -4,7 +4,9 @@ package rep;
 import Login.login;
 import java.io.IOException;
 import java.io.Serializable;
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Collections;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
@@ -13,6 +15,7 @@ import javax.xml.bind.JAXBException;
 import korisni.utility;
 import korisni.mailNotifikacija;
 import nnv.Dokument;
+
 
 /**
  *
@@ -28,8 +31,7 @@ public class DokumentKontrolerRep extends nnv.DokumentKontroler implements Seria
     private  zaXMLUser xml = new zaXMLUser();
     mailNotifikacija mail = new mailNotifikacija();
 
-    public DokumentKontrolerRep() {
-    super();}
+    public DokumentKontrolerRep() { super();}
     
     
     public void postaviZastavicu(){
@@ -37,6 +39,10 @@ public class DokumentKontrolerRep extends nnv.DokumentKontroler implements Seria
             try{
             getDokumenti().clear();            
             this.setDokumenti(DXML.procitajIzXMLa(getPath()));
+            Collections.sort(getDokumenti(), (Dokument o1, Dokument o2) -> 
+            utility.getVrijemeFromString(o2.getDatumKreiranja(), 0).compareTo(utility.getVrijemeFromString(o1.getDatumKreiranja(), 0)));
+                   
+                    
             this.setPr(new ListDataModel<>(this.getDokumenti()));                
             } catch (Exception e){}
             korisnici = xml.procitajIzXMLa(getPath()); 

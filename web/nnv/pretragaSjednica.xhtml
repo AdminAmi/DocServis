@@ -98,11 +98,21 @@
                                        
                                     </h:column> 
                                     <h:column> 
+                                        <b>
+                                        <f:facet name="header">O sjednici</f:facet>
+                                        <h:outputText value="#{Pr.opis}"/>             
+                                        </b>
+                                    </h:column>
+                                    <h:column> 
                                         <f:facet name="header" rendered="${LogIn.korisnik.rola=='admin'}">-</f:facet>
-                                        <h:commandButton value="OBRIŠI" 
+                                        <h:commandLink value="OBRIŠI" class="linkbtn" rendered="${LogIn.korisnik.rola=='admin'}"
                                                          action="#{sjednicaKontroler.obrisiSjednicuPretraga(Pr)}">
                                              <!--<f:ajax  execute="@form" render="sjednice:tabela"/>-->
-                                        </h:commandButton>
+                                        </h:commandLink>
+                                        &nbsp;
+                                        <a jsf:outcome="azuriranjeSjednice" class="linkbtn" jsf:rendered="${LogIn.korisnik.rola=='admin'}" > AŽURIRAJ 
+                                            <f:param name="IDSjednice" value="#{Pr.broj}"/>                                             
+                                        </a>
                                        
                                     </h:column>                                   
                                     <f:facet name="footer">

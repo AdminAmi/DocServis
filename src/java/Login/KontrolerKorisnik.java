@@ -30,7 +30,7 @@ public class KontrolerKorisnik {
     private int serverResponse = 0;
     private List<String> tipovi = new ArrayList<>();
     private List<String> bool = new ArrayList<>(); 
-     private login noviKorisnik = new login();
+    private login noviKorisnik = new login();
 
     public KontrolerKorisnik() {
          setTestRegistracije(false);
@@ -141,6 +141,9 @@ public class KontrolerKorisnik {
                  "ODJAVA KORISNIKA : " + korisnik.getIme() + " " + korisnik.getPrezime());
         return "/prijava?faces-redirect=true";        
     }
+    public String workDir(){
+        return utility.osnovni;
+    }
     //get & set
 //    public Login.loginKontroler getLk() {  return lk;  }
 //    public void setLk(Login.loginKontroler lk) {   this.lk = lk;  }
@@ -162,46 +165,10 @@ public class KontrolerKorisnik {
     public void setTipovi(List<String> tipovi) { this.tipovi = tipovi;}
     public boolean isLocalHost() {return localHost; }
     public void setLocalHost(boolean localHost) { this.localHost = localHost;}
-
-    /**
-     * @return the korisnik
-     */
-    public login getKorisnik() {
-        return korisnik;
-    }
-
-    /**
-     * @param korisnik the korisnik to set
-     */
-    public void setKorisnik(login korisnik) {
-        this.korisnik = korisnik;
-    }
-
-    /**
-     * @return the noviKorisnik
-     */
-    public login getNoviKorisnik() {
-        return noviKorisnik;
-    }
-
-    /**
-     * @param noviKorisnik the noviKorisnik to set
-     */
-    public void setNoviKorisnik(login noviKorisnik) {
-        this.noviKorisnik = noviKorisnik;
-    }
-
-    /**
-     * @return the bool
-     */
-    public List<String> getBool() {
-        return bool;
-    }
-
-    /**
-     * @param bool the bool to set
-     */
-    public void setBool(List<String> bool) {
-        this.bool = bool;
-    }
+    public login getKorisnik() { return korisnik;  }
+    public void setKorisnik(login korisnik) {  this.korisnik = korisnik; }
+    public login getNoviKorisnik() { return noviKorisnik; }
+    public void setNoviKorisnik(login noviKorisnik) {  this.noviKorisnik = noviKorisnik; }
+    public List<String> getBool() {   return bool;   }
+    public void setBool(List<String> bool) {  this.bool = bool;  }
 }
